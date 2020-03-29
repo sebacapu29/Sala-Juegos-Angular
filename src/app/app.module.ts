@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { AdivinaElNumeroComponent } from './componentes/adivina-el-numero/adivina-el-numero.component';
 import { ListadoDeResultadosComponent } from './componentes/listado-de-resultados/listado-de-resultados.component';
 import { LoginComponent } from './componentes/login/login.component';
-//  import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { HttpModule } from '@angular/http';
 
 // import { AccordionModule } from 'ngx-bootstrap';
@@ -87,8 +87,8 @@ import { SexoPipe } from './pipes/sexo.pipe';
     HttpModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyB6f8x4IjRlesQ3oETc6BXYQHVRTOlY3Ys'
-    })
-    // NgbModule.forRoot(MiRuteo),
+    }),
+    NgbModule
     // importo el ruteo
     // RouterModule.forRoot(MiRuteo)
   ],

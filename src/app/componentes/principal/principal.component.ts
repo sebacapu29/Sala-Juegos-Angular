@@ -11,8 +11,9 @@ export class PrincipalComponent implements OnInit {
     isFirstOpen: true,
     isFirstDisabled: false
   };
+  public isMenuCollapsed = true;
   constructor() {  }
-
+  images = ["../../../assets/imagenes/tecladogamer.jpg","../../../assets/imagenes/listado1.jpg","../../../assets/imagenes/engranaje.jpg","../../../assets/imagenes/equipo.jpg"]
   ngOnInit() {
   }
 
