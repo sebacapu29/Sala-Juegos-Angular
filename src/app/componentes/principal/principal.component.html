@@ -107,10 +107,10 @@
   </div>
 </nav>
 
-<ngb-carousel *ngIf="images" style="margin-top: 5em;">
+<ngb-carousel *ngIf="images">
   <ng-template ngbSlide style="color: black;">
-    <div class="picsum-img-wrapper" style="align-content: center;">
-      <img [src]="images[0]" alt="Random first slide" style="margin-left: 28em;">
+    <div class="">
+      <img [src]="images[0]" alt="Imagen 1" style="width: 100%;height: 50vh">
     </div>
     <div class="carousel-caption">
       <h3>Juegos</h3>
@@ -121,7 +121,7 @@
   </ng-template>
   <ng-template ngbSlide>
     <div class="picsum-img-wrapper">
-      <img [src]="images[1]" alt="Random second slide" style="margin-left: 28em;">
+      <img [src]="images[1]" alt="Imagen 2" style="width: 100%;height: 50vh">
     </div>
     <div class="carousel-caption" style="color: black;">
       <h3>Listados de resultados</h3>
@@ -129,8 +129,8 @@
     </div>
   </ng-template>
   <ng-template ngbSlide>
-    <div class="picsum-img-wrapper d-block">
-      <img [src]="images[2]" alt="Random second slide" style="margin-left: 28em;">
+    <div class="picsum-img-wrapper d-block" >
+      <img [src]="images[2]" alt="Imagen 3" style="width: 100%;height: 50vh" >
     </div>
     <div class="carousel-caption">
       <h3>Configuración</h3>
@@ -138,8 +138,8 @@
     </div>
   </ng-template>
   <ng-template ngbSlide>
-    <div class="picsum-img-wrapper" style="color: black;">
-      <img [src]="images[3]" alt="Random second slide" style="margin-left: 28em;">
+    <div class="picsum-img-wrapper d-block" style="color: black;">
+      <img [src]="images[3]" alt="Imagen 4" style="width: 100%;height: 50vh">
     </div>
     <div class="carousel-caption" >
       <h3>Jugadores</h3>

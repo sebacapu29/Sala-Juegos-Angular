@@ -7,9 +7,12 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 })
 export class MenuCardComponent implements OnInit {
 
+  
+  imageBackground:string;
   constructor(private route: ActivatedRoute,
-    private router: Router) { }
-
+    private router: Router) {
+      this.imageBackground = "./assets/imagenes/background1.jpg";
+     }
 
   ngOnInit() {
   }
