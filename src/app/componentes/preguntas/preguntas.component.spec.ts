@@ -1,25 +1,25 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AnagramaComponent } from './anagrama.component';
+import { PreguntasComponent } from './preguntas.component';
 
-describe('AnagramaComponent', () => {
-  let component: AnagramaComponent;
-  let fixture: ComponentFixture<AnagramaComponent>;
+describe('PreguntasComponent', () => {
+  let component: PreguntasComponent;
+  let fixture: ComponentFixture<PreguntasComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AnagramaComponent ]
+      declarations: [ PreguntasComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AnagramaComponent);
+    fixture = TestBed.createComponent(PreguntasComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  it('should be created', () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 });

@@ -3,12 +3,14 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 @Component({
   selector: 'app-menu-card',
   templateUrl: './menu-card.component.html',
-  styleUrls: ['./menu-card.component.css']
+  styleUrls: ['./menu-card.component.css'],
 })
 export class MenuCardComponent implements OnInit {
 
   
   imageBackground:string;
+  estadoAnimacion = "estado1";
+
   constructor(private route: ActivatedRoute,
     private router: Router) {
       this.imageBackground = "./assets/imagenes/background1.jpg";
@@ -24,12 +26,15 @@ export class MenuCardComponent implements OnInit {
       case 'Agilidad':
           this.router.navigate(['/Juegos/Agilidad']);
         break;
-      case 'AdivinaMasListado':
+      case 'PPT':
           this.router.navigate(['/Juegos/AdivinaMasListado']);
         break;
-      case 'AgilidadaMasListado':
-          this.router.navigate(['/Juegos/AgilidadaMasListado']);
+      case 'PYR':
+          this.router.navigate(['/Juegos/Preguntas']);
         break;
     }
+  }
+  animar(){
+    this.estadoAnimacion = this.estadoAnimacion==='estado1' ? 'estado2' : 'estado1';
   }
 }

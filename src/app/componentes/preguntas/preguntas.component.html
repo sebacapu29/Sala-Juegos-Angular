@@ -1,0 +1,25 @@
+<h3>Preguntas y Respuestas</h3>
+<div class="container" [ngStyle]="{'background-image': 'url('+ imageBackground+')'}">
+    <div class="icon">
+        <h3><i class="fa fa-clock-o fa-lg" aria-hidden="true"></i> {{contador}}</h3>
+    </div>
+
+    <div class="containerQuestion">
+        <label [hidden]="!comenzoJuego">¿De que color es la madera?</label><br>
+    </div>
+    
+    <div class="containerAnwsers">
+    <div [hidden]="!comenzoJuego">        
+            <button [@animacion2]="estadoAnimacion2" id="btnResp" class="btn btn-secondary" (click)="evaluarRespuesta($event)" value="azul">Azul</button><br>
+            <button [@animacion3]="estadoAnimacion3" id="btnResp" class="btn btn-secondary" (click)="evaluarRespuesta($event)" value="negro" >Negro</button><br>
+            <button [@animacion4]="estadoAnimacion4" id="btnResp" class="btn btn-secondary" (click)="evaluarRespuesta($event)" value="ninguna">Ninguna</button><br>
+        
+      </div>
+      <button *ngIf="!comenzoJuego" id="btnComenzar" class="btn btn-success" (click)="comenzar()">Comenzar</button>      
+     <div>
+          <!-- <img> -->
+          <h3 class="mensajeFin" *ngIf="jugador.gano && juegoTerminado">Bravo Correcto!</h3>
+          <h3 class="mensajeFin" *ngIf="(!jugador.gano && juegoTerminado)">Ups Lastima, Incorrecta!</h3>
+      </div>
+    </div>
+</div>

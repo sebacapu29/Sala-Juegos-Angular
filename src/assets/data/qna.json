@@ -1,0 +1,90 @@
+[{
+    "question":"¿Cuántos elementos químicos hay en la tabla periódica?",
+    "answere1":"119",
+    "answere2":"120",
+    "answerec":"118"
+},
+{
+    "question":"¿A qué país pertenece la isla de Creta?",
+    "answere1":"Egipto",
+    "answere2":"Grecia",
+    "answere3":"Italia"
+},
+{
+    "question":"¿Cómo se conoce a la policía italiana?",
+    "answere1":"Sûreté",
+    "answere2":"MPS",
+    "answere3":"Carabinieri"
+},
+{
+    "question":"¿Qué fabricó Alessandro Volta, por primera vez, en 1800?",
+    "answere1":"Pila",
+    "answere2":"Lampara",
+    "answere3":"Telegrafo"
+},
+{
+    "question":"¿Qué pieza de ajedrez puede hacer un movimiento en forma de L?",
+    "answere1":"Torre",
+    "answere":"Caballo",
+    "answere3":"Alfil"
+},
+{
+    "question":"¿Qué cantidad de huesos hay en el cuerpo humano adulto?",
+    "answerec":"206",
+    "answere2":"204",
+    "answere3":"Ninguna de las anteriores"
+},
+{
+    "question":"¿Cuándo terminó la II Guerra Mundial?",
+    "answere1":"1939",
+    "answerec":"1945",
+    "answere3":"1940"
+},
+{
+    "question":"¿De qué país es el futbolista Zlatan Ibrahimović?",
+    "answere1":"Irlanda",
+    "answerec":"Suecia",
+    "answere3":"Inglaterra"
+},
+{
+    "question":"¿Qué expresa esta formula? e = mc²",
+    "answere1":"Circunferencia de un circulo",
+    "answere2":"Volumen de un cubo",
+    "answerec":"Equivalencia entre masa y energía"
+},
+{
+    "question":"El triángulo que tiene sus tres lados iguales ¿Cómo se llama?",
+    "answerec":"equilatero",
+    "answere2":"isosceles",
+    "answere3":"escaleno"
+},
+{
+    "question":"¿Cuál es la capital de Dinamarca?",
+    "answere1":"Berlín",
+    "answerec":"Copenhague",
+    "answere3":"Bratislava"
+},
+{
+    "question":"¿Cuál es la capital de Suecia?",
+    "answere":"Estocolmo",
+    "answere2":"Berna",
+    "answere3":"Lisboa"
+},
+{
+    "question":" ¿Cuánto duró la Guerra de los Cien Años?",
+    "answere1":"100",
+    "answerec":"116",
+    "answere3":"105"
+},
+{
+    "question":"¿Qué órgano segrega la hormona insulina?",
+    "answere1":"Riñon",
+    "answere":"Pancreas",
+    "answere3":"Vesicula"
+},
+{
+    "question":"¿A cuánto equivale π?",
+    "answerec":"3.141592",
+    "answere2":"3.149215",
+    "answere3":"3.144123"
+}]
