@@ -42,6 +42,7 @@ import { AgmCoreModule } from '@agm/core';
 import { InputJugadoresComponent } from './componentes/input-jugadores/input-jugadores.component';
 import { SexoPipe } from './pipes/sexo.pipe';
 import { PreguntasComponent } from './componentes/preguntas/preguntas.component';
+import { ModalPreguntasComponent } from './componentes/modal-preguntas/modal-preguntas.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import { PreguntasComponent } from './componentes/preguntas/preguntas.component'
     JugadoresListadoComponent,
     InputJugadoresComponent,
     SexoPipe,
-    PreguntasComponent
+    PreguntasComponent,
+    ModalPreguntasComponent
   ],
   imports: [
     BrowserModule,

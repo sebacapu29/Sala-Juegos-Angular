@@ -1,25 +1,24 @@
-<h3>Preguntas y Respuestas</h3>
+<h3 class="titulo">Poderoso Conocimiento</h3>
 <div class="container" [ngStyle]="{'background-image': 'url('+ imageBackground+')'}">
     <div class="icon">
-        <h3><i class="fa fa-clock-o fa-lg" aria-hidden="true"></i> {{contador}}</h3>
+        <h3><i class="fa fa-clock-o fa-lg" aria-hidden="true"></i>: {{contadorTiempo}} <i class="fa fa-heart fa-lg" aria-hidden="true"></i>: {{jugador.vidas}} <i class="fa fa-gamepad fa-lg" aria-hidden="true"></i>: {{jugador.puntos}}</h3>
     </div>
 
     <div class="containerQuestion">
-        <label [hidden]="!comenzoJuego">¿De que color es la madera?</label><br>
+        <label [hidden]="!comenzoJuego">{{preguntaSeleccionada.question}}</label><br>
     </div>
     
     <div class="containerAnwsers">
     <div [hidden]="!comenzoJuego">        
-            <button [@animacion2]="estadoAnimacion2" id="btnResp" class="btn btn-secondary" (click)="evaluarRespuesta($event)" value="azul">Azul</button><br>
-            <button [@animacion3]="estadoAnimacion3" id="btnResp" class="btn btn-secondary" (click)="evaluarRespuesta($event)" value="negro" >Negro</button><br>
-            <button [@animacion4]="estadoAnimacion4" id="btnResp" class="btn btn-secondary" (click)="evaluarRespuesta($event)" value="ninguna">Ninguna</button><br>
-        
+            <button [@animacion2]="estadoAnimacion2" id="btnResp" class="btn btn-secondary" (click)="evaluarRespuesta($event)" [value]="respuestasParaMostrar[0]">{{respuestasParaMostrar[0]}}</button><br>
+            <button [@animacion3]="estadoAnimacion3" id="btnResp" class="btn btn-secondary" (click)="evaluarRespuesta($event)" [value]="respuestasParaMostrar[1]">{{respuestasParaMostrar[1]}}</button><br>
+            <button [@animacion4]="estadoAnimacion4" id="btnResp" class="btn btn-secondary" (click)="evaluarRespuesta($event)" [value]="respuestasParaMostrar[2]">{{respuestasParaMostrar[2]}}</button><br>      
       </div>
-      <button *ngIf="!comenzoJuego" id="btnComenzar" class="btn btn-success" (click)="comenzar()">Comenzar</button>      
-     <div>
-          <!-- <img> -->
-          <h3 class="mensajeFin" *ngIf="jugador.gano && juegoTerminado">Bravo Correcto!</h3>
-          <h3 class="mensajeFin" *ngIf="(!jugador.gano && juegoTerminado)">Ups Lastima, Incorrecta!</h3>
-      </div>
+      <button *ngIf="!comenzoJuego && !juegoTerminado" id="btnComenzar" class="btn btn-success" (click)="comenzar()">Comenzar</button>           
+      <button *ngIf="jugador.vidas==0 || juegoTerminado" id="btnComenzar" class="btn btn-warning" (click)="jugarOtraVez()">Jugar Otra vez</button>           
+          
     </div>
+    <!-- <div > -->
+        <a (click)="abrirCofre()"><img class="imgCofre" [hidden]="cofreOculto" [src]="imagenCofre"></a>
+    <!-- </div> -->
 </div>
