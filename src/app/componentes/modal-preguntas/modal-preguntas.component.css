@@ -19,7 +19,7 @@ h3{
 .modal-holder{
     animation-name: example;
     animation-duration: 0.4s;
-    background: lightslategray;
+    background: lightgreen;
     /* border-radius: 30px 30px 30px 30px; */
     /* -moz-border-radius: 30px 30px 30px 30px; */
     /* -webkit-border-radius: 30px 30px 30px 30px; */

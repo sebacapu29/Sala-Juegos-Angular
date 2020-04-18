@@ -14,20 +14,24 @@ export class AdivinaElNumeroComponent implements OnInit {
   Mensajes:string;
   contador:number;
   ocultarVerificar:boolean;
+  comenzoJuego:boolean;
  
   constructor() { 
     this.nuevoJuego = new JuegoAdivina();
     console.info("numero Secreto:",this.nuevoJuego.numeroSecreto);  
     this.ocultarVerificar=false;
+    this.comenzoJuego=false;
   }
   generarnumero() {
     this.nuevoJuego.generarnumero();
     this.contador=0;
+    this.comenzoJuego=true;
   }
   verificar()
   {
     this.contador++;
     this.ocultarVerificar=true;
+    
     console.info("numero Secreto:",this.nuevoJuego.gano);  
     if (this.nuevoJuego.verificar()){
       
@@ -62,9 +66,8 @@ export class AdivinaElNumeroComponent implements OnInit {
             mensaje="Ya le erraste "+ this.contador+" veces";
           break;
       }
-      this.MostarMensaje("#"+this.contador+" "+mensaje+" ayuda :"+this.nuevoJuego.retornarAyuda());
-     
-
+      this.MostarMensaje("#"+this.contador+" "+mensaje+" ayuda : "+this.nuevoJuego.retornarAyuda());
+      this.nuevoJuego.numeroIngresado=null;
     }
     console.info("numero Secreto:",this.nuevoJuego.gano);  
   }  

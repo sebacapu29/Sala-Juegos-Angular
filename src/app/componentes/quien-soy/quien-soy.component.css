@@ -10,8 +10,8 @@ body {
 p {font-size: 16px;}
 .margin {margin-bottom: 45px;}
 .bg-1 { 
-    background-color: #1abc9c; /* Green */
-    color: #ffffff;
+    background-color: teal; /* Green */
+    color: #2f2f2f;
 }
 .bg-2 { 
     background-color: #474e5d; /* Dark Blue */
@@ -28,6 +28,10 @@ p {font-size: 16px;}
 .container-fluid {
     padding-top: 70px;
     padding-bottom: 70px;
+   
+}
+.card{
+    margin-left: 40%;
 }
 .navbar {
     padding-top: 15px;
