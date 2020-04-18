@@ -18,7 +18,5 @@
       <button *ngIf="jugador.vidas==0 || juegoTerminado" id="btnComenzar" class="btn btn-warning" (click)="jugarOtraVez()">Jugar Otra vez</button>           
           
     </div>
-    <!-- <div > -->
-        <a (click)="abrirCofre()"><img class="imgCofre" [hidden]="cofreOculto" [src]="imagenCofre"></a>
-    <!-- </div> -->
+        <a (click)="abrirCofre()"><img class="imgCofre" [hidden]="!cofreOculto" [src]="imagenCofre"></a>
 </div>

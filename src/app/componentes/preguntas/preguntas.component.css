@@ -22,6 +22,11 @@
     width: 100px;
     height: 100px;
     margin:5% 38%;
+    border: lightgrey;
+    border-radius: 30px 30px 30px 30px;
+}
+a:hover{
+    cursor: pointer;
 }
 .mensajeFin{
     margin-top: 10%;
@@ -55,4 +60,7 @@ i{
     margin-left: 15%;
     /* margin-right: auto; */
     margin-bottom: 4em;
+}
+.cofre{
+   
 }

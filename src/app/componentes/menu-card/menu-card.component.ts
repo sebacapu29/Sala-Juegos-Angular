@@ -10,10 +10,11 @@ export class MenuCardComponent implements OnInit {
   
   imageBackground:string;
   estadoAnimacion = "estado1";
+  imageBackgroundList:string;
 
   constructor(private route: ActivatedRoute,
     private router: Router) {
-      this.imageBackground = "./assets/imagenes/background1.jpg";
+      this.imageBackgroundList = "./assets/imagenes/backgroundlist.jpg";
      }
 
   ngOnInit() {
