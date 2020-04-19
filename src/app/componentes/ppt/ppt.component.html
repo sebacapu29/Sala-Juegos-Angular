@@ -1,0 +1,35 @@
+<div class="background">
+    <div class="container">
+    <div class="row">
+        <h2>Contrincante</h2>
+        <h2 class="usuario">Usted</h2>
+    </div>
+    <div class="icons">
+        <i class="fa fa-heart fa-lg icon" aria-hidden="true">: {{jugador.vidas}}</i><i class="fa fa-gamepad fa-lg" aria-hidden="true">: {{jugador.puntos}}</i>
+    </div>
+
+    <hr>
+    <div class="row mostrar">
+        <div class="contrincante">
+            <img [@animacion]="estadoAnimJugada" [src]="pathContrincate">
+        </div>
+        <div class="usuario">
+            <img [@animacion]="estadoAnimJugada" [src]="pathUsuario">
+        </div>
+    </div>
+    <div class="jugada">
+        <div class="jugadaInside">
+
+            <p>Seleccione su jugada</p>
+            <input type="radio" name="ppt" (click)="seleccionJugadaJugador('piedra')" value="piedra"> <img [src]="pathsPPT[0]" class="rotate90">
+            <input type="radio" name="ppt" (click)="seleccionJugadaJugador('papel')"value="papel"><img [src]="pathsPPT[1]" class="rotate90">
+            <input type="radio" name="ppt" (click)="seleccionJugadaJugador('tijera')" value="tijera"><img [src]="pathsPPT[2]" class="rotate90">    
+        </div>
+    </div>
+    <button class="btn btn-success" id="btnComenzar" (click)="comenzar()">
+        Comenzar
+    </button>
+</div>
+<div id="snackbar">{{Mensajes}}</div>
+</div>
+    

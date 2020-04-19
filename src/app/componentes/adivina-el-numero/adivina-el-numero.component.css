@@ -4,7 +4,11 @@ form {
     padding: 10px;
     background:gray;
 }
-
+.juego{
+    width: 80%;
+    height: 80%;
+    margin-left: 100px;
+}
 input[type=text], input[type=password] {
     width: 100%;
     padding: 12px 20px;

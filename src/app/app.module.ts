@@ -43,6 +43,7 @@ import { InputJugadoresComponent } from './componentes/input-jugadores/input-jug
 import { SexoPipe } from './pipes/sexo.pipe';
 import { PreguntasComponent } from './componentes/preguntas/preguntas.component';
 import { ModalPreguntasComponent } from './componentes/modal-preguntas/modal-preguntas.component';
+import { PptComponent } from './componentes/ppt/ppt.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,8 @@ import { ModalPreguntasComponent } from './componentes/modal-preguntas/modal-pre
     InputJugadoresComponent,
     SexoPipe,
     PreguntasComponent,
-    ModalPreguntasComponent
+    ModalPreguntasComponent,
+    PptComponent
   ],
   imports: [
     BrowserModule,

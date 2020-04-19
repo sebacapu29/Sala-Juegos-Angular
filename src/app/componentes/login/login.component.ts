@@ -36,6 +36,7 @@ export class LoginComponent implements OnInit {
   Entrar() {
     if (this.usuario === 'admin' && this.clave === 'admin') {
       localStorage.setItem("isLoggedIn","true");
+      localStorage.setItem("usuario",this.usuario);
       this.router.navigate(['/Principal']);
     }
     else{
