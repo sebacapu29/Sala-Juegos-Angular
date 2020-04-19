@@ -18,16 +18,20 @@
         </div>
     </div>
     <div class="jugada">
+        <p>Seleccione su jugada:</p>
         <div class="jugadaInside">
-
-            <p>Seleccione su jugada</p>
-            <input type="radio" name="ppt" (click)="seleccionJugadaJugador('piedra')" value="piedra"> <img [src]="pathsPPT[0]" class="rotate90">
-            <input type="radio" name="ppt" (click)="seleccionJugadaJugador('papel')"value="papel"><img [src]="pathsPPT[1]" class="rotate90">
-            <input type="radio" name="ppt" (click)="seleccionJugadaJugador('tijera')" value="tijera"><img [src]="pathsPPT[2]" class="rotate90">    
+            <div>
+                <button  class="btnJ" id="piedra" name="ppt" (click)="seleccionJugadaJugador('piedra')" value="piedra"><img [src]="pathsPPT[0]" class="rotate90"></button> 
+                <button class="btnJ" id="papel" name="ppt" (click)="seleccionJugadaJugador('papel')"value="papel"><img [src]="pathsPPT[1]" class="rotate90"></button>
+                <button class="btnJ" id="tijera" name="ppt" (click)="seleccionJugadaJugador('tijera')" value="tijera"><img [src]="pathsPPT[2]" class="rotate90">  </button>  
+            </div>
         </div>
     </div>
-    <button class="btn btn-success" id="btnComenzar" (click)="comenzar()">
+    <button class="btn btn-success" *ngIf="!juegoTerminado" id="btnComenzar" (click)="comenzar()">
         Comenzar
+    </button>
+    <button class="btn btn-warning" *ngIf="juegoTerminado" id="btnComenzar" (click)="reiniciar()">
+        Volver a jugar
     </button>
 </div>
 <div id="snackbar">{{Mensajes}}</div>
