@@ -6,16 +6,16 @@
     <div class="">       
       
       <i class="fa fa-user"></i>
-      <input type="text" placeholder="Ingrese su mail o nombre usuario" name="email" class="form-control" required>       
+      <input type="text" placeholder="Ingrese su mail o nombre usuario" [(ngModel)]="usuarioNuevo.mail"  name="email" class="form-control" required>       
       
       <i class="fa fa-key"></i>
-      <input type="password" placeholder="Clave" name="psw" class="form-control"  required>
+      <input type="password" placeholder="Clave" [(ngModel)]="usuarioNuevo.clave" name="psw" class="form-control"  required>
       
       <i class="fa fa-key"></i>
-      <input type="password" placeholder="Confirmar Clave" name="psw-repeat" class="form-control" required>
+      <input type="password" placeholder="Confirmar Clave" [(ngModel)]="confirmacionClave" name="psw-repeat" class="form-control" required>
       <div class="clearfix">
-        <button type="button" class="btn btn-danger" routerLink="/Principal" routerLinkActive="router-link-active" >Cancelar</button>
-        <button type="submit"  class="btn btn-primary">Registrarme</button>
+        <button type="button" class="btn btn-danger" routerLink="/Login" routerLinkActive="router-link-active" >Cancelar</button>
+        <button type="submit"  (click)="registrar()" class="btn btn-primary">Registrarme</button>
       </div>
     </div>
   </form>

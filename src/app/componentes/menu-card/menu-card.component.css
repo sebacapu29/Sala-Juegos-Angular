@@ -8,14 +8,14 @@ img {
 }/* Add some padding inside the card container */
 .container {
     padding: 2px 16px;
-    background-color: grey;    
+
 }
 ul li h2{
-  background-color: white;
+  /* background-color: white; */
   border-radius: 5px 5px 5px 5px;
 }
 ul li{
-  background-color: lightgray;
+  background-color: steelblue;
 }
 .button{
     margin-left: 1px;
@@ -37,7 +37,6 @@ ul li{
  
     padding: 8px;
     color: white;
-   /* background-color: #000;*/
     text-align: center;
     cursor: pointer;
     width: 100%;

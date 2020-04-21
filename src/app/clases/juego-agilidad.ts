@@ -4,4 +4,5 @@ export class JuegoAgilidad {
     primerNumero:number;
     segundoNumero:number;
     operador:string;
+    resultado:number;
 }

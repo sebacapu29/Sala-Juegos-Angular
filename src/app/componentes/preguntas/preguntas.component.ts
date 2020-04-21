@@ -18,7 +18,7 @@ import { ModalPreguntasComponent } from '../modal-preguntas/modal-preguntas.comp
       state('estado2',style({
         marginLeft:'10%'
       })),
-      transition('estado1 <=> estado2',animate('0.3s'))
+      transition('estado1 <=> estado2',animate('100ms'))
     ]),
     trigger('animacion2',[
       state('estado1Anim2',style({
@@ -27,7 +27,7 @@ import { ModalPreguntasComponent } from '../modal-preguntas/modal-preguntas.comp
       state('estado2Anim2',style({
         marginLeft:'14%'
       })),     
-      transition('estado1Anim2 <=> estado2Anim2',animate('0.2s'))     
+      transition('estado1Anim2 <=> estado2Anim2',animate('100ms'))     
     ]),
     trigger('animacion3',[
       state('estado1Anim3',style({
@@ -35,7 +35,7 @@ import { ModalPreguntasComponent } from '../modal-preguntas/modal-preguntas.comp
       state('estado2Anim3',style({
         marginLeft:'14%'
       })),     
-      transition('estado1Anim3 <=> estado2Anim3',animate('0.3s'))     
+      transition('estado1Anim3 <=> estado2Anim3',animate('150ms'))     
     ]),
     trigger('animacion4',[
       state('estado1Anim4',style({
@@ -43,7 +43,7 @@ import { ModalPreguntasComponent } from '../modal-preguntas/modal-preguntas.comp
       state('estado2Anim4',style({
         marginLeft:'14%'
       })),     
-      transition('estado1Anim4 <=> estado2Anim4',animate('0.5s'))     
+      transition('estado1Anim4 <=> estado2Anim4',animate('250ms'))     
     ])
   ]
 })
@@ -60,6 +60,7 @@ export class PreguntasComponent implements OnInit {
   mensajeJuego:string;
   intervalId:any;
   contadorTiempo:number =20;
+  contadorTiempoAnimacion:number=4;
   minQ:number = 0;
   maxQ:number = 14;
   cofreOculto:boolean=true;
@@ -100,11 +101,9 @@ export class PreguntasComponent implements OnInit {
     this.comenzoJuego=true;
     this.juegoTerminado=false;
     this.contadorTiempo = 20;
-      this.estadoAnimacion = "estado2";
-      this.estadoAnimacion2="estado2Anim2";
-      this.estadoAnimacion3="estado2Anim3";
-      this.estadoAnimacion4="estado2Anim4";
-    this.intervalId = setInterval(() => {
+    this.iniciarAnimacion();
+
+      this.intervalId = setInterval(() => {
       this.contadorTiempo -= 1;      
       if(this.contadorTiempo === 0) {  
         this.openModal("Se agoto el tiempo!","La respuesta correcta es: " + this.preguntaSeleccionada.answerc,"./assets/imagenes/llorando.PNG");        
@@ -113,6 +112,12 @@ export class PreguntasComponent implements OnInit {
   }, 1000);
     this.juegoPreguntas.splice(indexPreguntas,1);
   }
+  }
+  iniciarAnimacion(){
+    this.estadoAnimacion = "estado2";
+    this.estadoAnimacion2="estado2Anim2";
+    this.estadoAnimacion3="estado2Anim3";
+    this.estadoAnimacion4="estado2Anim4"; 
   }
   verificadorJuegoTerminado(){
     if(this.juegoPreguntas.length ==0){

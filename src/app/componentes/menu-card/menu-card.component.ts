@@ -15,7 +15,7 @@ export class MenuCardComponent implements OnInit {
   constructor(private route: ActivatedRoute,
     private router: Router) {
       this.imageBackgroundList = "./assets/imagenes/backgroundlist.jpg";
-     }
+    }
 
   ngOnInit() {
   }

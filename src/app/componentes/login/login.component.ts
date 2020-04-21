@@ -17,6 +17,8 @@ export class LoginComponent implements OnInit {
   progresoMensaje="esperando..."; 
   logeando=true;
   ProgresoDeAncho:string;
+  usuariosEnLocalStorage:any[];
+  esUsuarioRegistrado:boolean;
 
   clase="progress-bar progress-bar-info progress-bar-striped ";
 
@@ -34,15 +36,19 @@ export class LoginComponent implements OnInit {
   }
 
   Entrar() {
-    if (this.usuario === 'admin' && this.clave === 'admin') {
+
+
+    if (this.esUsuarioRegistrado) {
       localStorage.setItem("isLoggedIn","true");
-      localStorage.setItem("usuario",this.usuario);
+      localStorage.removeItem("usuarioLogueado");
+      localStorage.setItem("usuarioLogueado",this.usuario);
       this.router.navigate(['/Principal']);
     }
     else{
       //usuario invalido
       this.progreso=0;
       this.ProgresoDeAncho="0%"; 
+      alert("Error de usuario o contraseña, problablemente deba registrarse");
     }
   }
   Registrarme() {
@@ -55,29 +61,27 @@ export class LoginComponent implements OnInit {
     this.progresoMensaje="Iniciando sesión..."; 
     let timer = TimerObservable.create(200, 50);
     this.subscription = timer.subscribe(t => {
-      console.log("inicio");
       this.progreso=this.progreso+1;
       this.ProgresoDeAncho=this.progreso+20+"%";
       switch (this.progreso) {
         case 15:
         this.clase="progress-bar progress-bar-warning progress-bar-striped active";
-        // this.progresoMensaje="Verificando ADN..."; 
+        this.progresoMensaje="Obteniendo usuarios..";  
+        this.usuariosEnLocalStorage = JSON.parse(sessionStorage.getItem("usuarios"));          
           break;
         case 30:
           this.clase="progress-bar progress-bar-Info progress-bar-striped active";
-          // this.progresoMensaje="Adjustando encriptación.."; 
+          this.progresoMensaje = "Buscando su usuario";
+          this.esUsuarioRegistrado = this.checkearUsuario();           
           break;
           case 60:
           this.clase="progress-bar progress-bar-success progress-bar-striped active";
-          // this.progresoMensaje="Recompilando Info del dispositivo..";
           break;
           case 75:
           this.clase="progress-bar progress-bar-success progress-bar-striped active";
-          // this.progresoMensaje="Recompilando claves facebook, gmail, chats..";
           break;
           case 85:
           this.clase="progress-bar progress-bar-success progress-bar-striped active";
-          // this.progresoMensaje="Instalando KeyLogger..";
           break;
           
         case 100:
@@ -87,6 +91,18 @@ export class LoginComponent implements OnInit {
           break;
       }     
     });
+  }
+  checkearUsuario():boolean{
+    var existe=false;
+    if(this.usuariosEnLocalStorage!= undefined){
+      for (let index = 0; index < this.usuariosEnLocalStorage.length; index++) {
+        var usuario = this.usuariosEnLocalStorage[index];
+        if(usuario["mail"] === this.usuario && usuario["clave"]=== this.clave){
+          existe=true;
+        }
+      }
+    }
+    return existe;
   }
 
 }

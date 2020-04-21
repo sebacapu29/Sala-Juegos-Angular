@@ -10,7 +10,7 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
     state('estado1',style({        
     })),
     state('estado2',style({
-      marginTop:'25%'
+      opacity:'0'
     })),
     transition('estado1 <=> estado2',animate('100ms'))
   ])
@@ -33,6 +33,7 @@ export class PptComponent implements OnInit {
   Mensajes:string;
   juegoTerminado:boolean;
   seleccionoOpcion:boolean=false;
+  audio:any;
 
   constructor() {
     this.pathContrincate = "./assets/imagenes/piedra.jpg";
@@ -48,8 +49,9 @@ export class PptComponent implements OnInit {
 
     this.estadoAnimJugada ="estado1";
     this.valorSeleccionado="piedra";
-    this.tiempoAnimacion = 3;
+    this.tiempoAnimacion = 6;
     this.jugador = new Jugador();
+    this.audio = new Audio();  
     this.jugador.vidas=3;
     this.jugador.puntos=0;
    }
@@ -96,19 +98,20 @@ export class PptComponent implements OnInit {
   comenzar(){
     if(this.seleccionoOpcion){
     this.intervalId = setInterval(() => {
-      this.tiempoAnimacion -= 1;      
+      this.tiempoAnimacion --;      
       this.estadoAnimJugada = this.estadoAnimJugada == "estado1" ? "estado2" : "estado1";
+      console.log(this.tiempoAnimacion);
       if(this.tiempoAnimacion === 0) {  
         this.estadoAnimJugada = "estado1";
         this.seleccionJugadaContrincante();
         this.pathUsuario = this.seleccionJugador;
-        this.tiempoAnimacion=4;
+        this.tiempoAnimacion=6;
         var btnSelect = document.getElementById(this.seleccionadoPorJugador);
         btnSelect.className = "btnJ";
         this.resultadoJugada();
         clearInterval(this.intervalId);
       }         
-    }, 1000);
+    }, 500);
   }
   else{
     this.MostarMensaje("Selecciona una opcioón",false,true);
@@ -157,10 +160,14 @@ export class PptComponent implements OnInit {
     }
   }
   esJuegoTerminado(){
-    if(this.jugador.vidas==0 ||  this.jugador.puntos==3){
+    if(this.jugador.vidas==0){
       this.juegoTerminado=true;
       return true;         
     }    
+    else if(this.jugador.puntos==3){
+      this.juegoTerminado=true;
+      return true;    
+    }
   }
   reiniciar(){
     this.juegoTerminado=false;

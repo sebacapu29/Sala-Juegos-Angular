@@ -7,8 +7,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./cabecera.component.css']
 })
 export class CabeceraComponent implements OnInit {
-
-  constructor(private router:Router) { }
+  nombreDeUsuarioLogged:string;
+  
+  constructor(private router:Router) {
+    this.nombreDeUsuarioLogged = localStorage.getItem("usuarioLogueado");
+   }
 
   ngOnInit() {
   }
