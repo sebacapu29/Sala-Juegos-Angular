@@ -70,6 +70,7 @@ export class PreguntasComponent implements OnInit {
   preguntaSeleccionada:Preguntas;
   jugador:Jugador;
   randomCuriosidad:number;
+  audio:any;
 
   constructor(private preguntasSerive:PreguntasService,
     private modalService: NgbModal) { 
@@ -83,6 +84,7 @@ export class PreguntasComponent implements OnInit {
     this.juegoPreguntas =  data as Preguntas[];  
     this.maxQ = this.juegoPreguntas.length - 1;  
     this.randomCuriosidad=Math.round(Math.random() * (3  - 1) + 1);;  
+    this.audio = new Audio();
   }
   );
 }
@@ -121,10 +123,17 @@ export class PreguntasComponent implements OnInit {
   }
   verificadorJuegoTerminado(){
     if(this.juegoPreguntas.length ==0){
-      // this.modalService.dismissAll();
+      this.audio.src = "./assets/sonidos/sonido-victoria.mp3";
+      this.audio.load();
+      this.audio.play();
       this.cofreOculto =false;
       this.openModal("Felicitaciones! Terminaste El Juego!","Ahora puedes abrir el cofre del conocimiento ubicado al comienzo del juego","./assets/imagenes/fondoFin.PNG");
       this.clearGame();
+    }
+    else if(this.jugador.vidas==0){
+      this.audio.src = "./assets/sonidos/sonido-pierde2.mp3";
+      this.audio.load();
+      this.audio.play();
     }
   }
   jugarOtraVez(){
@@ -164,7 +173,7 @@ export class PreguntasComponent implements OnInit {
   evaluarRespuesta(e){
 
     if(e.target.value === this.preguntaSeleccionada.answerc){
-      this.jugador.gano=true;
+      this.jugador.gano=true;  
       this.jugador.puntos++;    
       this.openModal("Bravo! Correcto","","./assets/imagenes/festejo.PNG");
       this.clearGame();

@@ -27,4 +27,10 @@
     "answerc":"3.141592",
     "answer2":"3.149215",
     "answer1":"3.144123"
+},
+{
+    "question":"¿Cuál es la capital de Suecia?",
+    "answerc":"Estocolmo",
+    "answer2":"Berna",
+    "answer1":"Lisboa"
 }]
