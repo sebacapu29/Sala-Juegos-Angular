@@ -1,22 +1,38 @@
-<div class="registro col-sm-9 col-md-7 col-lg-5 mx-auto">
+<div class="registro mx-auto">
 
   <h2>Registro usuario</h2>
   <hr>
-  <form class="form" >
-    <div class="">       
-      
+  <form class="form">       
+    <div class="form-group mb-2">
       <i class="fa fa-user"></i>
-      <input type="text" placeholder="Ingrese su mail o nombre usuario" [(ngModel)]="usuarioNuevo.mail"  name="email" class="form-control" required>       
+      <input type="text" placeholder="Ingrese nombre" [(ngModel)]="usuarioNuevo.nombre" name="psw-repeat" class="form-control" required>
+    </div> 
       
-      <i class="fa fa-key"></i>
-      <input type="password" placeholder="Clave" [(ngModel)]="usuarioNuevo.clave" name="psw" class="form-control"  required>
+      <div class="form-group mb-2">
+        <i class="fa fa-user"></i>
+        <input type="text" placeholder="Ingrese su mail" [(ngModel)]="usuarioNuevo.mail"  name="email" class="form-control" required>       
+      </div>
+
+      <div class="form-check form-check-inline mb-2">
+        <span>Sexo:</span><br>
+        <input class="form-check-input" [value]="'Masculino'" type="radio" [(ngModel)]="usuarioNuevo.sexo" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+        <label class="form-check-label" for="inlineRadio1">Masculino</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" [value]="'Femenino'" type="radio" [(ngModel)]="usuarioNuevo.sexo" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+        <label class="form-check-label" for="inlineRadio2">Femenino</label>
+      </div>
+      <br>
+
+      <i class="fa fa-lock"></i>
+      <input type="password" class="clave" placeholder="Clave" [(ngModel)]="usuarioNuevo.clave" name="psw" class="form-control"  required>
       
-      <i class="fa fa-key"></i>
-      <input type="password" placeholder="Confirmar Clave" [(ngModel)]="confirmacionClave" name="psw-repeat" class="form-control" required>
+      <i class="fa fa-lock"></i>
+      <input type="password" class="clave" placeholder="Confirmar Clave" [(ngModel)]="confirmacionClave" name="psw-repeat" class="form-control" required>
+      
       <div class="clearfix">
         <button type="button" class="btn btn-danger" routerLink="/Login" routerLinkActive="router-link-active" >Cancelar</button>
-        <button type="submit"  (click)="registrar()" class="btn btn-primary">Registrarme</button>
+        <button type="button"  (click)="registrar()" class="btn btn-primary">Registrarme</button>
       </div>
-    </div>
   </form>
 </div>

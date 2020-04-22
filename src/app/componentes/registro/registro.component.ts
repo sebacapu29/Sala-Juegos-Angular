@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Usuario } from 'src/app/clases/usuario';
+import { Jugador } from 'src/app/clases/jugador';
 //para poder hacer las validaciones
 //import { Validators, FormBuilder, FormControl, FormGroup} from '@angular/forms';
 @Component({
@@ -15,12 +16,12 @@ export class RegistroComponent implements OnInit {
   formRegistro:FormGroup=this.miConstructor.group({
     usuario:this.email
   });*/
-  usuarioNuevo:Usuario;
+  usuarioNuevo:Jugador;
   usuarios:any[];
   confirmacionClave:string;
 
   constructor( ) {
-    this.usuarioNuevo= new Usuario();
+    this.usuarioNuevo= new Jugador();
     this.usuarios = new Array<any>();
    }
 
@@ -38,7 +39,7 @@ export class RegistroComponent implements OnInit {
         if(usuariosLocalStorage!= null){     
           this.usuarios = JSON.parse(usuariosLocalStorage);
         }
-          this.usuarios.push({ "mail" : this.usuarioNuevo.mail, "clave": this.usuarioNuevo.clave});
+          this.usuarios.push({ "mail" : this.usuarioNuevo.mail, "clave": this.usuarioNuevo.clave,"sexo":this.usuarioNuevo.sexo,"nombre":this.usuarioNuevo.nombre,"puntosAcum":'0'});
           sessionStorage.setItem("usuarios",JSON.stringify(this.usuarios));            
         alert("Usuario Creado Con Éxito!");
         }
@@ -46,5 +47,6 @@ export class RegistroComponent implements OnInit {
      else{
        alert("La clave tiene que coincidir con la confirmacion");
      }  
+     console.log(sessionStorage.getItem("usuarios"));
   }
 }

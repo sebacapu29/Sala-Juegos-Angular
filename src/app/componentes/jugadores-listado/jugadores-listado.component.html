@@ -14,17 +14,17 @@
   <thead>
     <tr>
       <th>Usuario</th>
-      <th>Cuit</th>
+      <th>Nombre</th>
       <th>Sexo</th>
-      <th>Gano</th>
+      <th>Puntos Acumulados</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let jugador of listado" >
-      <td>{{jugador.usuario}} </td>
-      <td>{{jugador.cuit}} </td> 
-      <td>{{jugador.sexo | sexo| uppercase}} </td> 
-      <td>{{jugador.gano}} </td> 
+      <td>{{jugador.mail}} </td>
+      <td>{{jugador.nombre}} </td> 
+      <td>{{jugador.sexo}} </td> 
+      <td>{{jugador.puntosAcum}} </td> 
       
     </tr>
    

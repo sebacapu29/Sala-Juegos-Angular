@@ -8,7 +8,9 @@ input[type=text], input[type=password] {
 }
 
 /* Set a style for all buttons */
-
+span{
+    margin: 5px;
+}
 /* Extra styles for the cancel button */
 .cancelbtn {
     padding: 14px 20px;
