@@ -3,10 +3,21 @@ import { JuegoAgilidad } from '../../clases/juego-agilidad'
 
 import {Subscription} from "rxjs";
 import {TimerObservable} from "rxjs/observable/TimerObservable";
+import { Jugador } from 'src/app/clases/jugador';
+import { style, trigger, state, transition, animate } from '@angular/animations';
 @Component({
   selector: 'app-agilidad-aritmetica',
   templateUrl: './agilidad-aritmetica.component.html',
-  styleUrls: ['./agilidad-aritmetica.component.css']
+  styleUrls: ['./agilidad-aritmetica.component.css'],
+  animations: [trigger('animacion',[
+    state('estado1',style({        
+    })),
+    state('estado2',style({
+      opacity:'0'
+    })),
+    transition('estado1 <=> estado2',animate('100ms'))
+  ])
+]
 })
 export class AgilidadAritmeticaComponent implements OnInit {
    @Output() 
@@ -20,7 +31,8 @@ export class AgilidadAritmeticaComponent implements OnInit {
   operadores:number=4;
   mensaje:string;
   deshabilitar:boolean;
-
+  jugador:Jugador;
+  
   private subscription: Subscription;
   respuestasParaMostrar: string[];
   ngOnInit() {
@@ -30,6 +42,7 @@ export class AgilidadAritmeticaComponent implements OnInit {
      this.Tiempo=5; 
     this.nuevoJuego = new JuegoAgilidad();
     this.respuestasParaMostrar = new Array<string>();
+    this.jugador = new Jugador();
     this.NuevoJuego();
   }
   NuevoJuego() {
@@ -77,7 +90,8 @@ export class AgilidadAritmeticaComponent implements OnInit {
 
     if(e.target.value === this.nuevoJuego.resultado.toString()){        
       this.mensaje="Correcto!";
-      // this.clearGame();
+      this.jugador.puntos++;
+      this.jugador.puntosTotalesAcum++;
     }
     else{
       this.mensaje="Noo! la correcta es:  " + this.nuevoJuego.resultado;

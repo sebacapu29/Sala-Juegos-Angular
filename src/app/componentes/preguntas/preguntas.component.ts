@@ -174,7 +174,8 @@ export class PreguntasComponent implements OnInit {
 
     if(e.target.value === this.preguntaSeleccionada.answerc){
       this.jugador.gano=true;  
-      this.jugador.puntos++;    
+      this.jugador.puntos++;  
+      this.jugador.puntosTotalesAcum++;  
       this.openModal("Bravo! Correcto","","./assets/imagenes/festejo.PNG");
       this.clearGame();
     }

@@ -10,9 +10,9 @@
     <div class="containerAnwsers">
         <a (click)="abrirCofre()"><img class="imgCofre" [hidden]="cofreOculto" [src]="imagenCofre"></a>
     <div [hidden]="!comenzoJuego">        
-            <button [@animacion2]="estadoAnimacion2" id="btnResp" class="btn btn-secondary" (click)="evaluarRespuesta($event)" [value]="respuestasParaMostrar[0]">{{respuestasParaMostrar[0]}}</button><br>
-            <button [@animacion3]="estadoAnimacion3" id="btnResp" class="btn btn-secondary" (click)="evaluarRespuesta($event)" [value]="respuestasParaMostrar[1]">{{respuestasParaMostrar[1]}}</button><br>
-            <button [@animacion4]="estadoAnimacion4" id="btnResp" class="btn btn-secondary" (click)="evaluarRespuesta($event)" [value]="respuestasParaMostrar[2]">{{respuestasParaMostrar[2]}}</button><br>      
+            <button [@animacion2]="estadoAnimacion2" id="btnResp" class="btn btn-light" (click)="evaluarRespuesta($event)" [value]="respuestasParaMostrar[0]">{{respuestasParaMostrar[0]}}</button><br>
+            <button [@animacion3]="estadoAnimacion3" id="btnResp" class="btn btn-light" (click)="evaluarRespuesta($event)" [value]="respuestasParaMostrar[1]">{{respuestasParaMostrar[1]}}</button><br>
+            <button [@animacion4]="estadoAnimacion4" id="btnResp" class="btn btn-light" (click)="evaluarRespuesta($event)" [value]="respuestasParaMostrar[2]">{{respuestasParaMostrar[2]}}</button><br>      
       </div>
       <button *ngIf="!comenzoJuego && !juegoTerminado && jugador.vidas>0" id="btnComenzar" class="btn btn-success" (click)="comenzar()">Comenzar</button>           
       <button *ngIf="jugador.vidas==0 || juegoTerminado" id="btnComenzar" class="btn btn-warning" (click)="jugarOtraVez()">Jugar Otra vez</button>           

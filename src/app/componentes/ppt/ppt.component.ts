@@ -127,6 +127,7 @@ export class PptComponent implements OnInit {
     } 
     else if(this.seleccionadoPorJugador=="piedra" && this.seleccionContrincante=="tijera"){      
       this.jugador.puntos++;
+      this.jugador.puntosTotalesAcum++;
       if(!this.esJuegoTerminado()){
         this.MostarMensaje("Muy bien, ganaste esta",true);  
       }    
@@ -139,6 +140,7 @@ export class PptComponent implements OnInit {
     } 
     else if(this.seleccionadoPorJugador=="papel" && this.seleccionContrincante=="piedra"){
       this.jugador.puntos++;
+      this.jugador.puntosTotalesAcum++;
       if(!this.esJuegoTerminado()){   
       this.MostarMensaje("Suertudo!",true);        
       }
@@ -151,6 +153,7 @@ export class PptComponent implements OnInit {
     } 
     else if(this.seleccionadoPorJugador=="tijera" && this.seleccionContrincante=="papel"){
       this.jugador.puntos++;  
+      this.jugador.puntosTotalesAcum++;
       if(!this.esJuegoTerminado()){
       this.MostarMensaje("Bien lo tuyo",true);   
       }

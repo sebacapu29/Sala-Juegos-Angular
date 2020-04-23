@@ -2,25 +2,28 @@
 <!--app-menu></app-menu-->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <div style="text-align:center">
-  <h1>
+  <h4>
     {{nuevoJuego.nombre}}!
-  </h1>
+  </h4>
  </div>
 <h2></h2>
+<div class="background">
+
 <form class="juego" name="juego">
 
-   <label>Ingrese numero:  </label>  <input [disabled]="!comenzoJuego" [(ngModel)]="nuevoJuego.numeroIngresado" placeholder="ingrese numero" name="numeroIngresado" type="text" class="form-control" style="width:50%"/>
-    <h1>{{nuevoJuego.numeroIngresado}}  </h1>
- 
-    <h2 [hidden]="ocultarVerificar"><button  *ngIf="nuevoJuego.numeroSecreto!=0" (click)="verificar()" class="btn btn-success btn-lg">Verificar</button></h2>
- 
-    <h2><button *ngIf="nuevoJuego.numeroSecreto==0 " (click)="generarnumero()"  class="btn btn-info btn-lg">Nuevo número secreto</button></h2>
- 
-    <h2><p *ngIf="nuevoJuego.numeroIngresado==0 || nuevoJuego.numeroIngresado==null" ><i class="fa fa-spinner fa-spin"></i>Haga click en Nuevo</p></h2>
+   <h3><label [hidden]="!comenzoJuego" >Cual será?:  </label></h3><br>
+<div class="respuestas" [hidden]="!comenzoJuego">
+  <div *ngFor="let numero of listaNumeros">
 
-    <h3 [hidden]="!nuevoJuego.gano">usted adivino el número</h3>
-    <h3 [hidden]="nuevoJuego.gano">usted aún no gano </h3>
-
-
+    <input (click)="evaluarRespuesta(numero)" class="estrella" type="image" id="image" alt="Login"
+       src="/assets/imagenes/estrella.png">{{numero}}
+  </div>
+</div>
+    <h2><button *ngIf="!comenzoJuego" (click)="generarnumero()"  class="btn btn-info btn-lg">Comenzar</button></h2>
+    <div [@animacion]="animacionEnemigo" class="enemigo">
+      <img [src]="imagenEnemigo">
+      <p>{{mensaje}}</p>
+    </div>
 </form>
 <div id="snackbar">{{Mensajes}}</div>
+</div>
