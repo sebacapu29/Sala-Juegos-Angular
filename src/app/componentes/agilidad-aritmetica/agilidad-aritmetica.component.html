@@ -5,13 +5,15 @@
 
 <div name="juego"   class="background" >
   <div class="body" fxLayout="column"  fxLayoutAlign="space-around center">
-    
+    <div class="icons">
+      <i class="fa fa-heart fa-lg" aria-hidden="true">: {{jugador.vidas}}</i><i class="fa fa-gamepad fa-lg" aria-hidden="true">: {{jugador.puntos}}</i>
+  </div>
     <div fxLayout="row" >
 
       <h1>N°1: </h1><input [(ngModel)]="nuevoJuego.primerNumero" placeholder="primer numero" name="primer numero" type="text" class="form-control" readonly/>
       </div>
       <div fxLayout="row">
-        <h1>Op: </h1><input [(ngModel)]="nuevoJuego.operador" placeholder="ingrese numero" name="operador" type="text" class="form-control"  readonly/>
+        <h1>Opr: </h1><input [(ngModel)]="nuevoJuego.operador" placeholder="ingrese numero" name="operador" type="text" class="form-control"  readonly/>
 
      </div>
     <div fxLayout="row">
@@ -24,10 +26,8 @@
 </div>
 <div fxLayout="column">
 
-  <div class="respuestas"fxLayout="row-reverse" fxLayoutAlign="space-around center" >
-    <button  [disabled]="deshabilitar" fxFlex="20"  type="text" (click)="evaluarRespuesta($event)" [value]="respuestasParaMostrar[0]" class="btn btn-danger form-control" >{{respuestasParaMostrar[0]}}</button>
-    <button [disabled]="deshabilitar" fxFlex="20" type="text" (click)="evaluarRespuesta($event)" [value]="respuestasParaMostrar[1]" class="btn btn-danger form-control" >{{respuestasParaMostrar[1]}}</button>
-    <button [disabled]="deshabilitar" fxFlex="20" type="text"(click)="evaluarRespuesta($event)"  [value]="respuestasParaMostrar[2]" class="btn btn-danger form-control" >{{respuestasParaMostrar[2]}}</button>     
+  <div class="respuestas" fxLayout="row-reverse" fxLayoutAlign="space-around center" >
+    <button  *ngFor="let numero of listaNumeros" fxFlex="20" [disabled]="deshabilitar" fxFlex="row"  type="text" (click)="evaluarRespuesta($event)" [value]="numero" class="btn btn-danger form-control" >{{numero}}</button>
   </div>
   <div>
     <div fxLayout="row" fxLayoutAlign="space-around center">

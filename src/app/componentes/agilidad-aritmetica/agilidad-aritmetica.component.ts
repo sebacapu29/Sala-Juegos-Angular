@@ -35,6 +35,7 @@ export class AgilidadAritmeticaComponent implements OnInit {
   
   private subscription: Subscription;
   respuestasParaMostrar: string[];
+  listaNumeros: any[];
   ngOnInit() {
   }
    constructor() {
@@ -43,6 +44,8 @@ export class AgilidadAritmeticaComponent implements OnInit {
     this.nuevoJuego = new JuegoAgilidad();
     this.respuestasParaMostrar = new Array<string>();
     this.jugador = new Jugador();
+    this.jugador.vidas=3;
+    this.jugador.puntos=0;
     this.NuevoJuego();
   }
   NuevoJuego() {
@@ -53,7 +56,7 @@ export class AgilidadAritmeticaComponent implements OnInit {
     this.nuevoJuego.operador = this.seleccionarOperador();
     this.nuevoJuego.numeroIngresado = 0;
     this.realizarOperacion();
-    this.randomSeleccion(this.nuevoJuego.resultado.toString());
+    this.listaDeNumerosAleatorios();
     this.repetidor = setInterval(()=>{ 
       this.Tiempo--;
       if(this.Tiempo==0 ) {
@@ -85,8 +88,8 @@ export class AgilidadAritmeticaComponent implements OnInit {
     }
   }
   evaluarRespuesta(e){
-    console.log(e.target.value);
-    console.log(this.nuevoJuego.resultado.toString());
+    // console.log(e.target.value);
+    // console.log(this.nuevoJuego.resultado.toString());
 
     if(e.target.value === this.nuevoJuego.resultado.toString()){        
       this.mensaje="Correcto!";
@@ -95,6 +98,7 @@ export class AgilidadAritmeticaComponent implements OnInit {
     }
     else{
       this.mensaje="Noo! la correcta es:  " + this.nuevoJuego.resultado;
+      this.jugador.vidas--;
     }
     // this.verificadorJuegoTerminado();
   }
@@ -127,16 +131,12 @@ export class AgilidadAritmeticaComponent implements OnInit {
     switch(operadorRandom){
       case 1:
         return "+";
-        break;
         case 2:
           return "-";
-        break;
         case 3:
           return "*"
-        break;
         case 4:
           return "/"
-        break;
     }
     return "+";
   }
@@ -145,27 +145,15 @@ export class AgilidadAritmeticaComponent implements OnInit {
     this.ocultarVerificar=false;
     clearInterval(this.repetidor);
   }  
-  randomSeleccion(respuestaCorrecta:string){
-    var randomAnswerPosition = Math.round(Math.random() * (3  - 1) + 1);
-    var randomAnswer2 = Math.round(Math.random() * (100  - 1) + 1);
-    var randomAnswer3 = Math.round(Math.random() * (100  - 1) + 1);
-    this.respuestasParaMostrar = new Array<string>();
-    switch(randomAnswerPosition){
-      case 1:
-        this.respuestasParaMostrar.push(respuestaCorrecta);    
-        this.respuestasParaMostrar.push(randomAnswer2.toString());
-        this.respuestasParaMostrar.push(randomAnswer3.toString());
-        break;
-      case 2:
-        this.respuestasParaMostrar.push(randomAnswer2.toString());    
-        this.respuestasParaMostrar.push(respuestaCorrecta);
-        this.respuestasParaMostrar.push(randomAnswer3.toString());
-          break;
-      case 3:
-        this.respuestasParaMostrar.push(randomAnswer2.toString());    
-        this.respuestasParaMostrar.push(randomAnswer3.toString());
-        this.respuestasParaMostrar.push(respuestaCorrecta);
-         break;
+  listaDeNumerosAleatorios(){
+    const n = 2;
+    this.listaNumeros = new Array(n);
+    for (let i = 0; i < n; i++) {
+        var numero = Math.round(Math.random() * (100  - 1) + 1);
+        this.listaNumeros[i] = numero.toString();
     }
+    this.listaNumeros[n]=this.nuevoJuego.resultado.toString();
+
+    this.listaNumeros.sort(() => Math.random() > 0.5 ? 1 : -1);
   }
 }

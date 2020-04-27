@@ -26,6 +26,7 @@ ul li div button{
 div div div input{
     background-color: white;
     text-align: center;
+    border: solid 1px black;
 }
 div div div h1{
     margin-right: 5em;
@@ -33,6 +34,18 @@ div div div h1{
 .nuevo{
     color: black;
 }
+i{
+    margin: 20px 20px 20px 20px;
+}
+.icons{
+    margin-top: 50px;
+    margin-bottom: 30px;
+    background-color: white;
+    border-radius: 30px 30px 30px 30px;
+    /* width: 150px; */
+    text-align: center;
+}
+
 div div button{
     color: black;
     border: solid 1px black;
