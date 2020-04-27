@@ -45,28 +45,19 @@ export class AgilidadAritmeticaComponent implements OnInit {
      this.ocultarVerificar=true;
      this.Tiempo=5; 
     this.nuevoJuego = new JuegoAgilidad();
-    this.respuestasParaMostrar = new Array<string>();
-    this.jugador = new Jugador();
-    this.jugador.vidas=3;
-    this.jugador.puntos=0;
+    this.respuestasParaMostrar = new Array<string>();    
+    var usuarioLocalStorage:any;
+
+    if(localStorage.getItem("usuarioLogueado")!=null){
+      this.jugador = usuarioLocalStorage = JSON.parse(localStorage.getItem("usuarioLogueado"));              
+    }
+    else{
+      this.jugador = new Jugador();
+    }    
+    this.nuevoJuego.jugador = this.jugador.mail;
     this.NuevoJuego();
   }
-  actualizarPuntosUsuario(){
-    var usuarioLogueadoEnJuego = JSON.parse(localStorage.getItem("usuarioLogueado"));
-    usuarioLogueadoEnJuego["puntosAcum"] = this.jugador.puntosTotalesAcum;
-    usuarioLogueadoEnJuego["Juego"] = "Agilidad Aritmetica"; 
-    this.usuariosEnLocalStorage = JSON.parse(localStorage.getItem("usuarios"));          
-    if(this.usuariosEnLocalStorage!= undefined){
-      for (let index = 0; index < this.usuariosEnLocalStorage.length; index++) {
-        var usuario = this.usuariosEnLocalStorage[index];
-        if(usuario["mail"] ===  usuarioLogueadoEnJuego["mail"] && usuario["clave"]=== usuarioLogueadoEnJuego["clave"]){
-          this.usuariosEnLocalStorage[index]= usuarioLogueadoEnJuego;
-        }
-      }
-      localStorage.removeItem("usuarios");
-      localStorage.setItem("usuarios",this.usuariosEnLocalStorage);
-    }
-  }
+  
   NuevoJuego() {
     this.ocultarVerificar=false;
     this.deshabilitar=false;
@@ -85,8 +76,7 @@ export class AgilidadAritmeticaComponent implements OnInit {
         this.deshabilitar=true;
         this.ocultarVerificar= this.nuevoJuego.juegoTerminado ? false: true;
         this.Tiempo=6;
-        this.nuevoJuego.gano=this.comprobarResultado();
-        // console.log(this.nuevoJuego.gano);
+        this.nuevoJuego.gano=this.comprobarResultado();        
       }
       }, 900);    
   }
@@ -115,33 +105,90 @@ export class AgilidadAritmeticaComponent implements OnInit {
     this.NuevoJuego();
   }
   evaluarRespuesta(e){
-    // console.log(e.target.value);
-    // console.log(this.nuevoJuego.resultado.toString());
 
     if(e.target.value === this.nuevoJuego.resultado.toString()){        
       this.mensaje="Correcto!";
       this.jugador.puntos++;
       this.jugador.puntosTotalesAcum++;
     }
+
     else{
       this.mensaje="Noo! la correcta es:  " + this.nuevoJuego.resultado;
       this.jugador.vidas--;
     }
+    this.deshabilitar=true;
     if(this.verificadorJuegoTerminado()){
       this.nuevoJuego.juegoTerminado = true;
       this.ocultarVerificar=false;
       var mensaje = this.nuevoJuego.gano ? "Muy bien! Ganaste!" : "Juego perdido vaquero";
-      this.actualizarPuntosUsuario();
+      // this.actualizarPuntosUsuario();
+      this.nuevoJuego.actualizarDatosJuegos();
       this.openSnackBar(mensaje);
     }
   }
+  actualizarPuntosUsuario(){
+   
+    var usuariosLocalStorage = JSON.parse(localStorage.getItem("usuarios"));
+    var indexUsuarioLogueado = this.obtenerIndexUsuarioLogueado();
+
+    if((typeof this.usuariosEnLocalStorage).toString() == 'object'){    
+      usuariosLocalStorage = this.jugador; 
+    }
+    else{
+      usuariosLocalStorage[indexUsuarioLogueado] = this.jugador;
+    }
+
+    localStorage.removeItem("usuarios");
+    localStorage.setItem("usuarios",JSON.stringify(usuariosLocalStorage));
+    
+  }
+ 
+  actualizarDatosJuegos(){
+  
+    var juegosEnLocalStorage:any = new Array<any>();
+    var usuarioLogueadoEnJuego:any;
+
+    if(localStorage.getItem("juegos")!=null){
+      juegosEnLocalStorage = <Array<any>> JSON.parse(localStorage.getItem("juegos"));              
+
+    }
+   
+    // var juegoActual = this.nuevoJuego;
+    // console.log(juegosEnLocalStorage);
+    var juegoAGuardar= {"juego":"Agilidad Aritmetica","jugador":this.jugador.nombre,"gano":this.jugador.gano};
+    localStorage.removeItem("juegos");
+    juegosEnLocalStorage.push(juegoAGuardar);
+    console.log(juegoAGuardar);
+    localStorage.setItem("juegos",JSON.stringify(juegosEnLocalStorage));
+  }
+  obtenerIndexUsuarioLogueado():number{
+    var usuarioLogueadoEnJuego:any;
+
+    if(localStorage.getItem("usuarioLogueado")!=null){
+      usuarioLogueadoEnJuego = JSON.parse(localStorage.getItem("usuarioLogueado"));              
+    }
+    if(localStorage.getItem("usuarios")!=null){
+      this.usuariosEnLocalStorage = <Array<any>> JSON.parse(localStorage.getItem("usuarios"));              
+    }
+    if(this.usuariosEnLocalStorage!= undefined){      
+      for (let index = 0; index <= this.usuariosEnLocalStorage.length; index++) {
+        var usuario = this.usuariosEnLocalStorage[index];
+        
+        
+        if(usuario["mail"] ===  usuarioLogueadoEnJuego["mail"]){                    
+          return index;     
+        }
+      }
+    }
+    return -1;
+  }
   verificadorJuegoTerminado(){
     if(this.jugador.vidas==0){
-      this.nuevoJuego.gano=false;
+      this.jugador.gano = this.nuevoJuego.gano=false;   
       return true;
     }
     else if(this.jugador.puntos==3){
-      this.nuevoJuego.gano=true;
+      this.jugador.gano = this.nuevoJuego.gano=true;
       return true;
     }
     return false;

@@ -5,6 +5,10 @@ export class Usuario {
     sexo:string;
     juegoJugado:string;
     constructor(){
-        
+        this.nombre="";
+        this.mail= ""
+        this.clave="";
+        this.sexo="";
+        this.juegoJugado="";
     }
 }

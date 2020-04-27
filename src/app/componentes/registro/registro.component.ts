@@ -20,7 +20,7 @@ export class RegistroComponent implements OnInit {
   usuarios:any[];
   confirmacionClave:string;
 
-  constructor( ) {
+  constructor(private router:Router ) {
     this.usuarioNuevo= new Jugador();
     this.usuarios = new Array<any>();
    }
@@ -36,17 +36,28 @@ export class RegistroComponent implements OnInit {
       if(confirm("esta seguro?")){
         var usuariosLocalStorage = localStorage.getItem("usuarios");        
         localStorage.removeItem("usuarios");
-        if(usuariosLocalStorage!= null){     
+        if(usuariosLocalStorage!= null && Array.isArray(JSON.parse(usuariosLocalStorage))){     
           this.usuarios = JSON.parse(usuariosLocalStorage);
+          console.log("1"); 
+          console.log(Array.isArray(usuariosLocalStorage));
         }
-          this.usuarios.push({ "mail" : this.usuarioNuevo.mail, "clave": this.usuarioNuevo.clave,"sexo":this.usuarioNuevo.sexo,"nombre":this.usuarioNuevo.nombre,"puntosAcum":'0'});
+
+        else if(usuariosLocalStorage!= null && !Array.isArray(JSON.parse(usuariosLocalStorage))){          
+          // this.usuarios = new Array<any>();
+          this.usuarios.push(JSON.parse(usuariosLocalStorage));  
+          console.log("2");
+          console.log(Array.isArray(usuariosLocalStorage));     
+        }
+          this.usuarios.push({ "mail" : this.usuarioNuevo.mail, "clave": this.usuarioNuevo.clave,"sexo":this.usuarioNuevo.sexo,"nombre":this.usuarioNuevo.nombre,"puntosTotalesAcum":'0'});
           localStorage.setItem("usuarios",JSON.stringify(this.usuarios));            
         alert("Usuario Creado Con Éxito!");
+        // console.log(Array.isArray());     
+        // this.router.navigate(['Login']);
         }
     }
      else{
        alert("La clave tiene que coincidir con la confirmacion");
      }  
-     console.log(localStorage.getItem("usuarios"));
+    //  console.log(localStorage.getItem("usuarios"));
   }
 }

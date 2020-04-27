@@ -1,6 +1,6 @@
-export abstract class Juego {
-  public nombre = 'Sin Nombre';
-  public jugador: string;
+export class Juego {
+  public nombre = 'S/N';
+  public jugador: string='S/N';
   public gano = false;
 
   constructor(nombre?: string, gano?: boolean,jugador?:string) {
@@ -14,14 +14,30 @@ export abstract class Juego {
     else
       this.jugador= "natalia natalia";
   }
-
-
+  actualizarDatosJuegos(){
   
+    var juegosEnLocalStorage:any = new Array<any>();
+    var usuarioLogueadoEnJuego:any;
 
-  public abstract verificar():boolean; 
-  
-  public retornarAyuda() {
-    
-    return "NO hay Ayuda definida";
+    if(localStorage.getItem("juegos")!=null){
+      juegosEnLocalStorage = <Array<any>> JSON.parse(localStorage.getItem("juegos"));              
+
+    }
+   
+    var juegoAGuardar= {"juego":this.jugador,"jugador":this.nombre,"gano":this.gano};
+    localStorage.removeItem("juegos");
+    juegosEnLocalStorage.push(juegoAGuardar);
+    console.log(juegoAGuardar);
+    localStorage.setItem("juegos",JSON.stringify(juegosEnLocalStorage));
   }
+
+
+  
+
+  // public  verificar():boolean; 
+  
+  // public retornarAyuda():string {
+    
+  //   return "NO hay Ayuda definida";
+  // }
 }

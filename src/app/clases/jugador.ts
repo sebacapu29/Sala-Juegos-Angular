@@ -6,7 +6,13 @@ export class Jugador extends Usuario{
     vidas:number;
     puntos:number;
     puntosTotalesAcum:number;
-   
+   constructor(){
+       super()
+       this.vidas=3;
+       this.puntos=0;
+       this.puntosTotalesAcum=0;
+       this.gano=false;       
+   }
     reiniciar(){       
         this.vidas=3;
         this.puntos=0;

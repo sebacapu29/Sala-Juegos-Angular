@@ -10,7 +10,8 @@ export class CabeceraComponent implements OnInit {
   nombreDeUsuarioLogged:string;
   
   constructor(private router:Router) {
-    this.nombreDeUsuarioLogged = localStorage.getItem("usuarioLogueado");
+    console.log(JSON.parse(localStorage.getItem("usuarioLogueado"))); 
+    this.nombreDeUsuarioLogged = JSON.parse(localStorage.getItem("usuarioLogueado")).nombre;
    }
 
   ngOnInit() {

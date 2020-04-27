@@ -24,7 +24,7 @@ export class JugadoresListadoComponent implements OnInit {
 
 
   TraerTodos(){
-    this.listado = JSON.parse(sessionStorage.getItem("usuarios"));    
+    this.listado = JSON.parse(localStorage.getItem("usuarios"));    
     console.log(this.listado);
   }
   TraerGanadores(){

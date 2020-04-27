@@ -12,6 +12,7 @@ export class ListadoDeResultadosComponent implements OnInit {
 
 
   constructor() {
+    this.listado = JSON.parse(localStorage.getItem("juegos")); 
    }
 
   ngOnInit() {

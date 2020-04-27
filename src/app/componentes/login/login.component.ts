@@ -19,7 +19,8 @@ export class LoginComponent implements OnInit {
   logeando=true;
   ProgresoDeAncho:string;
   usuariosEnLocalStorage:any[];
-  esUsuarioRegistrado:boolean;
+  esUsuarioRegistrado:number;
+  esUnico:boolean=false;
 
   clase="progress-bar progress-bar-info progress-bar-striped ";
 
@@ -40,11 +41,14 @@ export class LoginComponent implements OnInit {
   Entrar() {
 
 
-    if (this.esUsuarioRegistrado) {
+    if (this.esUsuarioRegistrado!=-1) {
       localStorage.setItem("isLoggedIn","true");
-      localStorage.removeItem("usuarioLogueado");      
+      localStorage.removeItem("usuarioLogueado");  
 
-      localStorage.setItem("usuarioLogueado",JSON.stringify(this.usuario));      
+      var usuarioLogueado = this.esUnico ?
+                            JSON.parse(localStorage.getItem("usuarios")) : 
+                            JSON.parse(localStorage.getItem("usuarios"))[this.esUsuarioRegistrado]; 
+      localStorage.setItem("usuarioLogueado",JSON.stringify(usuarioLogueado));      
       this.router.navigate(['/Principal']);
     }
     else{
@@ -70,7 +74,7 @@ export class LoginComponent implements OnInit {
         case 15:
         this.clase="progress-bar progress-bar-warning progress-bar-striped active";
         this.progresoMensaje="Obteniendo usuarios..";  
-        this.usuariosEnLocalStorage = JSON.parse(sessionStorage.getItem("usuarios"));          
+        this.usuariosEnLocalStorage = JSON.parse(localStorage.getItem("usuarios"));          
           break;
         case 30:
           this.clase="progress-bar progress-bar-Info progress-bar-striped active";
@@ -95,17 +99,22 @@ export class LoginComponent implements OnInit {
       }     
     });
   }
-  checkearUsuario():boolean{
-    var existe=false;
+  checkearUsuario():number{
+    var indexUsuario=-1;
     if(this.usuariosEnLocalStorage!= undefined){
+      if(!Array.isArray(this.usuariosEnLocalStorage)){
+        this.esUnico=true; 
+        return 0;
+      }
       for (let index = 0; index < this.usuariosEnLocalStorage.length; index++) {
         var usuario = this.usuariosEnLocalStorage[index];
         if(usuario["mail"] === this.usuario.mail && usuario["clave"]=== this.usuario.clave){
-          existe=true;
+          indexUsuario=index;
         }
       }
     }
-    return existe;
+
+    return indexUsuario;
   }
 
 }
