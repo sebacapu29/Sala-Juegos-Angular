@@ -6,10 +6,10 @@
           <h5 class="card-title text-center">Login</h5>
           <form class="form-signin">
             <div class="form-label-group">
-              <input type="email" [(ngModel)]="usuario" id="inputEmail" class="form-control" placeholder="Email" name="usuario" required autofocus>              
+              <input type="email" [(ngModel)]="usuario.mail" id="inputEmail" class="form-control" placeholder="Email" name="usuario" required autofocus>              
             </div>
             <div class="form-label-group">
-              <input type="password" [(ngModel)]="clave" id="inputPassword" class="form-control" name="clave" placeholder="Clave" required>
+              <input type="password" [(ngModel)]="usuario.clave" id="inputPassword" class="form-control" name="clave" placeholder="Clave" required>
             </div>
 
             <div class="custom-control custom-checkbox mb-3">

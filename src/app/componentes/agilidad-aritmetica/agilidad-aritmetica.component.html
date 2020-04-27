@@ -35,7 +35,8 @@
     </div>
     <div fxLayout="row" fxLayoutAlign="space-around center">
       <h2 [hidden]="!ocultarVerificar"><button (click)="NuevoJuego()"  class="btn btn-success btn-lg nuevo">Nuevo</button></h2>  
-      <h2 [hidden]="ocultarVerificar"><p><i class="fa fa-spinner fa-spin"></i>Esperando Respuesta</p></h2>
+      <h2 *ngIf="nuevoJuego.juegoTerminado"><button (click)="Reiniciar()"  class="btn btn-warning btn-lg nuevo">Jugar Otra Vez</button></h2>  
+      <h2 [hidden]="ocultarVerificar || nuevoJuego.juegoTerminado"><p><i class="fa fa-spinner fa-spin"></i>Esperando Respuesta</p></h2>
     </div>
   </div>
 </div>

@@ -4,4 +4,7 @@ export class Usuario {
     clave:string;
     sexo:string;
     juegoJugado:string;
+    constructor(){
+        
+    }
 }

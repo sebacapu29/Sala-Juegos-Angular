@@ -5,4 +5,10 @@ export class JuegoAgilidad {
     segundoNumero:number;
     operador:string;
     resultado:number;
+    juegoTerminado:boolean;
+
+    constructor(){
+        this.gano=false;
+        this.juegoTerminado=false;
+    }
 }

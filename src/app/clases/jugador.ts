@@ -7,4 +7,9 @@ export class Jugador extends Usuario{
     puntos:number;
     puntosTotalesAcum:number;
    
+    reiniciar(){       
+        this.vidas=3;
+        this.puntos=0;
+        this.gano=false;
+    }
 }

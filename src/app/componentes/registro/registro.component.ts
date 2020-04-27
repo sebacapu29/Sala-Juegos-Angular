@@ -34,19 +34,19 @@ export class RegistroComponent implements OnInit {
     }
     if(this.usuarioNuevo.clave == this.confirmacionClave){
       if(confirm("esta seguro?")){
-        var usuariosLocalStorage = sessionStorage.getItem("usuarios");
-        sessionStorage.removeItem("usuarios");
+        var usuariosLocalStorage = localStorage.getItem("usuarios");        
+        localStorage.removeItem("usuarios");
         if(usuariosLocalStorage!= null){     
           this.usuarios = JSON.parse(usuariosLocalStorage);
         }
           this.usuarios.push({ "mail" : this.usuarioNuevo.mail, "clave": this.usuarioNuevo.clave,"sexo":this.usuarioNuevo.sexo,"nombre":this.usuarioNuevo.nombre,"puntosAcum":'0'});
-          sessionStorage.setItem("usuarios",JSON.stringify(this.usuarios));            
+          localStorage.setItem("usuarios",JSON.stringify(this.usuarios));            
         alert("Usuario Creado Con Éxito!");
         }
     }
      else{
        alert("La clave tiene que coincidir con la confirmacion");
      }  
-     console.log(sessionStorage.getItem("usuarios"));
+     console.log(localStorage.getItem("usuarios"));
   }
 }

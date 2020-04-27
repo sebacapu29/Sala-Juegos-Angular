@@ -1,5 +1,6 @@
 import { Component, OnInit ,Input,Output,EventEmitter} from '@angular/core';
 import { JuegoAgilidad } from '../../clases/juego-agilidad'
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 import {Subscription} from "rxjs";
 import {TimerObservable} from "rxjs/observable/TimerObservable";
@@ -32,13 +33,15 @@ export class AgilidadAritmeticaComponent implements OnInit {
   mensaje:string;
   deshabilitar:boolean;
   jugador:Jugador;
-  
+  durationInSeconds = 5;
+
   private subscription: Subscription;
   respuestasParaMostrar: string[];
   listaNumeros: any[];
+  usuariosEnLocalStorage: any;
   ngOnInit() {
   }
-   constructor() {
+   constructor(private _snackBar: MatSnackBar) {
      this.ocultarVerificar=true;
      this.Tiempo=5; 
     this.nuevoJuego = new JuegoAgilidad();
@@ -47,6 +50,22 @@ export class AgilidadAritmeticaComponent implements OnInit {
     this.jugador.vidas=3;
     this.jugador.puntos=0;
     this.NuevoJuego();
+  }
+  actualizarPuntosUsuario(){
+    var usuarioLogueadoEnJuego = JSON.parse(localStorage.getItem("usuarioLogueado"));
+    usuarioLogueadoEnJuego["puntosAcum"] = this.jugador.puntosTotalesAcum;
+    usuarioLogueadoEnJuego["Juego"] = "Agilidad Aritmetica"; 
+    this.usuariosEnLocalStorage = JSON.parse(localStorage.getItem("usuarios"));          
+    if(this.usuariosEnLocalStorage!= undefined){
+      for (let index = 0; index < this.usuariosEnLocalStorage.length; index++) {
+        var usuario = this.usuariosEnLocalStorage[index];
+        if(usuario["mail"] ===  usuarioLogueadoEnJuego["mail"] && usuario["clave"]=== usuarioLogueadoEnJuego["clave"]){
+          this.usuariosEnLocalStorage[index]= usuarioLogueadoEnJuego;
+        }
+      }
+      localStorage.removeItem("usuarios");
+      localStorage.setItem("usuarios",this.usuariosEnLocalStorage);
+    }
   }
   NuevoJuego() {
     this.ocultarVerificar=false;
@@ -64,12 +83,15 @@ export class AgilidadAritmeticaComponent implements OnInit {
         this.verificar();
         this.mensaje="";
         this.deshabilitar=true;
-        this.ocultarVerificar=true;
+        this.ocultarVerificar= this.nuevoJuego.juegoTerminado ? false: true;
         this.Tiempo=6;
         this.nuevoJuego.gano=this.comprobarResultado();
         // console.log(this.nuevoJuego.gano);
       }
       }, 900);    
+  }
+  openSnackBar(mensaje:string){
+    this._snackBar.open(mensaje,"Juego terminado",{duration:4000});
   }
   realizarOperacion(){
     switch(this.nuevoJuego.operador){
@@ -87,6 +109,11 @@ export class AgilidadAritmeticaComponent implements OnInit {
             break;
     }
   }
+  Reiniciar(){
+    this.nuevoJuego = new JuegoAgilidad();
+    this.jugador.reiniciar();
+    this.NuevoJuego();
+  }
   evaluarRespuesta(e){
     // console.log(e.target.value);
     // console.log(this.nuevoJuego.resultado.toString());
@@ -100,7 +127,24 @@ export class AgilidadAritmeticaComponent implements OnInit {
       this.mensaje="Noo! la correcta es:  " + this.nuevoJuego.resultado;
       this.jugador.vidas--;
     }
-    // this.verificadorJuegoTerminado();
+    if(this.verificadorJuegoTerminado()){
+      this.nuevoJuego.juegoTerminado = true;
+      this.ocultarVerificar=false;
+      var mensaje = this.nuevoJuego.gano ? "Muy bien! Ganaste!" : "Juego perdido vaquero";
+      this.actualizarPuntosUsuario();
+      this.openSnackBar(mensaje);
+    }
+  }
+  verificadorJuegoTerminado(){
+    if(this.jugador.vidas==0){
+      this.nuevoJuego.gano=false;
+      return true;
+    }
+    else if(this.jugador.puntos==3){
+      this.nuevoJuego.gano=true;
+      return true;
+    }
+    return false;
   }
   comprobarResultado(){
     switch(this.nuevoJuego.operador){

@@ -3,6 +3,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 import {Subscription} from "rxjs";
 import {TimerObservable} from "rxjs/observable/TimerObservable";
+import { Usuario } from 'src/app/clases/usuario';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -11,7 +12,7 @@ import {TimerObservable} from "rxjs/observable/TimerObservable";
 export class LoginComponent implements OnInit {
 
   private subscription: Subscription;
-  usuario = '';
+  usuario:Usuario;
   clave= '';
   progreso: number;
   progresoMensaje="esperando..."; 
@@ -27,9 +28,10 @@ export class LoginComponent implements OnInit {
     private router: Router) {
       this.progreso=0;
       this.ProgresoDeAncho="0%";      
+      this.usuario=new Usuario();
       if(sessionStorage.getItem("isLoggedIn")){        
         this.router.navigate(['/Principal']);     
-      }
+      }      
   }
 
   ngOnInit() {
@@ -40,8 +42,9 @@ export class LoginComponent implements OnInit {
 
     if (this.esUsuarioRegistrado) {
       localStorage.setItem("isLoggedIn","true");
-      localStorage.removeItem("usuarioLogueado");
-      localStorage.setItem("usuarioLogueado",this.usuario);
+      localStorage.removeItem("usuarioLogueado");      
+
+      localStorage.setItem("usuarioLogueado",JSON.stringify(this.usuario));      
       this.router.navigate(['/Principal']);
     }
     else{
@@ -97,7 +100,7 @@ export class LoginComponent implements OnInit {
     if(this.usuariosEnLocalStorage!= undefined){
       for (let index = 0; index < this.usuariosEnLocalStorage.length; index++) {
         var usuario = this.usuariosEnLocalStorage[index];
-        if(usuario["mail"] === this.usuario && usuario["clave"]=== this.clave){
+        if(usuario["mail"] === this.usuario.mail && usuario["clave"]=== this.usuario.clave){
           existe=true;
         }
       }
