@@ -3,44 +3,40 @@
 <!-- index.html -->
 
 
-<div name="juego" class="background" >
-  <div class="body">
+<div name="juego"   class="background" >
+  <div class="body" fxLayout="column"  fxLayoutAlign="space-around center">
+    
+    <div fxLayout="row" >
 
-    <ul>
-      <li>
-        <strong>Primer número: </strong><input [(ngModel)]="nuevoJuego.primerNumero" placeholder="primer numero" name="primer numero" type="text" class="form-control" readonly/>
-        
-      </li>
-      <li>
-        <strong>Operador: </strong><input [(ngModel)]="nuevoJuego.operador" placeholder="ingrese numero" name="operador" type="text" class="form-control"  readonly/>
-        
-      </li>
-      <li>
-        <strong>Segundo número:</strong> <input [(ngModel)]="nuevoJuego.segundoNumero" placeholder="ingrese numero" name="segundo numero" type="text" class="form-control"  readonly/>
-        
-      </li>
-      <li>
-        <p><strong>Respuestas:</strong>
-          
-        </p>
-        <div class="respuestas">
-          <button [disabled]="deshabilitar" type="text" (click)="evaluarRespuesta($event)" [value]="respuestasParaMostrar[0]" class="btn btn-secondary form-control" >{{respuestasParaMostrar[0]}}</button>
-          <button [disabled]="deshabilitar" type="text" (click)="evaluarRespuesta($event)" [value]="respuestasParaMostrar[1]" class="btn btn-secondary form-control" >{{respuestasParaMostrar[1]}}</button>
-          <button [disabled]="deshabilitar" type="text"(click)="evaluarRespuesta($event)"  [value]="respuestasParaMostrar[2]" class="btn btn-secondary form-control" >{{respuestasParaMostrar[2]}}</button>     
+      <h1>N°1: </h1><input [(ngModel)]="nuevoJuego.primerNumero" placeholder="primer numero" name="primer numero" type="text" class="form-control" readonly/>
+      </div>
+      <div fxLayout="row">
+        <h1>Op: </h1><input [(ngModel)]="nuevoJuego.operador" placeholder="ingrese numero" name="operador" type="text" class="form-control"  readonly/>
+
+     </div>
+    <div fxLayout="row">
+          <h1>N°2:</h1> <input [(ngModel)]="nuevoJuego.segundoNumero" placeholder="ingrese numero" name="segundo numero" type="text" class="form-control"  readonly/>
     </div>
-  </li>
-  <li>
-    <!-- <h2 [hidden]="ocultarVerificar" ><button (click)="verificar()" class="btn btn-success btn-lg">Verificar {{Tiempo}} </button></h2> -->
-  </li>
-  <li class="mensaje">    
-    <p>{{mensaje}}</p>
-  </li>
-  <li class="comenzar" >
-    <h2 [hidden]="!ocultarVerificar"><button (click)="NuevoJuego()"  class="btn btn-success btn-lg">Nuevo</button></h2>
-  </li>
-  <li>
-    <h2 [hidden]="ocultarVerificar"><p><i class="fa fa-spinner fa-spin"></i>Esperando Respuesta</p></h2>
-    </li>
-  </ul>
+       
+</div>
+<div >
+  <p><h2>Respuestas:</h2>
+</div>
+<div fxLayout="column">
+
+  <div class="respuestas"fxLayout="row-reverse" fxLayoutAlign="space-around center" >
+    <button  [disabled]="deshabilitar" fxFlex="20"  type="text" (click)="evaluarRespuesta($event)" [value]="respuestasParaMostrar[0]" class="btn btn-danger form-control" >{{respuestasParaMostrar[0]}}</button>
+    <button [disabled]="deshabilitar" fxFlex="20" type="text" (click)="evaluarRespuesta($event)" [value]="respuestasParaMostrar[1]" class="btn btn-danger form-control" >{{respuestasParaMostrar[1]}}</button>
+    <button [disabled]="deshabilitar" fxFlex="20" type="text"(click)="evaluarRespuesta($event)"  [value]="respuestasParaMostrar[2]" class="btn btn-danger form-control" >{{respuestasParaMostrar[2]}}</button>     
+  </div>
+  <div>
+    <div fxLayout="row" fxLayoutAlign="space-around center">
+      <h2 fxFlex="40" class="mensaje">{{mensaje}}</h2>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="space-around center">
+      <h2 [hidden]="!ocultarVerificar"><button (click)="NuevoJuego()"  class="btn btn-success btn-lg nuevo">Nuevo</button></h2>  
+      <h2 [hidden]="ocultarVerificar"><p><i class="fa fa-spinner fa-spin"></i>Esperando Respuesta</p></h2>
+    </div>
+  </div>
 </div>
 </div>

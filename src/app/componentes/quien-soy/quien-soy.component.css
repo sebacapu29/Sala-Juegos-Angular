@@ -10,7 +10,7 @@ body {
 p {font-size: 16px;}
 .margin {margin-bottom: 45px;}
 .bg-1 { 
-    background-color: teal; /* Green */
+    background-color: rgb(4, 90, 219); /* Green */
     color: #2f2f2f;
 }
 .bg-2 { 
@@ -47,4 +47,5 @@ p {font-size: 16px;}
 }
 ul li{
     margin: 10px;
+    list-style: none;
 }

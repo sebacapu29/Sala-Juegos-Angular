@@ -25,12 +25,11 @@ import { AdivinaMasListadoComponent } from './componentes/adivina-mas-listado/ad
 import { AgilidadMasListadoComponent } from './componentes/agilidad-mas-listado/agilidad-mas-listado.component';
 import { RuteandoModule } from './ruteando/ruteando.module';
 import { ListadoComponent } from './componentes/listado/listado.component';
-// declaro donde quiero que se dirija
+import { FlexLayoutModule} from '@angular/flex-layout'
 
 import { JugadoresListadoComponent } from './componentes/jugadores-listado/jugadores-listado.component';
 
 import { JuegoServiceService } from './servicios/juego-service.service';
-import { ListadosComponent } from './componentes/listados/listados.component';
 import { JuegosComponent } from './componentes/juegos/juegos.component';
 import { RegistroComponent } from './componentes/registro/registro.component';
 import { MenuCardComponent } from './componentes/menu-card/menu-card.component';
@@ -39,11 +38,11 @@ import { QuienSoyComponent } from './componentes/quien-soy/quien-soy.component';
 import { ListadoDePaisesComponent } from './componentes/listado-de-paises/listado-de-paises.component';
 import { MapaDeGoogleComponent } from './componentes/mapa-de-google/mapa-de-google.component'
 import { AgmCoreModule } from '@agm/core';
-import { InputJugadoresComponent } from './componentes/input-jugadores/input-jugadores.component';
 import { SexoPipe } from './pipes/sexo.pipe';
 import { PreguntasComponent } from './componentes/preguntas/preguntas.component';
 import { ModalPreguntasComponent } from './componentes/modal-preguntas/modal-preguntas.component';
 import { PptComponent } from './componentes/ppt/ppt.component';
+import { MaterialModule } from './material-Modules/material.module';
 
 @NgModule({
   declarations: [
@@ -58,7 +57,6 @@ import { PptComponent } from './componentes/ppt/ppt.component';
     AdivinaMasListadoComponent,
     AgilidadMasListadoComponent,
     ListadoComponent,
-    ListadosComponent,
     JuegosComponent,
     RegistroComponent,
     MenuCardComponent,
@@ -67,7 +65,6 @@ import { PptComponent } from './componentes/ppt/ppt.component';
     ListadoDePaisesComponent,
     MapaDeGoogleComponent,
     JugadoresListadoComponent,
-    InputJugadoresComponent,
     SexoPipe,
     PreguntasComponent,
     ModalPreguntasComponent,
@@ -83,9 +80,9 @@ import { PptComponent } from './componentes/ppt/ppt.component';
       apiKey: 'AIzaSyB6f8x4IjRlesQ3oETc6BXYQHVRTOlY3Ys'
     }),
     NgbModule,
-    HttpClientModule
-    // importo el ruteo
-    // RouterModule.forRoot(MiRuteo)
+    HttpClientModule,
+    MaterialModule,
+    FlexLayoutModule
   ],
   providers: [ JuegoServiceService, MiHttpService,PaisesService,ArchivosJugadoresService,JugadoresService],
   bootstrap: [AppComponent]

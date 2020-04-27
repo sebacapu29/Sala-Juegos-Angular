@@ -7,6 +7,9 @@ import 'rxjs/add/operator/switchMap';
 })
 export class ErrorComponent implements OnInit {
 
+  status:string="404";
+  mensaje:string="Pagina no encontrada";
+  
   constructor() { }
 
   ngOnInit() {
