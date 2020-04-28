@@ -1,40 +1,41 @@
 <div class="container" >  
-    <div class="row" >
-    <div class="col-12 col-sm-8 col-lg-12" >
-      <ul class="list-group" >
-        <li class="list-group-item d-flex justify-content-between align-items-center" >
-          <h2>Velocidad y agilidad aritmética</h2>
-          <p>Un juego donde pondrás a prueba tu agilidad con los numeros</p>
-          <div class="image-parent">
-              <img src="./assets/imagenes/cerebro.jpg" class="img-fluid" alt="quixote">
-              <p>           <button class="button"  (click)="Juego('Agilidad')">Jugar</button></p>
-            </div>
-        </li>
-        <li class="list-group-item d-flex justify-content-between align-items-center" >
-          <h2>Piedra Papel o Tijeras</h2>
-          <p>Desafía a la máquina con este juego milenario</p>
-          <div class="image-parent">
-              <img src="./assets/imagenes/ppt.jpg" class="img-fluid" alt="lay">
-              <p>           <button class="button"  (click)="Juego('PPT')">Jugar</button></p>
-            </div>
-            </li>
-        <li class="list-group-item d-flex justify-content-between align-items-center" >  
-          <h2>Adivina el número</h2>  
-          <p>Serás capaz de vencer a la máquina adivinando el numero secreto?</p>      
-          <div class="image-parent">
-              <img src="./assets/imagenes/adivina.png" class="img-fluid" alt="things">
-              <p>           <button class="button"  (click)="Juego('Adivina')">Jugar</button></p>
+   
+  <mat-tab-group>
+    <mat-tab label="Aritmética">  
+     
+      <div fxLayout="column" >
+        <div fxLayout="column" fxLayoutAlign="center stretch"  class="bloque">  
+          <h2 fxLayout="column" fxFlex fxLayoutAlign="center stretch">Velocidad y agilidad aritmética</h2>
+          <p fxLayout="column" fxLayoutAlign="center stretch"> Un juego donde pondrás a prueba tu agilidad con los numeros</p>  
+          <img  fxLayout="column" fxLayoutAlign="center stretch"  src="./assets/imagenes/cerebro.jpg"  alt="quixote">          
           </div>
-          </li>
-          <li class="list-group-item d-flex justify-content-between align-items-center" >  
-            <h2>Poderoso Conocimiento</h2>
-            <p>Un interesante juego de preguntas y respuestas donde ganar tiene su premio</p>        
-            <div class="image-parent">
-                <img src="./assets/imagenes/questions-answers.jpg" class="img-fluid" alt="things">
-                <p>           <button class="button"  (click)="Juego('PYR')">Jugar</button></p>
-            </div>
-            </li>
-      </ul>
-    </div>
-  </div>
+          <p><button class="button"  (click)="Juego('Agilidad')">Jugar</button></p>
+        </div>
+      
+      </mat-tab>
+    <mat-tab label="P.P.T.">
+      <div class="image-parent" fxLayout="column" fxLayoutAlign="center stretch"  class="bloque">
+      <h2 fxLayout="column" fxLayoutAlign="center stretch"  >Piedra Papel o Tijeras</h2>
+      <p fxLayout="column" fxLayoutAlign="center stretch"  class="bloque">Desafía a la máquina con este juego milenario</p>
+          <img fxLayout="column" fxLayoutAlign="center stretch"  class="bloque" src="./assets/imagenes/ppt.jpg" class="img-fluid" alt="lay">
+        </div>  
+        <p><button class="button"  (click)="Juego('PPT')">Jugar</button></p>
+    </mat-tab>
+    <mat-tab label="Adivina"> 
+      <div class="image-parent"fxLayout="column" fxLayoutAlign="center stretch"  class="bloque">
+      <h2 fxLayout="column" fxLayoutAlign="center stretch" >Adivina el número</h2>  
+      <p fxLayout="column" fxLayoutAlign="center stretch"  >Serás capaz de vencer a la máquina adivinando el numero secreto?</p>      
+          <img fxLayout="column" fxLayoutAlign="center stretch"   src="./assets/imagenes/adivina.png" class="img-fluid" alt="things">
+        </div>  
+        <p><button class="button"  (click)="Juego('Adivina')">Jugar</button></p>
+    </mat-tab>
+    <mat-tab label="Conocimiento">
+      <div class="image-parent"fxLayout="column" fxLayoutAlign="center stretch"  class="bloque">
+      <h2 fxLayout="column" fxLayoutAlign="center stretch"  class="bloque">Poderoso Conocimiento</h2>
+            <p fxLayout="column" fxLayoutAlign="center stretch"  class="bloque">Un interesante juego de preguntas y respuestas donde ganar tiene su premio</p>        
+                <img fxLayout="column" fxLayoutAlign="center stretch"  class="bloque" src="./assets/imagenes/questions-answers.jpg" class="img-fluid" alt="things">
+              </div>
+              <p><button  fxLayoutAlign="center stretch"  class="bloque"class="button"  (click)="Juego('PYR')">Jugar</button></p>
+       </mat-tab>
+  </mat-tab-group>
   </div>

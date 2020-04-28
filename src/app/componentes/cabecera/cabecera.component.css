@@ -18,7 +18,7 @@ position: absolute;
 top: 50%;
 left: 50%;
 transform: translate(-50%, -50%);
-color: white;
+color: black;
 }
 p{
     color: snow;
@@ -32,8 +32,14 @@ color: black;
 background-color: #ddd;
 text-align: center;
 cursor: pointer;
-}
 
+}
+div div h1{
+    background-color: white;
+border-radius: 20px;
+padding: 20px;
+opacity: 0.8;
+}
 .hero-text a:hover {
 background-color: #555;
 color: white;

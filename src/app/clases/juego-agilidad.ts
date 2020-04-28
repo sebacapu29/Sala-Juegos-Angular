@@ -15,6 +15,6 @@ export class JuegoAgilidad extends Juego {
         super();
         this.gano=false;
         this.juegoTerminado=false;
-        this.nombre="Agilidad Aritmetica";
+        this.nombre="Agilidad Aritmetica";        
     }
 }

@@ -49,12 +49,15 @@ export class AgilidadAritmeticaComponent implements OnInit {
     var usuarioLocalStorage:any;
 
     if(localStorage.getItem("usuarioLogueado")!=null){
-      this.jugador = usuarioLocalStorage = JSON.parse(localStorage.getItem("usuarioLogueado"));              
+      usuarioLocalStorage = JSON.parse(localStorage.getItem("usuarioLogueado"));              
     }
     else{
       this.jugador = new Jugador();
-    }    
+    }   
+    this.jugador = new Jugador(); 
+    this.jugador.generarNuevo(usuarioLocalStorage.nombre,usuarioLocalStorage.mail,usuarioLocalStorage.clave,usuarioLocalStorage.sexo,"Agilidad Aritmetica");
     this.nuevoJuego.jugador = this.jugador.mail;
+  
     this.NuevoJuego();
   }
   

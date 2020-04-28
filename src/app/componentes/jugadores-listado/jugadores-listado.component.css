@@ -1,3 +1,6 @@
 ul li{
     margin: 15px;;
 }
+tr th{
+    color: black;
+}

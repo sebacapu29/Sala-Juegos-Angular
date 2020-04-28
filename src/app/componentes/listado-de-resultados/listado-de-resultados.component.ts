@@ -7,20 +7,17 @@ import { Component, OnInit , Input, EventEmitter} from '@angular/core';
   styleUrls: ['./listado-de-resultados.component.css']
 })
 export class ListadoDeResultadosComponent implements OnInit {
- @Input()
+ 
  listado: Array<any>;
 
 
   constructor() {
+    console.log(localStorage.getItem("juegos"));
     this.listado = JSON.parse(localStorage.getItem("juegos")); 
    }
 
   ngOnInit() {
 
-  }
-
-  ver() {
-    console.info(this.listado);
   }
 
 }

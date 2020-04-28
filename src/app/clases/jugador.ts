@@ -18,4 +18,11 @@ export class Jugador extends Usuario{
         this.puntos=0;
         this.gano=false;
     }
+    generarNuevo(nombre:string,mail:string,clave:string,sexo:string,juegoJugado:string){
+        this.nombre= nombre;
+        this.mail= mail;
+        this.clave= clave;
+        this.sexo= sexo;
+        this.juegoJugado=juegoJugado; 
+    }
 }
