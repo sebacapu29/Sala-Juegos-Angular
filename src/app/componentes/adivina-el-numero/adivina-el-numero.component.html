@@ -10,7 +10,9 @@
 <div class="background">
 
 <form class="juego" name="juego">
-
+  <div class="icons">
+    <i class="fa fa-heart fa-lg" aria-hidden="true">: {{jugador.vidas}}</i><i class="fa fa-gamepad fa-lg" aria-hidden="true">: {{jugador.puntos}}</i>
+</div>
    <h3><label [hidden]="!comenzoJuego" >Cual será?:  </label></h3><br>
 <div class="respuestas" [hidden]="!comenzoJuego">
   <div *ngFor="let numero of listaNumeros">

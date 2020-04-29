@@ -56,6 +56,8 @@ export class AdivinaElNumeroComponent implements OnInit {
     }    
     this.jugador = new Jugador(usuarioLocalStorage.nombre,usuarioLocalStorage.mail,usuarioLocalStorage.clave,usuarioLocalStorage.sexo,"Poderoso Conocimiento"); 
     this.nuevoJuego.jugador = this.jugador.mail;
+    this.jugador.vidas=5;
+    this.jugador.puntosTotalesAcum = usuarioLocalStorage.puntosTotalesAcum;    
     this.nuevoJuego.nombre = "Adivina el Número";
     
   }
@@ -64,12 +66,6 @@ export class AdivinaElNumeroComponent implements OnInit {
     this.listaDeNumerosAleatorios();    
     this.contador=0;
     this.comenzoJuego=true;
-    if(this.esJuegoTerminado()){
-      this.juegoTerminado =true;
-      this.comenzoJuego=true;
-      this.actualizarPuntosUsuario();
-      this.nuevoJuego.actualizarDatosJuegos();
-    }
   }
   jugarOtraVez(){
     this.nuevoJuego = new JuegoAdivina();
@@ -107,9 +103,9 @@ export class AdivinaElNumeroComponent implements OnInit {
     
     // console.info("numero Secreto:",this.nuevoJuego.gano);  
     if (this.nuevoJuego.verificar()){     
-      this.enviarJuego.emit(this.nuevoJuego);
       this.nuevoJuego.numeroSecreto=0;
-      // this.ju
+      this.jugador.puntos++;
+      this.jugador.puntosTotalesAcum++;
       this.mostrarAnimacion("enojado");
       this.MostarMensaje("Grrr adivinaste",true);
       this.reiniciar();
@@ -142,10 +138,17 @@ export class AdivinaElNumeroComponent implements OnInit {
             mensaje="Ya le erraste "+ this.contador+" veces";
           break;
       }
+      this.jugador.vidas--;
       this.MostarMensaje("# "+this.contador+" "+mensaje+" ayuda : "+this.nuevoJuego.retornarAyuda());
       this.nuevoJuego.numeroIngresado=null;
+     
     }
-    // console.info("numero Secreto:",this.nuevoJuego.gano);  
+    if(this.esJuegoTerminado()){
+      this.juegoTerminado =true;
+      this.comenzoJuego=true;
+      this.actualizarPuntosUsuario();
+      this.nuevoJuego.actualizarDatosJuegos();
+    }
   }  
   actualizarPuntosUsuario(){
     var indexUser = LocalStorage.obtenerIndexUsuarioLogueado();

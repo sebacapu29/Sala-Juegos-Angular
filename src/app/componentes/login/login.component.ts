@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
 
     if (this.esUsuarioRegistrado!=-1) {
       localStorage.setItem("isLoggedIn","true");
-      LocalStorage.cambiarUsuarioLogueado(this.esUsuarioRegistrado);     
+      LocalStorage.actualizarUsuarioLogueado(this.esUsuarioRegistrado);     
       this.router.navigate(['/Principal']);
     }
     else{

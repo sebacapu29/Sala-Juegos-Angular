@@ -25,25 +25,21 @@ export class LocalStorage {
         }
         return -1;
       }
-      static cambiarUsuarioLogueado(index:number){
+      static actualizarUsuarioLogueado(index:number){
         localStorage.removeItem("usuarioLogueado");  
 
         var usuarioLogueado = JSON.parse(localStorage.getItem("usuarios"))[index]; 
         localStorage.setItem("usuarioLogueado",JSON.stringify(usuarioLogueado)); 
       }
 
-      static actualizarUnUsuario(usuario:Jugador,index:number,puntosAcum?:number){
-        console.log("en ppt");
-        console.log(usuario);
+      static actualizarUnUsuario(usuario:Jugador,index:number,puntosAcum?:number){       
         var usuarioDatos = { "mail" : usuario.mail, "clave": usuario.clave,"sexo":usuario.sexo,"nombre":usuario.nombre,"puntosTotalesAcum":usuario.puntosTotalesAcum};
         var usuariosEnLocalStorage = <Array<any>> JSON.parse(localStorage.getItem("usuarios")); 
         if(Array.isArray(usuariosEnLocalStorage)){
             usuariosEnLocalStorage[index] = usuarioDatos;
         }
-        // else{
-        //     usuariosEnLocalStorage = usuarioDatos; CHECKEAR
-        // }
          localStorage.removeItem("usuarios");
-         localStorage.setItem("usuarios",JSON.stringify(usuariosEnLocalStorage)); 
+         localStorage.setItem("usuarios",JSON.stringify(usuariosEnLocalStorage));
+         LocalStorage.actualizarUsuarioLogueado(index);
       }
 }

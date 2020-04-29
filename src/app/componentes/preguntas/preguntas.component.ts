@@ -90,6 +90,15 @@ export class PreguntasComponent implements OnInit {
     this.maxQ = this.juegoPreguntas.length - 1;  
     this.nuevoJuego.numCuriosidad =Math.round(Math.random() * (3  - 1) + 1);;      
     this.audio = new Audio();    
+    var usuarioLocalStorage:any;
+
+    if(localStorage.getItem("usuarioLogueado")!=null){
+      usuarioLocalStorage = JSON.parse(localStorage.getItem("usuarioLogueado"));              
+    }    
+    this.jugador = new Jugador(usuarioLocalStorage.nombre,usuarioLocalStorage.mail,usuarioLocalStorage.clave,usuarioLocalStorage.sexo,"Poderoso Conocimiento"); 
+    this.nuevoJuego.jugador = this.jugador.mail;
+    this.jugador.puntosTotalesAcum = usuarioLocalStorage.puntosTotalesAcum;
+    this.nuevoJuego.nombre = "Poderoso Conocimiento";
   }
   );
 }
@@ -115,7 +124,7 @@ export class PreguntasComponent implements OnInit {
     this.maxQ--;
 
     this.seleccionRandomRespuestas();
-    
+    //poner llamadas de actualizacion de puntos
     this.comenzoJuego=true;
     this.juegoTerminado=false;
     this.contadorTiempo = 20;

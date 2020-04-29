@@ -24,21 +24,14 @@ export class JugadoresListadoComponent implements OnInit {
 
 
   TraerTodos(){
-    this.listado = JSON.parse(localStorage.getItem("usuarios"));    
-    console.log(this.listado);
+    this.listado = JSON.parse(localStorage.getItem("usuarios"));      
   }
   TraerGanadores(){
     this.miJugadoresServicio.traertodos('jugadores/','ganadores').then(data=>{
-      //console.info("jugadores listado",(data));
-      // this.listado= data;
-
     })
   }
   TraerPerdedores(){
-    this.miJugadoresServicio.traertodos('jugadores/','perdedores').then(data=>{
-      //console.info("jugadores listado",(data));
-      // this.listado= data;
-
+    this.miJugadoresServicio.traertodos('jugadores/','perdedores').then(data=>{     
     })
   }
 

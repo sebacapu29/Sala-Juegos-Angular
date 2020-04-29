@@ -27,17 +27,6 @@ export class Juego {
     var juegoAGuardar= {"juego":this.jugador,"jugador":this.nombre,"gano":this.gano};
     localStorage.removeItem("juegos");
     juegosEnLocalStorage.push(juegoAGuardar);
-    console.log(juegoAGuardar);
     localStorage.setItem("juegos",JSON.stringify(juegosEnLocalStorage));
   }
-
-
-  
-
-  // public  verificar():boolean; 
-  
-  // public retornarAyuda():string {
-    
-  //   return "NO hay Ayuda definida";
-  // }
 }

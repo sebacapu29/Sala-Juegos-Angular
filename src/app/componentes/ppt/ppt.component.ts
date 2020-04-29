@@ -67,7 +67,11 @@ export class PptComponent implements OnInit {
     }    
     this.jugador = new Jugador(usuarioLocalStorage.nombre,usuarioLocalStorage.mail,usuarioLocalStorage.clave,usuarioLocalStorage.sexo,"Poderoso Conocimiento"); 
     this.nuevoJuego.jugador = this.jugador.mail;
+   
     this.jugador.puntosTotalesAcum = usuarioLocalStorage.puntosTotalesAcum;
+    // console.log("constr");
+    // console.log(usuarioLocalStorage);
+    // console.log(this.jugador);
     this.nuevoJuego.nombre = "Piedra Papel o Tijera";
    }
 
@@ -138,7 +142,7 @@ export class PptComponent implements OnInit {
   verificarEstadoDeLaJugada(){
     var esGanadaLaRonda = this.ganaLaRonda();
 
-    if(esGanadaLaRonda && ! this.esEmpate){
+    if(esGanadaLaRonda && !this.esEmpate){
       this.jugador.puntos++;
       this.jugador.puntosTotalesAcum++;     
       this.MostarMensaje("Suertudo!",true);   
@@ -149,18 +153,24 @@ export class PptComponent implements OnInit {
     }
 
     if(this.esJuegoTerminado() && esGanadaLaRonda){
+      console.log("1");
+      console.log(this.jugador);
         this.MostarMensaje("Bien lo tuyo",true);  
-        this.nuevoJuego.gano=true;
+        this.nuevoJuego.gano=true;        
         this.actualizarPuntosUsuario(); 
         this.nuevoJuego.actualizarDatosJuegos();
       }
     else if(this.esJuegoTerminado() && !esGanadaLaRonda){
+      console.log("2");
+      console.log(this.jugador);
         this.MostarMensaje("Mejor la próxima!",false);
         this.nuevoJuego.gano=false;  
         this.actualizarPuntosUsuario(); 
         this.nuevoJuego.actualizarDatosJuegos();        
       }
-      else if(this.esJuegoTerminado() && this.esEmpate){        
+      else if(this.esJuegoTerminado() && this.esEmpate){ 
+        console.log("3"); 
+        console.log(this.jugador);      
         this.actualizarPuntosUsuario(); 
         this.nuevoJuego.actualizarDatosJuegos();
         this.nuevoJuego.gano= esGanadaLaRonda ? true : false;
@@ -210,11 +220,8 @@ export class PptComponent implements OnInit {
     }
   }
   actualizarPuntosUsuario(){
-    // console.log(this.jugador);
     var indexUser = LocalStorage.obtenerIndexUsuarioLogueado();
     if(indexUser!=-1){
-      console.log("en ppt");
-      console.log(this.jugador);
       LocalStorage.actualizarUnUsuario(this.jugador,indexUser);
     }
   }  
