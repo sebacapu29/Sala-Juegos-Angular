@@ -1,5 +1,5 @@
 <h3 class="titulo">Poderoso Conocimiento</h3>
-<div class="container" [ngStyle]="{'background-image': 'url('+ imageBackground+')'}">
+<div class="background" >
     <div class="icon">
         <h3><i class="fa fa-clock-o fa-lg" aria-hidden="true">: {{contadorTiempo}}  </i><i class="fa fa-heart fa-lg" aria-hidden="true">: {{jugador.vidas}}</i> <i class="fa fa-gamepad fa-lg" aria-hidden="true">: {{jugador.puntos}}</i></h3>
     </div>
@@ -7,13 +7,14 @@
     <div class="containerQuestion">
         <label [hidden]="!comenzoJuego">{{preguntaSeleccionada.question}}</label><br>
     </div>
-    <div class="containerAnwsers">
+    <div class="containerAnwsers" fxLayout="row" >
         <a (click)="abrirCofre()"><img class="imgCofre" [hidden]="cofreOculto" [src]="imagenCofre"></a>
     <div [hidden]="!comenzoJuego">        
-            <button [@animacion2]="estadoAnimacion2" id="btnResp" class="btn btn-light" (click)="evaluarRespuesta($event)" [value]="respuestasParaMostrar[0]">{{respuestasParaMostrar[0]}}</button><br>
-            <button [@animacion3]="estadoAnimacion3" id="btnResp" class="btn btn-light" (click)="evaluarRespuesta($event)" [value]="respuestasParaMostrar[1]">{{respuestasParaMostrar[1]}}</button><br>
-            <button [@animacion4]="estadoAnimacion4" id="btnResp" class="btn btn-light" (click)="evaluarRespuesta($event)" [value]="respuestasParaMostrar[2]">{{respuestasParaMostrar[2]}}</button><br>      
-      </div>
+            <button  fxLayout="row" fxLayoutAlign="space-around center" [@animacion2]="estadoAnimacion2" id="btnResp" class="btn btn-light" (click)="evaluarRespuesta($event)" [value]="respuestasParaMostrar[0]">{{respuestasParaMostrar[0]}}</button><br>
+            <button  fxLayout="row" fxLayoutAlign="space-around center" [@animacion3]="estadoAnimacion3" id="btnResp" class="btn btn-light" (click)="evaluarRespuesta($event)" [value]="respuestasParaMostrar[1]">{{respuestasParaMostrar[1]}}</button><br>
+            <button  fxLayout="row" fxLayoutAlign="space-around center" [@animacion4]="estadoAnimacion4" id="btnResp" class="btn btn-light" (click)="evaluarRespuesta($event)" [value]="respuestasParaMostrar[2]">{{respuestasParaMostrar[2]}}</button><br>      
+      </div>     
+
       <button *ngIf="!comenzoJuego && !juegoTerminado && jugador.vidas>0" id="btnComenzar" class="btn btn-success" (click)="comenzar()">Comenzar</button>           
       <button *ngIf="jugador.vidas==0 || juegoTerminado" id="btnComenzar" class="btn btn-warning" (click)="jugarOtraVez()">Jugar Otra vez</button>           
           

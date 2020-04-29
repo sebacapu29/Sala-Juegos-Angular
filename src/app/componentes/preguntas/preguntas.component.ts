@@ -5,6 +5,8 @@ import { PreguntasService } from 'src/app/servicios/preguntas.service';
 import { Jugador } from 'src/app/clases/jugador';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalPreguntasComponent } from '../modal-preguntas/modal-preguntas.component';
+import { JuegoPreguntas } from 'src/app/clases/juego-preguntas';
+import { LocalStorage } from 'src/app/clases/helpers/local-storage';
 
 
 @Component({
@@ -25,7 +27,7 @@ import { ModalPreguntasComponent } from '../modal-preguntas/modal-preguntas.comp
         
       })),
       state('estado2Anim2',style({
-        marginLeft:'14%'
+        marginLeft:'25%'
       })),     
       transition('estado1Anim2 <=> estado2Anim2',animate('100ms'))     
     ]),
@@ -33,7 +35,7 @@ import { ModalPreguntasComponent } from '../modal-preguntas/modal-preguntas.comp
       state('estado1Anim3',style({
       })),
       state('estado2Anim3',style({
-        marginLeft:'14%'
+        marginLeft:'25%'
       })),     
       transition('estado1Anim3 <=> estado2Anim3',animate('150ms'))     
     ]),
@@ -41,7 +43,7 @@ import { ModalPreguntasComponent } from '../modal-preguntas/modal-preguntas.comp
       state('estado1Anim4',style({
       })),
       state('estado2Anim4',style({
-        marginLeft:'14%'
+        marginLeft:'25%'
       })),     
       transition('estado1Anim4 <=> estado2Anim4',animate('250ms'))     
     ])
@@ -55,7 +57,7 @@ export class PreguntasComponent implements OnInit {
   estadoAnimacion2 = "estado1Anim2";
   estadoAnimacion3="estado1Anim3";
   estadoAnimacion4 = "estado1Anim4";
-  imageBackground="./assets/imagenes/juegoFondo1.PNG";
+  // imageBackground="./assets/imagenes/juegoFondo1.PNG";
   imagenCofre ="./assets/imagenes/cofre.jpg";
   mensajeJuego:string;
   intervalId:any;
@@ -71,6 +73,7 @@ export class PreguntasComponent implements OnInit {
   jugador:Jugador;
   randomCuriosidad:number;
   audio:any;
+  nuevoJuego:JuegoPreguntas;
 
   constructor(private preguntasSerive:PreguntasService,
     private modalService: NgbModal) { 
@@ -82,14 +85,27 @@ export class PreguntasComponent implements OnInit {
     this.jugador.gano = false; 
     this.preguntasSerive.getPreguntasYRespuestas().subscribe(data=> {     
     this.juegoPreguntas =  data as Preguntas[];  
+    this.nuevoJuego= new JuegoPreguntas();
+    this.configuracionesIniciarles();
     this.maxQ = this.juegoPreguntas.length - 1;  
-    this.randomCuriosidad=Math.round(Math.random() * (3  - 1) + 1);;  
-    this.audio = new Audio();
+    this.nuevoJuego.numCuriosidad =Math.round(Math.random() * (3  - 1) + 1);;      
+    this.audio = new Audio();    
   }
   );
 }
   ngOnInit(): void {
   }
+  configuracionesIniciarles(){
+    var usuarioLocalStorage:any;
+    if(localStorage.getItem("usuarioLogueado")!=null){
+      usuarioLocalStorage = JSON.parse(localStorage.getItem("usuarioLogueado"));              
+    }    
+    this.jugador = new Jugador(usuarioLocalStorage.nombre,usuarioLocalStorage.mail,usuarioLocalStorage.clave,usuarioLocalStorage.sexo,"Poderoso Conocimiento"); 
+    this.nuevoJuego.jugador = this.jugador.mail;
+    this.jugador.puntosTotalesAcum = usuarioLocalStorage.puntosTotalesAcum;
+    this.nuevoJuego.nombre = "Poderoso Conocimiento";
+  }
+  
   comenzar(){
     if(this.jugador.vidas>0 && this.juegoPreguntas.length>0){
     
@@ -98,7 +114,7 @@ export class PreguntasComponent implements OnInit {
     var indexPreguntas = this.juegoPreguntas.indexOf(this.preguntaSeleccionada);
     this.maxQ--;
 
-    this.randomSeleccion();
+    this.seleccionRandomRespuestas();
     
     this.comenzoJuego=true;
     this.juegoTerminado=false;
@@ -121,19 +137,23 @@ export class PreguntasComponent implements OnInit {
     this.estadoAnimacion3="estado2Anim3";
     this.estadoAnimacion4="estado2Anim4"; 
   }
-  verificadorJuegoTerminado(){
+  esJuegoTerminado(){
     if(this.juegoPreguntas.length ==0){
       this.audio.src = "./assets/sonidos/sonido-victoria.mp3";
       this.audio.load();
       this.audio.play();
+      this.nuevoJuego.gano=true;
       this.cofreOculto =false;
       this.openModal("Felicitaciones! Terminaste El Juego!","Ahora puedes abrir el cofre del conocimiento ubicado al comienzo del juego","./assets/imagenes/fondoFin.PNG");
       this.clearGame();
+      return true;
     }
     else if(this.jugador.vidas==0){
       this.audio.src = "./assets/sonidos/sonido-pierde2.mp3";
       this.audio.load();
       this.audio.play();
+      this.nuevoJuego.gano=false;
+      return true;
     }
   }
   jugarOtraVez(){
@@ -148,27 +168,14 @@ export class PreguntasComponent implements OnInit {
       });
     }
   }
-  randomSeleccion(){
-    var randomAnswes = Math.round(Math.random() * (3  - 1) + 1);
-   
-    this.respuestasParaMostrar = new Array<string>();
-    switch(randomAnswes){
-      case 1:
-        this.respuestasParaMostrar.push(this.preguntaSeleccionada.answerc);    
+  seleccionRandomRespuestas(){
+  
+       this.respuestasParaMostrar = new Array<string>();
+         this.respuestasParaMostrar.push(this.preguntaSeleccionada.answerc);    
         this.respuestasParaMostrar.push(this.preguntaSeleccionada.answer1);
-        this.respuestasParaMostrar.push(this.preguntaSeleccionada.answer2);
-        break;
-      case 2:
-        this.respuestasParaMostrar.push(this.preguntaSeleccionada.answer1);    
-        this.respuestasParaMostrar.push(this.preguntaSeleccionada.answerc);
-        this.respuestasParaMostrar.push(this.preguntaSeleccionada.answer2);
-          break;
-      case 3:
-        this.respuestasParaMostrar.push(this.preguntaSeleccionada.answer1);    
-        this.respuestasParaMostrar.push(this.preguntaSeleccionada.answer2);
-        this.respuestasParaMostrar.push(this.preguntaSeleccionada.answerc);
-         break;
-    }
+        this.respuestasParaMostrar.push(this.preguntaSeleccionada.answer2);  
+        this.respuestasParaMostrar.sort(() => Math.random() > 0.5 ? 1 : -1);
+    
   }
   evaluarRespuesta(e){
 
@@ -185,8 +192,12 @@ export class PreguntasComponent implements OnInit {
       this.openModal("Ups! Lastima, Incorrecta!","La respuesta correcta es: " + this.preguntaSeleccionada.answerc,"./assets/imagenes/llorando.PNG");         
       this.clearGame();
     }
-    this.verificadorJuegoTerminado();
+    if(this.esJuegoTerminado()){
+      this.nuevoJuego.actualizarDatosJuegos();
+      this.actualizarPuntosUsuario();
+    }
   }
+  
   clearGame(){
     this.comenzoJuego =false;
     this.juegoTerminado = this.juegoPreguntas.length==0;
@@ -202,11 +213,17 @@ export class PreguntasComponent implements OnInit {
     modalRef.componentInstance.respCorrecta=respCorrect;
     modalRef.componentInstance.imagenResultado = urlImg;
   }
+  actualizarPuntosUsuario(){
+    var indexUser = LocalStorage.obtenerIndexUsuarioLogueado();
+    if(indexUser!=-1){
+      LocalStorage.actualizarUnUsuario(this.jugador,indexUser);
+    }
+  }  
   abrirCofre(){
     var strCuriosidad="";
     this.preguntasSerive.getCuriosidades().subscribe(data=> {  
  
-      strCuriosidad = data[this.randomCuriosidad]["curiosidad"];  
+      strCuriosidad = data[this.nuevoJuego.numCuriosidad ]["curiosidad"];  
       this.openModal("Cofre del conocimiento",strCuriosidad,""); 
     });  
     

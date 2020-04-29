@@ -4,6 +4,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import {Subscription} from "rxjs";
 import {TimerObservable} from "rxjs/observable/TimerObservable";
 import { Usuario } from 'src/app/clases/usuario';
+import { LocalStorage } from 'src/app/clases/helpers/local-storage';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -43,12 +44,7 @@ export class LoginComponent implements OnInit {
 
     if (this.esUsuarioRegistrado!=-1) {
       localStorage.setItem("isLoggedIn","true");
-      localStorage.removeItem("usuarioLogueado");  
-
-      var usuarioLogueado = this.esUnico ?
-                            JSON.parse(localStorage.getItem("usuarios")) : 
-                            JSON.parse(localStorage.getItem("usuarios"))[this.esUsuarioRegistrado]; 
-      localStorage.setItem("usuarioLogueado",JSON.stringify(usuarioLogueado));      
+      LocalStorage.cambiarUsuarioLogueado(this.esUsuarioRegistrado);     
       this.router.navigate(['/Principal']);
     }
     else{

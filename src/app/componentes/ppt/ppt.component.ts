@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Jugador } from 'src/app/clases/jugador';
 import { trigger, state, style, animate, transition } from '@angular/animations';
+import { JuegoPiedraPapelTijera } from 'src/app/clases/juego-piedra-papel-tijera';
+import { LocalStorage } from 'src/app/clases/helpers/local-storage';
 
 @Component({
   selector: 'app-ppt',
@@ -34,6 +36,9 @@ export class PptComponent implements OnInit {
   juegoTerminado:boolean;
   seleccionoOpcion:boolean=false;
   audio:any;
+  nuevoJuego:JuegoPiedraPapelTijera;
+  esEmpate:boolean;
+  deshabilitar:boolean;
 
   constructor() {
     this.pathContrincate = "./assets/imagenes/piedra.jpg";
@@ -52,8 +57,18 @@ export class PptComponent implements OnInit {
     this.tiempoAnimacion = 6;
     this.jugador = new Jugador();
     this.audio = new Audio();  
-    this.jugador.vidas=3;
-    this.jugador.puntos=0;
+    // this.jugador.vidas=3;
+    // this.jugador.puntos=0;
+    this.nuevoJuego = new JuegoPiedraPapelTijera();
+    var usuarioLocalStorage:any;
+
+    if(localStorage.getItem("usuarioLogueado")!=null){
+      usuarioLocalStorage = JSON.parse(localStorage.getItem("usuarioLogueado"));              
+    }    
+    this.jugador = new Jugador(usuarioLocalStorage.nombre,usuarioLocalStorage.mail,usuarioLocalStorage.clave,usuarioLocalStorage.sexo,"Poderoso Conocimiento"); 
+    this.nuevoJuego.jugador = this.jugador.mail;
+    this.jugador.puntosTotalesAcum = usuarioLocalStorage.puntosTotalesAcum;
+    this.nuevoJuego.nombre = "Piedra Papel o Tijera";
    }
 
   ngOnInit(): void {
@@ -96,11 +111,12 @@ export class PptComponent implements OnInit {
     }
   }
   comenzar(){
+    this.deshabilitar=true;
     if(this.seleccionoOpcion){
     this.intervalId = setInterval(() => {
       this.tiempoAnimacion --;      
       this.estadoAnimJugada = this.estadoAnimJugada == "estado1" ? "estado2" : "estado1";
-      console.log(this.tiempoAnimacion);
+      // console.log(this.tiempoAnimacion);
       if(this.tiempoAnimacion === 0) {  
         this.estadoAnimJugada = "estado1";
         this.seleccionJugadaContrincante();
@@ -108,63 +124,84 @@ export class PptComponent implements OnInit {
         this.tiempoAnimacion=6;
         var btnSelect = document.getElementById(this.seleccionadoPorJugador);
         btnSelect.className = "btnJ";
-        this.resultadoJugada();
+        this.deshabilitar=false;
+        this.verificarEstadoDeLaJugada();
         clearInterval(this.intervalId);
       }         
-    }, 500);
+    }, 750);  
   }
+
   else{
-    this.MostarMensaje("Selecciona una opcioón",false,true);
+    this.MostarMensaje("Selecciona una opción",false,true);
   }
   }
-  resultadoJugada(){
+  verificarEstadoDeLaJugada(){
+    var esGanadaLaRonda = this.ganaLaRonda();
+
+    if(esGanadaLaRonda && ! this.esEmpate){
+      this.jugador.puntos++;
+      this.jugador.puntosTotalesAcum++;     
+      this.MostarMensaje("Suertudo!",true);   
+    }
+    else if (!esGanadaLaRonda && !this.esEmpate){
+      this.jugador.vidas--; 
+      this.MostarMensaje("Esta ronda es mia!",false);       
+    }
+
+    if(this.esJuegoTerminado() && esGanadaLaRonda){
+        this.MostarMensaje("Bien lo tuyo",true);  
+        this.nuevoJuego.gano=true;
+        this.actualizarPuntosUsuario(); 
+        this.nuevoJuego.actualizarDatosJuegos();
+      }
+    else if(this.esJuegoTerminado() && !esGanadaLaRonda){
+        this.MostarMensaje("Mejor la próxima!",false);
+        this.nuevoJuego.gano=false;  
+        this.actualizarPuntosUsuario(); 
+        this.nuevoJuego.actualizarDatosJuegos();        
+      }
+      else if(this.esJuegoTerminado() && this.esEmpate){        
+        this.actualizarPuntosUsuario(); 
+        this.nuevoJuego.actualizarDatosJuegos();
+        this.nuevoJuego.gano= esGanadaLaRonda ? true : false;
+      }
+      this.esEmpate = false;
+  }
+  ganaLaRonda():boolean{
+    var ganaRonda=false;
 
     if(this.seleccionadoPorJugador=="piedra" && this.seleccionContrincante=="papel"){
-      this.jugador.vidas--;
-      if(!this.esJuegoTerminado()){
-        this.MostarMensaje("Esta ronda es mia!",false);    
-      }
+      ganaRonda=false;
+     
     } 
-    else if(this.seleccionadoPorJugador=="piedra" && this.seleccionContrincante=="tijera"){      
-      this.jugador.puntos++;
-      this.jugador.puntosTotalesAcum++;
-      if(!this.esJuegoTerminado()){
-        this.MostarMensaje("Muy bien, ganaste esta",true);  
-      }    
+    else if(this.seleccionadoPorJugador=="piedra" && this.seleccionContrincante=="tijera"){
+      ganaRonda=true;      
+      
     } 
     else if(this.seleccionadoPorJugador=="papel" && this.seleccionContrincante=="tijera"){
-      this.jugador.vidas--; 
-      if(!this.esJuegoTerminado()){
-        this.MostarMensaje("Ja! vas a perder",false);   
-      }      
+      ganaRonda=false;
+      
     } 
     else if(this.seleccionadoPorJugador=="papel" && this.seleccionContrincante=="piedra"){
-      this.jugador.puntos++;
-      this.jugador.puntosTotalesAcum++;
-      if(!this.esJuegoTerminado()){   
-      this.MostarMensaje("Suertudo!",true);        
-      }
+      ganaRonda=true;
+  
     } 
     else if(this.seleccionadoPorJugador=="tijera" && this.seleccionContrincante=="piedra"){
-      this.jugador.vidas--;   
-      if(!this.esJuegoTerminado()){
-        this.MostarMensaje("Ya huelo la derrota!",false);    
-      }
+      ganaRonda=false;
+  
     } 
-    else if(this.seleccionadoPorJugador=="tijera" && this.seleccionContrincante=="papel"){
-      this.jugador.puntos++;  
-      this.jugador.puntosTotalesAcum++;
-      if(!this.esJuegoTerminado()){
-      this.MostarMensaje("Bien lo tuyo",true);   
-      }
+    else if(this.seleccionadoPorJugador=="tijera" && this.seleccionContrincante=="papel"){     
+      ganaRonda=true;      
     } 
     else{
-      this.MostarMensaje("Empate!",false,true);  
+        this.MostarMensaje("Empate!",false,true); 
+        this.esEmpate=true; 
     }
+    return ganaRonda;
   }
   esJuegoTerminado(){
     if(this.jugador.vidas==0){
-      this.juegoTerminado=true;
+      this.juegoTerminado=true;      
       return true;         
     }    
     else if(this.jugador.puntos==3){
@@ -172,6 +209,15 @@ export class PptComponent implements OnInit {
       return true;    
     }
   }
+  actualizarPuntosUsuario(){
+    // console.log(this.jugador);
+    var indexUser = LocalStorage.obtenerIndexUsuarioLogueado();
+    if(indexUser!=-1){
+      console.log("en ppt");
+      console.log(this.jugador);
+      LocalStorage.actualizarUnUsuario(this.jugador,indexUser);
+    }
+  }  
   reiniciar(){
     this.juegoTerminado=false;
     this.jugador.vidas=3;

@@ -43,6 +43,7 @@ import { PreguntasComponent } from './componentes/preguntas/preguntas.component'
 import { ModalPreguntasComponent } from './componentes/modal-preguntas/modal-preguntas.component';
 import { PptComponent } from './componentes/ppt/ppt.component';
 import { MaterialModule } from './material-Modules/material.module';
+import { ConfiguracionComponent } from './componentes/configuracion/configuracion.component';
 
 @NgModule({
   declarations: [
@@ -68,7 +69,8 @@ import { MaterialModule } from './material-Modules/material.module';
     SexoPipe,
     PreguntasComponent,
     ModalPreguntasComponent,
-    PptComponent
+    PptComponent,
+    ConfiguracionComponent
   ],
   imports: [
     BrowserModule,

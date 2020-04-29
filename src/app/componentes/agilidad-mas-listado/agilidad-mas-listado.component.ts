@@ -17,4 +17,5 @@ export class AgilidadMasListadoComponent implements OnInit {
     this.listadoParaCompartir.push(juego);
     console.info("en app",this.listadoParaCompartir);
   }
+  
 }

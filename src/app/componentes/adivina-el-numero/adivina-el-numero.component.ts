@@ -3,6 +3,7 @@ import { Component, OnInit ,Input,Output,EventEmitter} from '@angular/core';
 import { JuegoAdivina } from '../../clases/juego-adivina'
 import { style, trigger, state, transition, animate } from '@angular/animations';
 import { Jugador } from 'src/app/clases/jugador';
+import { LocalStorage } from 'src/app/clases/helpers/local-storage';
 
 @Component({
   selector: 'app-adivina-el-numero',
@@ -35,6 +36,7 @@ export class AdivinaElNumeroComponent implements OnInit {
   imagenEnemigo:string;
   listaNumeros:string[];
   imgEstrella:string;
+  juegoTerminado:boolean;
 
   constructor() { 
     this.nuevoJuego = new JuegoAdivina();
@@ -46,7 +48,15 @@ export class AdivinaElNumeroComponent implements OnInit {
     this.mostrarEnemigo = false;
     this.mensaje="";
     this.animacionEnemigo="estado1";
+    var usuarioLocalStorage:any;
+
     // this.imgEstrella = "/assets/imagenes/estrella.png";
+    if(localStorage.getItem("usuarioLogueado")!=null){
+      usuarioLocalStorage = JSON.parse(localStorage.getItem("usuarioLogueado"));              
+    }    
+    this.jugador = new Jugador(usuarioLocalStorage.nombre,usuarioLocalStorage.mail,usuarioLocalStorage.clave,usuarioLocalStorage.sexo,"Poderoso Conocimiento"); 
+    this.nuevoJuego.jugador = this.jugador.mail;
+    this.nuevoJuego.nombre = "Adivina el Número";
     
   }
   generarnumero() {
@@ -54,6 +64,27 @@ export class AdivinaElNumeroComponent implements OnInit {
     this.listaDeNumerosAleatorios();    
     this.contador=0;
     this.comenzoJuego=true;
+    if(this.esJuegoTerminado()){
+      this.juegoTerminado =true;
+      this.comenzoJuego=true;
+      this.actualizarPuntosUsuario();
+      this.nuevoJuego.actualizarDatosJuegos();
+    }
+  }
+  jugarOtraVez(){
+    this.nuevoJuego = new JuegoAdivina();
+    this.jugador.reiniciar();
+    this.reiniciar();  
+  }
+  esJuegoTerminado(){
+    if(this.jugador.puntos ==3){
+
+      return true;
+    }
+    else if(this.jugador.vidas==0){
+     
+      return true;
+    }
   }
   listaDeNumerosAleatorios(){
     const n = 5;
@@ -115,6 +146,12 @@ export class AdivinaElNumeroComponent implements OnInit {
       this.nuevoJuego.numeroIngresado=null;
     }
     // console.info("numero Secreto:",this.nuevoJuego.gano);  
+  }  
+  actualizarPuntosUsuario(){
+    var indexUser = LocalStorage.obtenerIndexUsuarioLogueado();
+    if(indexUser!=-1){
+      LocalStorage.actualizarUnUsuario(this.jugador,indexUser);
+    }
   }  
   mostrarAnimacion(estado:string){
     this.mostrarEnemigo=true;

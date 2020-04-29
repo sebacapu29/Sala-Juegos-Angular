@@ -22,6 +22,7 @@ import { MapaDeGoogleComponent } from '../componentes/mapa-de-google/mapa-de-goo
 import { JugadoresListadoComponent } from '../componentes/jugadores-listado/jugadores-listado.component';
 import { PreguntasComponent } from '../componentes/preguntas/preguntas.component';
 import { PptComponent } from '../componentes/ppt/ppt.component';
+import { ConfiguracionComponent } from '../componentes/configuracion/configuracion.component';
 
 
 // declaro donde quiero que se dirija
@@ -35,7 +36,7 @@ const MiRuteo = [
 {path: 'Principal' , component: PrincipalComponent},
 {path: 'Listado' , component: ListadoComponent},
 {path: 'Paises' , component: ListadoDePaisesComponent},
-
+{path:'Configs',component:ConfiguracionComponent},
 { path: 'Juegos' ,
 component: JuegosComponent ,
 children:

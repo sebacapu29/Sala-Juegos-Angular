@@ -27,7 +27,7 @@
             </div>
         </div>
     </div>
-    <button class="btn btn-success" *ngIf="!juegoTerminado" id="btnComenzar" (click)="comenzar()">
+    <button class="btn btn-success" [disabled]="deshabilitar" *ngIf="!juegoTerminado" id="btnComenzar" (click)="comenzar()">
         Comenzar
     </button>
     <button class="btn btn-warning" *ngIf="juegoTerminado" id="btnComenzar" (click)="reiniciar()">

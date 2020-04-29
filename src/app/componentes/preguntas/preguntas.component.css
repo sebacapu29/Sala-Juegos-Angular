@@ -1,18 +1,32 @@
-.container{
-    padding: 15%;
-}
+
 #btnResp{
     width: 300px;
     margin-top: 30px;
+    padding: 10%;
+    box-sizing: none;
     /* position: absolute; */
     /* margin: 20px 20px 0 0; */
+}
+h3{
+    background-color: white;
+    color: black;
+    width: 18%;
+    border-radius: 10px 10px 10px 10px;
+
 }
 #btnResp:hover{
     background: dodgerblue;
 }
+.background{
+    background-image: url('/assets/imagenes/juegoFondo1.PNG');
+}
 .titulo{
-    margin-left: 40%;
+    /* margin-left: 40%; */
     margin-bottom: 2em;
+    background-color: black;
+    color: white;
+    width: 18%;
+    border-radius: 10px 10px 10px 10px;
 }
 #btnComenzar{
     margin-left: 35%;

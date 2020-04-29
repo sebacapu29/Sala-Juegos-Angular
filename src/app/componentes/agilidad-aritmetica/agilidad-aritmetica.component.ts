@@ -6,6 +6,7 @@ import {Subscription} from "rxjs";
 import {TimerObservable} from "rxjs/observable/TimerObservable";
 import { Jugador } from 'src/app/clases/jugador';
 import { style, trigger, state, transition, animate } from '@angular/animations';
+import { LocalStorage } from 'src/app/clases/helpers/local-storage';
 @Component({
   selector: 'app-agilidad-aritmetica',
   templateUrl: './agilidad-aritmetica.component.html',
@@ -38,7 +39,7 @@ export class AgilidadAritmeticaComponent implements OnInit {
   private subscription: Subscription;
   respuestasParaMostrar: string[];
   listaNumeros: any[];
-  usuariosEnLocalStorage: any;
+  // usuariosEnLocalStorage: any;
   ngOnInit() {
   }
    constructor(private _snackBar: MatSnackBar) {
@@ -46,21 +47,23 @@ export class AgilidadAritmeticaComponent implements OnInit {
      this.Tiempo=5; 
     this.nuevoJuego = new JuegoAgilidad();
     this.respuestasParaMostrar = new Array<string>();    
+    
+    this.configuracionesIniciarles();
+  
+    this.NuevoJuego();
+  }
+  configuracionesIniciarles(){
     var usuarioLocalStorage:any;
-
     if(localStorage.getItem("usuarioLogueado")!=null){
       usuarioLocalStorage = JSON.parse(localStorage.getItem("usuarioLogueado"));              
     }
     else{
       this.jugador = new Jugador();
     }   
-    this.jugador = new Jugador(); 
-    this.jugador.generarNuevo(usuarioLocalStorage.nombre,usuarioLocalStorage.mail,usuarioLocalStorage.clave,usuarioLocalStorage.sexo,"Agilidad Aritmetica");
+    this.jugador = new Jugador(usuarioLocalStorage.nombre,usuarioLocalStorage.mail,usuarioLocalStorage.clave,usuarioLocalStorage.sexo,"Agilidad Aritmetica"); 
+     this.jugador.puntosTotalesAcum = usuarioLocalStorage.puntosTotalesAcum;
     this.nuevoJuego.jugador = this.jugador.mail;
-  
-    this.NuevoJuego();
   }
-  
   NuevoJuego() {
     this.ocultarVerificar=false;
     this.deshabilitar=false;
@@ -124,67 +127,18 @@ export class AgilidadAritmeticaComponent implements OnInit {
       this.nuevoJuego.juegoTerminado = true;
       this.ocultarVerificar=false;
       var mensaje = this.nuevoJuego.gano ? "Muy bien! Ganaste!" : "Juego perdido vaquero";
-      // this.actualizarPuntosUsuario();
-      this.nuevoJuego.actualizarDatosJuegos();
+      this.actualizarPuntosUsuario();
+      this.nuevoJuego.actualizarDatosJuegos(); 
+           
       this.openSnackBar(mensaje);
     }
   }
   actualizarPuntosUsuario(){
-   
-    var usuariosLocalStorage = JSON.parse(localStorage.getItem("usuarios"));
-    var indexUsuarioLogueado = this.obtenerIndexUsuarioLogueado();
-
-    if((typeof this.usuariosEnLocalStorage).toString() == 'object'){    
-      usuariosLocalStorage = this.jugador; 
+    var indexUser = LocalStorage.obtenerIndexUsuarioLogueado();
+    if(indexUser!=-1){
+      LocalStorage.actualizarUnUsuario(this.jugador,indexUser);
     }
-    else{
-      usuariosLocalStorage[indexUsuarioLogueado] = this.jugador;
-    }
-
-    localStorage.removeItem("usuarios");
-    localStorage.setItem("usuarios",JSON.stringify(usuariosLocalStorage));
-    
-  }
- 
-  actualizarDatosJuegos(){
-  
-    var juegosEnLocalStorage:any = new Array<any>();
-    var usuarioLogueadoEnJuego:any;
-
-    if(localStorage.getItem("juegos")!=null){
-      juegosEnLocalStorage = <Array<any>> JSON.parse(localStorage.getItem("juegos"));              
-
-    }
-   
-    // var juegoActual = this.nuevoJuego;
-    // console.log(juegosEnLocalStorage);
-    var juegoAGuardar= {"juego":"Agilidad Aritmetica","jugador":this.jugador.nombre,"gano":this.jugador.gano};
-    localStorage.removeItem("juegos");
-    juegosEnLocalStorage.push(juegoAGuardar);
-    console.log(juegoAGuardar);
-    localStorage.setItem("juegos",JSON.stringify(juegosEnLocalStorage));
-  }
-  obtenerIndexUsuarioLogueado():number{
-    var usuarioLogueadoEnJuego:any;
-
-    if(localStorage.getItem("usuarioLogueado")!=null){
-      usuarioLogueadoEnJuego = JSON.parse(localStorage.getItem("usuarioLogueado"));              
-    }
-    if(localStorage.getItem("usuarios")!=null){
-      this.usuariosEnLocalStorage = <Array<any>> JSON.parse(localStorage.getItem("usuarios"));              
-    }
-    if(this.usuariosEnLocalStorage!= undefined){      
-      for (let index = 0; index <= this.usuariosEnLocalStorage.length; index++) {
-        var usuario = this.usuariosEnLocalStorage[index];
-        
-        
-        if(usuario["mail"] ===  usuarioLogueadoEnJuego["mail"]){                    
-          return index;     
-        }
-      }
-    }
-    return -1;
-  }
+  }  
   verificadorJuegoTerminado(){
     if(this.jugador.vidas==0){
       this.jugador.gano = this.nuevoJuego.gano=false;   

@@ -20,6 +20,8 @@
   </div>
 </div>
     <h2><button *ngIf="!comenzoJuego" (click)="generarnumero()"  class="btn btn-info btn-lg">Comenzar</button></h2>
+    <button *ngIf="jugador.vidas==0 || juegoTerminado" id="btnComenzar" class="btn btn-warning" (click)="jugarOtraVez()">Jugar Otra vez</button>           
+
     <div [@animacion]="animacionEnemigo" class="enemigo">
       <img [src]="imagenEnemigo">
       <p>{{mensaje}}</p>
