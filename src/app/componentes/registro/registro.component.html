@@ -1,38 +1,50 @@
-<div class="registro mx-auto">
+<mat-card class="" fxLayout="column" fxLayoutAlign="center center" style="margin:25px" >
 
-  <h2>Registro usuario</h2>
-  <hr>
-  <div class="form">       
-    <div class="form-group mb-2">
-      <i class="fa fa-user"></i>
-      <input type="text" placeholder="Ingrese nombre" [(ngModel)]="usuarioNuevo.nombre" name="psw-repeat" class="form-control" required>
-    </div> 
-      
-      <div class="form-group">
-        <i class="fa fa-user"></i>
-        <input type="text" placeholder="Ingrese su mail" [(ngModel)]="usuarioNuevo.mail"  name="email" class="form-control" required>       
-      </div>
-
-      <div class="form-check form-check-inline mb-2">
-        <span>Sexo:</span><br>
-        <input class="form-check-input" [value]="'Masculino'" type="radio" [(ngModel)]="usuarioNuevo.sexo" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-        <label class="form-check-label" for="inlineRadio1">Masculino</label>
-      </div>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" [value]="'Femenino'" type="radio" [(ngModel)]="usuarioNuevo.sexo" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-        <label class="form-check-label" for="inlineRadio2">Femenino</label>
-      </div>
-      <br>
-
-      <i class="fa fa-lock"></i>
-      <input type="password" class="clave" placeholder="Clave" [(ngModel)]="usuarioNuevo.clave" name="psw" class="form-control"  required>
-      
-      <i class="fa fa-lock"></i>
-      <input type="password" class="clave" placeholder="Confirmar Clave" [(ngModel)]="confirmacionClave" name="psw-repeat" class="form-control" required>
-      
-      <div class="">
-        <button type="button" class="btn btn-danger" routerLink="/Login" routerLinkActive="router-link-active" >Cancelar</button>
-        <button type="button"  (click)="registrar()" class="btn btn-primary">Registrarme</button>
-      </div>
-    </div>
-</div>
+  <mat-card-header style="margin:10px">
+    <mat-card-title>Registro Usuarios</mat-card-title>
+  </mat-card-header> 
+  <mat-card-content>
+  <mat-form-field appearance="outline" style="margin:10px">
+    <mat-label>Nombre</mat-label>
+    <input matInput placeholder="Ingrese Nombre" [(ngModel)]="usuarioNuevo.nombre" name="fieldName1">
+    <mat-icon matSuffix>perm_identity</mat-icon>
+    <mat-hint>Ingrese Nombre</mat-hint>
+  </mat-form-field>
+  <br>
+  <mat-form-field appearance="fill" style="margin:10px">
+    <mat-label>Email</mat-label>
+    <input matInput placeholder="mail@ejemplo.com" [(ngModel)]="usuarioNuevo.mail"  name="fieldName1" required>
+    <mat-error *ngIf="email.invalid">Ingrese un mail valido</mat-error>
+  </mat-form-field>
+  <br>
+  <div style="margin:10px">
+    <label>Sexo: </label>
+    <mat-radio-group [(ngModel)]="usuarioNuevo.sexo">
+      <mat-radio-button name="fieldName3" value="masculino">Masculino</mat-radio-button>
+      <mat-radio-button name="fieldName1" value="femenino">Fenenino</mat-radio-button>
+    </mat-radio-group>
+  </div>
+  <div style="margin:10px">
+    <mat-form-field appearance="fill">
+      <mat-label>Clave</mat-label>
+      <input matInput [type]="hide ? 'password' : 'text'" [(ngModel)]="usuarioNuevo.clave" name="fieldName1">
+       <button mat-icon-button matSuffix (click)="hide = !hide" name="fieldName2" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+      <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+  <div style="margin:10px">
+     <mat-form-field appearance="fill">
+      <mat-label>Confirme Su Clave</mat-label>
+      <input matInput [type]="hide ? 'password' : 'text'" [(ngModel)]="confirmacionClave" name="fieldName2">
+      <button mat-icon-button matSuffix (click)="hide = !hide" name="fieldName1" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+      <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+    </mat-form-field> 
+  </div>
+  <div style="margin:10px">
+    <button mat-button routerLink="/Login" color="warn">Cancelar</button>
+    <button mat-button (click)="registrar()" color="accent">Registrar</button>
+  </div>
+</mat-card-content>
+</mat-card>

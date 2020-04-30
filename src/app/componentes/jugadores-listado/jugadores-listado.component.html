@@ -1,12 +1,11 @@
   <nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">    
     <a class="active" style="font-size: 4rem;"routerLink="/Principal"><i class="fa fa-home fa-50px"></i></a>
     <ul class="nav nav-pills nav-justified">
-      <li><a (click)="TraerTodos()" href="#">Todos los jugadores</a></li>
-      <li><a (click)="TraerGanadores()" href="#">Ganadores</a></li>
-      <li><a (click)="TraerPerdedores()" href="#">Perdedores</a></li>
+      <li><button (click)="TraerTodos()" class="btn btn-light">Todos</button></li>
+      <li><button (click)="traerMayorPuntaje()" class="btn btn-light">Mayor Puntaje</button></li>
+      <li><button (click)="traerMenorPuntaje()" class="btn btn-light">Menor Puntaje</button></li>
     </ul>
   </nav>
-
 
 
 
@@ -17,6 +16,7 @@
       <th>Nombre</th>
       <th>Sexo</th>
       <th>Puntos Acumulados</th>
+      <th>Fecha Última Puntuación</th>
     </tr>
   </thead>
   <tbody>
@@ -25,7 +25,7 @@
       <td>{{jugador.nombre}} </td> 
       <td>{{jugador.sexo}} </td> 
       <td>{{jugador.puntosTotalesAcum}} </td> 
-      
+      <td>{{jugador.fechaActualizacion}} </td> 
     </tr>
    
   </tbody>

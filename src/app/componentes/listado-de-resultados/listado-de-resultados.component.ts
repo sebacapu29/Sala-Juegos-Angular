@@ -9,15 +9,28 @@ import { Component, OnInit , Input, EventEmitter} from '@angular/core';
 export class ListadoDeResultadosComponent implements OnInit {
  
  listado: Array<any>;
-
+ listadoOriginal: Array<any>;
 
   constructor() {
-    console.log(localStorage.getItem("juegos"));
-    this.listado = JSON.parse(localStorage.getItem("juegos")); 
+    this.listadoOriginal =  this.listado = JSON.parse(localStorage.getItem("juegos")); 
    }
 
   ngOnInit() {
 
+  }
+  traerTodos(){
+    this.listado = this.listadoOriginal;
+  }
+  traerGanadores(){
+    this.listado = this.listadoOriginal.filter(function(juego){
+      
+      return juego.gano == true;
+    });
+  }
+  traerPerdedores(){
+    this.listado = this.listadoOriginal.filter(function(juego){      
+      return juego.gano == false;
+    });
   }
 
 }

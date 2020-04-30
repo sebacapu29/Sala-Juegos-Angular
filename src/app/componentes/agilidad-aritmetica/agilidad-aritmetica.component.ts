@@ -7,6 +7,7 @@ import {TimerObservable} from "rxjs/observable/TimerObservable";
 import { Jugador } from 'src/app/clases/jugador';
 import { style, trigger, state, transition, animate } from '@angular/animations';
 import { LocalStorage } from 'src/app/clases/helpers/local-storage';
+import { DateTimeHelper } from 'src/app/clases/helpers/date-time';
 @Component({
   selector: 'app-agilidad-aritmetica',
   templateUrl: './agilidad-aritmetica.component.html',
@@ -62,6 +63,7 @@ export class AgilidadAritmeticaComponent implements OnInit {
     }   
     this.jugador = new Jugador(usuarioLocalStorage.nombre,usuarioLocalStorage.mail,usuarioLocalStorage.clave,usuarioLocalStorage.sexo,"Agilidad Aritmetica"); 
      this.jugador.puntosTotalesAcum = usuarioLocalStorage.puntosTotalesAcum;
+     this.jugador.fechaActualizacion = usuarioLocalStorage.fechaActualizacion;
     this.nuevoJuego.jugador = this.jugador.mail;
   }
   NuevoJuego() {
@@ -124,6 +126,7 @@ export class AgilidadAritmeticaComponent implements OnInit {
     }
     this.deshabilitar=true;
     if(this.verificadorJuegoTerminado()){
+      this.jugador.fechaActualizacion = DateTimeHelper.getFechaYHora();
       this.nuevoJuego.juegoTerminado = true;
       this.ocultarVerificar=false;
       var mensaje = this.nuevoJuego.gano ? "Muy bien! Ganaste!" : "Juego perdido vaquero";

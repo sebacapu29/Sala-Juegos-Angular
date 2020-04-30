@@ -1,4 +1,12 @@
 
+<nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">    
+  <a class="active casa" routerLink="/Principal"><i class="fa fa-home fa-50px"></i></a>
+  <ul class="nav nav-pills nav-justified">
+    <button (click)="traerTodos()" class="btn btn-light">Todos</button>
+    <button (click)="traerGanadores()" class="btn btn-light">Ganadores</button>
+    <button (click)="traerPerdedores()" class="btn btn-light">Perdedores</button>
+  </ul>
+</nav>
 <table class="table table-condensed table-hover table-dark">
     <thead>
       <tr class="table-primary">

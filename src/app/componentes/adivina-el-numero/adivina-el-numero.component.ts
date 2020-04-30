@@ -4,6 +4,7 @@ import { JuegoAdivina } from '../../clases/juego-adivina'
 import { style, trigger, state, transition, animate } from '@angular/animations';
 import { Jugador } from 'src/app/clases/jugador';
 import { LocalStorage } from 'src/app/clases/helpers/local-storage';
+import { DateTimeHelper } from 'src/app/clases/helpers/date-time';
 
 @Component({
   selector: 'app-adivina-el-numero',
@@ -57,7 +58,8 @@ export class AdivinaElNumeroComponent implements OnInit {
     this.jugador = new Jugador(usuarioLocalStorage.nombre,usuarioLocalStorage.mail,usuarioLocalStorage.clave,usuarioLocalStorage.sexo,"Poderoso Conocimiento"); 
     this.nuevoJuego.jugador = this.jugador.mail;
     this.jugador.vidas=5;
-    this.jugador.puntosTotalesAcum = usuarioLocalStorage.puntosTotalesAcum;    
+    this.jugador.puntosTotalesAcum = usuarioLocalStorage.puntosTotalesAcum; 
+    this.jugador.fechaActualizacion = usuarioLocalStorage.fechaActualizacion;   
     this.nuevoJuego.nombre = "Adivina el Número";
     
   }
@@ -144,6 +146,7 @@ export class AdivinaElNumeroComponent implements OnInit {
      
     }
     if(this.esJuegoTerminado()){
+      this.jugador.fechaActualizacion = DateTimeHelper.getFechaYHora();
       this.juegoTerminado =true;
       this.comenzoJuego=true;
       this.actualizarPuntosUsuario();

@@ -7,6 +7,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalPreguntasComponent } from '../modal-preguntas/modal-preguntas.component';
 import { JuegoPreguntas } from 'src/app/clases/juego-preguntas';
 import { LocalStorage } from 'src/app/clases/helpers/local-storage';
+import { DateTimeHelper } from 'src/app/clases/helpers/date-time';
 
 
 @Component({
@@ -112,6 +113,7 @@ export class PreguntasComponent implements OnInit {
     this.jugador = new Jugador(usuarioLocalStorage.nombre,usuarioLocalStorage.mail,usuarioLocalStorage.clave,usuarioLocalStorage.sexo,"Poderoso Conocimiento"); 
     this.nuevoJuego.jugador = this.jugador.mail;
     this.jugador.puntosTotalesAcum = usuarioLocalStorage.puntosTotalesAcum;
+    this.jugador.fechaActualizacion = usuarioLocalStorage.fechaActualizacion;
     this.nuevoJuego.nombre = "Poderoso Conocimiento";
   }
   
@@ -202,6 +204,7 @@ export class PreguntasComponent implements OnInit {
       this.clearGame();
     }
     if(this.esJuegoTerminado()){
+      this.jugador.fechaActualizacion = DateTimeHelper.getFechaYHora();
       this.nuevoJuego.actualizarDatosJuegos();
       this.actualizarPuntosUsuario();
     }

@@ -3,6 +3,7 @@ import { Jugador } from 'src/app/clases/jugador';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { JuegoPiedraPapelTijera } from 'src/app/clases/juego-piedra-papel-tijera';
 import { LocalStorage } from 'src/app/clases/helpers/local-storage';
+import { DateTimeHelper } from 'src/app/clases/helpers/date-time';
 
 @Component({
   selector: 'app-ppt',
@@ -68,10 +69,8 @@ export class PptComponent implements OnInit {
     this.jugador = new Jugador(usuarioLocalStorage.nombre,usuarioLocalStorage.mail,usuarioLocalStorage.clave,usuarioLocalStorage.sexo,"Poderoso Conocimiento"); 
     this.nuevoJuego.jugador = this.jugador.mail;
    
-    this.jugador.puntosTotalesAcum = usuarioLocalStorage.puntosTotalesAcum;
-    // console.log("constr");
-    // console.log(usuarioLocalStorage);
-    // console.log(this.jugador);
+    this.jugador.puntosTotalesAcum = usuarioLocalStorage.puntosTotalesAcum; 
+    this.jugador.fechaActualizacion = usuarioLocalStorage.fechaActualizacion;
     this.nuevoJuego.nombre = "Piedra Papel o Tijera";
    }
 
@@ -132,7 +131,7 @@ export class PptComponent implements OnInit {
         this.verificarEstadoDeLaJugada();
         clearInterval(this.intervalId);
       }         
-    }, 750);  
+    }, 550);  
   }
 
   else{
@@ -152,28 +151,27 @@ export class PptComponent implements OnInit {
       this.MostarMensaje("Esta ronda es mia!",false);       
     }
 
-    if(this.esJuegoTerminado() && esGanadaLaRonda){
-      console.log("1");
-      console.log(this.jugador);
+    if(this.esJuegoTerminado() && esGanadaLaRonda){      
         this.MostarMensaje("Bien lo tuyo",true);  
-        this.nuevoJuego.gano=true;        
+        this.nuevoJuego.gano=true;
+        
+        this.jugador.fechaActualizacion = DateTimeHelper.getFechaYHora();        
         this.actualizarPuntosUsuario(); 
         this.nuevoJuego.actualizarDatosJuegos();
       }
-    else if(this.esJuegoTerminado() && !esGanadaLaRonda){
-      console.log("2");
-      console.log(this.jugador);
+    else if(this.esJuegoTerminado() && !esGanadaLaRonda){  
         this.MostarMensaje("Mejor la próxima!",false);
         this.nuevoJuego.gano=false;  
+        this.jugador.fechaActualizacion = DateTimeHelper.getFechaYHora();  
         this.actualizarPuntosUsuario(); 
         this.nuevoJuego.actualizarDatosJuegos();        
       }
-      else if(this.esJuegoTerminado() && this.esEmpate){ 
-        console.log("3"); 
-        console.log(this.jugador);      
+      else if(this.esJuegoTerminado() && this.esEmpate){     
+        this.jugador.fechaActualizacion =DateTimeHelper.getFechaYHora();     
+        this.nuevoJuego.gano= esGanadaLaRonda ? true : false;
         this.actualizarPuntosUsuario(); 
         this.nuevoJuego.actualizarDatosJuegos();
-        this.nuevoJuego.gano= esGanadaLaRonda ? true : false;
+
       }
       this.esEmpate = false;
   }
