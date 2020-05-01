@@ -14,39 +14,33 @@ import { DateTimeHelper } from 'src/app/clases/helpers/date-time';
   selector: 'app-preguntas',
   templateUrl: './preguntas.component.html',
   styleUrls: ['./preguntas.component.css'],
-  animations:[
-    trigger('animacion',[
-      state('estado1',style({        
-      })),
-      state('estado2',style({
-        marginLeft:'10%'
-      })),
-      transition('estado1 <=> estado2',animate('100ms'))
-    ]),
+  animations:[  
     trigger('animacion2',[
       state('estado1Anim2',style({
-        
+        opacity:'0'
       })),
       state('estado2Anim2',style({
-        marginLeft:'25%'
+        opacity:'1'
       })),     
-      transition('estado1Anim2 <=> estado2Anim2',animate('100ms'))     
+      transition('estado1Anim2 <=> estado2Anim2',animate('2s'))
     ]),
     trigger('animacion3',[
       state('estado1Anim3',style({
+        opacity:'0'
       })),
       state('estado2Anim3',style({
-        marginLeft:'25%'
+        opacity:'1'
       })),     
-      transition('estado1Anim3 <=> estado2Anim3',animate('150ms'))     
+      transition('estado1Anim3 <=> estado2Anim3',animate('2s'))     
     ]),
     trigger('animacion4',[
       state('estado1Anim4',style({
+        opacity:'0'
       })),
       state('estado2Anim4',style({
-        marginLeft:'25%'
+        opacity:'1'
       })),     
-      transition('estado1Anim4 <=> estado2Anim4',animate('250ms'))     
+      transition('estado1Anim4 <=> estado2Anim4',animate('2s'))     
     ])
   ]
 })
@@ -54,11 +48,9 @@ export class PreguntasComponent implements OnInit {
 
   comenzoJuego:boolean=false;
   juegoTerminado:boolean=false;
-  estadoAnimacion="estado1";
   estadoAnimacion2 = "estado1Anim2";
   estadoAnimacion3="estado1Anim3";
   estadoAnimacion4 = "estado1Anim4";
-  // imageBackground="./assets/imagenes/juegoFondo1.PNG";
   imagenCofre ="./assets/imagenes/cofre.jpg";
   mensajeJuego:string;
   intervalId:any;
@@ -143,10 +135,23 @@ export class PreguntasComponent implements OnInit {
   }
   }
   iniciarAnimacion(){
-    this.estadoAnimacion = "estado2";
-    this.estadoAnimacion2="estado2Anim2";
-    this.estadoAnimacion3="estado2Anim3";
-    this.estadoAnimacion4="estado2Anim4"; 
+    var Tiempo=3;
+
+    var intervalId= setInterval(()=>{ 
+    
+      if(Tiempo==3 ) {
+        this.estadoAnimacion2="estado2Anim2";       
+      }
+      else if(Tiempo==2){
+        this.estadoAnimacion3="estado2Anim3";
+      }
+      else if(Tiempo==1){
+        this.estadoAnimacion4="estado2Anim4"; 
+        Tiempo=3;       
+        clearInterval(intervalId);
+      }
+      Tiempo--;
+      }, 200);
   }
   esJuegoTerminado(){
     if(this.juegoPreguntas.length ==0){
@@ -212,8 +217,7 @@ export class PreguntasComponent implements OnInit {
   
   clearGame(){
     this.comenzoJuego =false;
-    this.juegoTerminado = this.juegoPreguntas.length==0;
-    this.estadoAnimacion="estado1";
+    this.juegoTerminado = this.juegoPreguntas.length==0;  
     this.estadoAnimacion2 = "estado1Anim2";
     this.estadoAnimacion3 = "estado1Anim3";
     this.estadoAnimacion4 = "estado1Anim4";
