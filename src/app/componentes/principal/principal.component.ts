@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
 
@@ -8,18 +8,31 @@ import { Router } from '@angular/router';
   styleUrls: ['./principal.component.css']
 })
 export class PrincipalComponent implements OnInit {
- public status: any = {
-    isFirstOpen: true,
-    isFirstDisabled: false
-  };
-  public isMenuCollapsed = true;
+  
+  seleccionoDeslogue=false;
+  isLogged=false;
+  usuarioParaCabecera="";
   constructor(private router:Router) { 
-    // if(sessionStorage.getItem("isLoggedIn")!= 'true') {
-    //   router.navigate(["Login"]);
-    //   console.log(sessionStorage.getItem("isLoggedIn"));
-    // }
+
+    var isLogin = localStorage.getItem("isLoggedIn");
+  
+    if(isLogin=='true'){
+      this.isLogged =true;
+    } 
+    else{
+      this.seleccionoDeslogue = true;
+    }
    }
-  images = ["../../../assets/imagenes/tecladogamer.jpg","../../../assets/imagenes/listado1.jpg","../../../assets/imagenes/engranaje.jpg","../../../assets/imagenes/equipo.jpg"]
   ngOnInit() {
+  }
+  tomarDeslogueo(estadoLogueo:boolean){
+    this.seleccionoDeslogue = estadoLogueo;
+    this.isLogged=false;
+    this.usuarioParaCabecera="";
+  }
+  tomarLogueo(estadoLogueo:boolean){
+    this.usuarioParaCabecera = JSON.parse(localStorage.getItem("usuarioLogueado")).nombre;
+    this.isLogged=estadoLogueo;
+    this.seleccionoDeslogue = false;
   }
 }

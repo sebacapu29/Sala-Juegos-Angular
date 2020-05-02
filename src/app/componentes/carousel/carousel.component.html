@@ -1,0 +1,39 @@
+
+<ngb-carousel *ngIf="images" >
+    <ng-template ngbSlide style="color: black;">
+      <div class="">
+        <img [src]="images[0]" alt="Imagen 1" style="height: 50vh">
+      </div>
+      <div class="carousel-caption">
+        <h3>Juegos</h3>
+        <p>Didácticos para toda la familia </p>
+      </div>
+    </ng-template>
+    <ng-template ngbSlide>
+      <div class="picsum-img-wrapper">
+        <img [src]="images[1]" alt="Imagen 2" style="height: 50vh">
+      </div>
+      <div class="carousel-caption" style="color: black;">
+        <h3>Listados de resultados</h3>
+        <p>Los listados de los resultados con ordenamiento y busqueda</p>
+      </div>
+    </ng-template>
+    <ng-template ngbSlide>
+      <div class="picsum-img-wrapper d-block" >
+        <img [src]="images[2]" alt="Imagen 3" style="height: 50vh" >
+      </div>
+      <div class="carousel-caption" style="color: black;">
+        <h3>Configuración</h3>
+        <p>Ajustes de la aplicacion y los métodos de autentificación</p>
+      </div>
+    </ng-template>
+    <ng-template ngbSlide>
+      <div class="picsum-img-wrapper d-block" style="color: black;">
+        <img [src]="images[3]" alt="Imagen 4" style="height: 50vh">
+      </div>
+      <div class="carousel-caption" >
+        <h3>Jugadores</h3>
+        <p>Listado de jugadores</p>
+      </div>
+    </ng-template>
+  </ngb-carousel>

@@ -1,5 +1,6 @@
 import { Usuario } from '../usuario';
 import { Jugador } from '../jugador';
+import { DateTimeHelper } from './date-time';
 
 export class LocalStorage {
 
@@ -33,9 +34,9 @@ export class LocalStorage {
       }
 
       static actualizarUnUsuario(usuario:Jugador,index:number,puntosAcum?:number){       
-        var usuarioDatos = { "mail" : usuario.mail, "clave": usuario.clave,"sexo":usuario.sexo,"nombre":usuario.nombre,"puntosTotalesAcum":usuario.puntosTotalesAcum};
+        var usuarioDatos = { "mail" : usuario.mail, "clave": usuario.clave,"sexo":usuario.sexo,"nombre":usuario.nombre,"puntosTotalesAcum":usuario.puntosTotalesAcum,"fechaActualizacion": DateTimeHelper.getFechaYHora()};
         var usuariosEnLocalStorage = <Array<any>> JSON.parse(localStorage.getItem("usuarios")); 
-        if(Array.isArray(usuariosEnLocalStorage)){
+        if(Array.isArray(usuariosEnLocalStorage)){   
             usuariosEnLocalStorage[index] = usuarioDatos;
         }
          localStorage.removeItem("usuarios");

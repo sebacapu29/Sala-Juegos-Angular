@@ -209,7 +209,6 @@ export class PreguntasComponent implements OnInit {
       this.clearGame();
     }
     if(this.esJuegoTerminado()){
-      this.jugador.fechaActualizacion = DateTimeHelper.getFechaYHora();
       this.nuevoJuego.actualizarDatosJuegos();
       this.actualizarPuntosUsuario();
     }

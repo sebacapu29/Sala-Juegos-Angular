@@ -154,15 +154,13 @@ export class PptComponent implements OnInit {
     if(this.esJuegoTerminado() && esGanadaLaRonda){      
         this.MostarMensaje("Bien lo tuyo",true);  
         this.nuevoJuego.gano=true;
-        
-        this.jugador.fechaActualizacion = DateTimeHelper.getFechaYHora();        
+             
         this.actualizarPuntosUsuario(); 
         this.nuevoJuego.actualizarDatosJuegos();
       }
     else if(this.esJuegoTerminado() && !esGanadaLaRonda){  
         this.MostarMensaje("Mejor la próxima!",false);
-        this.nuevoJuego.gano=false;  
-        this.jugador.fechaActualizacion = DateTimeHelper.getFechaYHora();  
+        this.nuevoJuego.gano=false;   
         this.actualizarPuntosUsuario(); 
         this.nuevoJuego.actualizarDatosJuegos();        
       }

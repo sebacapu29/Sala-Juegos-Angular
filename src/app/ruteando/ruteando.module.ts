@@ -8,7 +8,6 @@ import { LoginComponent } from '../componentes/login/login.component';
 import { ErrorComponent } from '../componentes/error/error.component';
 import { PrincipalComponent } from '../componentes/principal/principal.component';
 import { AgilidadAritmeticaComponent } from '../componentes/agilidad-aritmetica/agilidad-aritmetica.component';
-import { MenuComponent } from '../componentes/menu/menu.component';
 import { AdivinaMasListadoComponent } from '../componentes/adivina-mas-listado/adivina-mas-listado.component';
 import { AgilidadMasListadoComponent } from '../componentes/agilidad-mas-listado/agilidad-mas-listado.component';
 import { ListadoComponent } from'../componentes/listado/listado.component'
@@ -25,20 +24,23 @@ import { PptComponent } from '../componentes/ppt/ppt.component';
 import { ConfiguracionComponent } from '../componentes/configuracion/configuracion.component';
 import { AnagramaComponent } from '../componentes/anagrama/anagrama.component';
 import { TatetiComponent } from '../componentes/tateti/tateti.component';
+import { MenuNavComponent } from '../componentes/menu-nav/menu-nav.component';
+import { CarouselComponent } from '../componentes/carousel/carousel.component';
 
 
 // declaro donde quiero que se dirija
 const MiRuteo = [
 {path: 'Jugadores' , component: JugadoresListadoComponent},
-{path: '' , component: LoginComponent},
-{path: 'Login' , component: LoginComponent},
+// {path: '' , component: PrincipalComponent},
+// {path: 'Login' , component: LoginComponent},
 {path: 'Mapa' , component: MapaDeGoogleComponent},
 {path: 'QuienSoy' , component: QuienSoyComponent},
 {path: 'Registro' , component: RegistroComponent},
-{path: 'Principal' , component: PrincipalComponent},
+// {path: 'Principal' , component: PrincipalComponent},
 {path: 'Listado' , component: ListadoComponent},
 {path: 'Paises' , component: ListadoDePaisesComponent},
 {path:'Configs',component:ConfiguracionComponent},
+{path:'Carousel',component:CarouselComponent},
 { path: 'Juegos' ,
 component: JuegosComponent ,
 children:
@@ -52,7 +54,7 @@ children:
       {path:'Anagrama',component:AnagramaComponent},
       {path:'Tateti',component:TatetiComponent}]
 },
-{path: '**' , component: ErrorComponent},
+// {path: '**' , component: ErrorComponent},
 {path: 'error' , component: ErrorComponent}];
 
 @NgModule({

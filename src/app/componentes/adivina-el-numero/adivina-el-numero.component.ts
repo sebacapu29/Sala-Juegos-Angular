@@ -145,7 +145,6 @@ export class AdivinaElNumeroComponent implements OnInit {
      
     }
     if(this.esJuegoTerminado()){
-      this.jugador.fechaActualizacion = DateTimeHelper.getFechaYHora();
       this.juegoTerminado =true;
       this.comenzoJuego=true;
       this.actualizarPuntosUsuario();

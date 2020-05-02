@@ -20,7 +20,6 @@ import{ ArchivosJugadoresService} from './servicios/archivos-jugadores.service';
 import { ErrorComponent } from './componentes/error/error.component';
 import { PrincipalComponent } from './componentes/principal/principal.component';
 import { AgilidadAritmeticaComponent } from './componentes/agilidad-aritmetica/agilidad-aritmetica.component';
-import { MenuComponent } from './componentes/menu/menu.component';
 import { AdivinaMasListadoComponent } from './componentes/adivina-mas-listado/adivina-mas-listado.component';
 import { AgilidadMasListadoComponent } from './componentes/agilidad-mas-listado/agilidad-mas-listado.component';
 import { RuteandoModule } from './ruteando/ruteando.module';
@@ -46,6 +45,8 @@ import { MaterialModule } from './material-Modules/material.module';
 import { ConfiguracionComponent } from './componentes/configuracion/configuracion.component';
 import { AnagramaComponent } from './componentes/anagrama/anagrama.component';
 import { TatetiComponent } from './componentes/tateti/tateti.component';
+import { MenuNavComponent } from './componentes/menu-nav/menu-nav.component';
+import { CarouselComponent } from './componentes/carousel/carousel.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,6 @@ import { TatetiComponent } from './componentes/tateti/tateti.component';
     PrincipalComponent,
     LoginComponent,
     AgilidadAritmeticaComponent,
-    MenuComponent,
     AdivinaMasListadoComponent,
     AgilidadMasListadoComponent,
     ListadoComponent,
@@ -74,7 +74,9 @@ import { TatetiComponent } from './componentes/tateti/tateti.component';
     PptComponent,
     ConfiguracionComponent,
     AnagramaComponent,
-    TatetiComponent
+    TatetiComponent,
+    MenuNavComponent,
+    CarouselComponent
   ],
   imports: [
     BrowserModule,

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 import {Subscription} from "rxjs";
@@ -22,6 +22,7 @@ export class LoginComponent implements OnInit {
   usuariosEnLocalStorage:any[];
   esUsuarioRegistrado:number;
   esUnico:boolean=false;
+  @Output() onUsuarioLogueado:EventEmitter<any>= new EventEmitter<any>();
 
   clase="progress-bar progress-bar-info progress-bar-striped ";
 
@@ -31,9 +32,11 @@ export class LoginComponent implements OnInit {
       this.progreso=0;
       this.ProgresoDeAncho="0%";      
       this.usuario=new Usuario();
-      if(sessionStorage.getItem("isLoggedIn")){        
-        this.router.navigate(['/Principal']);     
-      }      
+      
+      var isLogin = localStorage.getItem("isLoggedIn");
+      if(isLogin=='true'){
+        router.navigate(['Carousel']);
+      }            
   }
 
   ngOnInit() {
@@ -44,8 +47,9 @@ export class LoginComponent implements OnInit {
 
     if (this.esUsuarioRegistrado!=-1) {
       localStorage.setItem("isLoggedIn","true");
-      LocalStorage.actualizarUsuarioLogueado(this.esUsuarioRegistrado);     
-      this.router.navigate(['/Principal']);
+      LocalStorage.actualizarUsuarioLogueado(this.esUsuarioRegistrado);   
+      this.onUsuarioLogueado.emit(true);  
+      this.router.navigate(['Carousel']);
     }
     else{
       //usuario invalido

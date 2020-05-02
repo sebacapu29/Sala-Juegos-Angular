@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { JuegoTateti } from 'src/app/clases/juego-tateti';
 import { Jugador } from 'src/app/clases/jugador';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import { LocalStorage } from 'src/app/clases/helpers/local-storage';
 
 @Component({
   selector: 'app-tateti',
@@ -67,6 +68,8 @@ export class TatetiComponent implements OnInit {
         this.jugador.gano=true;
         this.nuevoJuego.gano=true;
         this.juegoTerminado=true;
+        this.nuevoJuego.actualizarDatosJuegos();
+        this.actualizarPuntosUsuario();
         this.openSnackBar("Muy bien me Ganaste, intentemos de nuevo!","Juego terminado");
       }
       return;
@@ -94,6 +97,8 @@ export class TatetiComponent implements OnInit {
           this.jugador.gano=false;
           this.nuevoJuego.gano=false;
           this.juegoTerminado=true;
+          this.nuevoJuego.actualizarDatosJuegos();
+          this.actualizarPuntosUsuario();
           this.openSnackBar("Perdiste el juego! vuelve a intentar","Juego Terminado");
         }       
         this.bloquearDesbloqTablero(true);
@@ -104,8 +109,12 @@ export class TatetiComponent implements OnInit {
       this.openSnackBar("Empate!","Ronda");           
       //reiniciar
     }
-    if(this.esJuegoTerminado()){
+    if(this.esJuegoTerminado()){      
       this.juegoTerminado=true;
+      this.jugador.gano=false;
+      this.nuevoJuego.gano=false;
+      this.nuevoJuego.actualizarDatosJuegos();
+      this.actualizarPuntosUsuario();
     }
   }
   mostrarMensaje(){
@@ -114,6 +123,12 @@ export class TatetiComponent implements OnInit {
   openSnackBar(mensaje:string,titulo:string){
     this._snackBar.open(mensaje,titulo,{duration:5000});
   }
+  actualizarPuntosUsuario(){
+    var indexUser = LocalStorage.obtenerIndexUsuarioLogueado();
+    if(indexUser!=-1){
+      LocalStorage.actualizarUnUsuario(this.jugador,indexUser);
+    }
+  }  
   bloquearDesbloqTablero(bloqueo){
     this.tableroBloqueado=bloqueo;
     // this.juegoTerminado=true;

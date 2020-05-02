@@ -126,7 +126,6 @@ export class AgilidadAritmeticaComponent implements OnInit {
     }
     this.deshabilitar=true;
     if(this.verificadorJuegoTerminado()){
-      this.jugador.fechaActualizacion = DateTimeHelper.getFechaYHora();
       this.nuevoJuego.juegoTerminado = true;
       this.ocultarVerificar=false;
       var mensaje = this.nuevoJuego.gano ? "Muy bien! Ganaste!" : "Juego perdido vaquero";

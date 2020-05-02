@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -7,17 +7,27 @@ import { Router } from '@angular/router';
   styleUrls: ['./cabecera.component.css']
 })
 export class CabeceraComponent implements OnInit {
-  nombreDeUsuarioLogged:string;
-  
-  constructor(private router:Router) {
-    console.log(JSON.parse(localStorage.getItem("usuarioLogueado"))); 
-    this.nombreDeUsuarioLogged = JSON.parse(localStorage.getItem("usuarioLogueado")).nombre;
+  @Input() nombreDeUsuarioLogged:string;
+  ocultar=false;
+  @Output() logOutUsuario:EventEmitter<any>= new EventEmitter<any>();
+
+  constructor(private router:Router) { 
+    this.comprobarUsuarioLogueado();
+
    }
 
   ngOnInit() {
   }
+  comprobarUsuarioLogueado(){
+    var isLogin = localStorage.getItem("isLoggedIn");
+    if(isLogin=='true'){
+      this.nombreDeUsuarioLogged = JSON.parse(localStorage.getItem("usuarioLogueado")).nombre;
+    }
+  }
   logOut(){
-    sessionStorage.removeItem("isLoggedIn");
-    this.router.navigate(["Login"])
+    localStorage.removeItem("isLoggedIn");
+    localStorage.setItem("isLoggedIn",'false');
+    this.logOutUsuario.emit(true);
+    this.router.navigate([""]);
   }
 }
