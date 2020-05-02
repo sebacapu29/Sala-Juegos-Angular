@@ -51,7 +51,6 @@ export class AdivinaElNumeroComponent implements OnInit {
     this.animacionEnemigo="estado1";
     var usuarioLocalStorage:any;
 
-    // this.imgEstrella = "/assets/imagenes/estrella.png";
     if(localStorage.getItem("usuarioLogueado")!=null){
       usuarioLocalStorage = JSON.parse(localStorage.getItem("usuarioLogueado"));              
     }    

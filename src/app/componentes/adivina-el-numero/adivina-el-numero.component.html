@@ -15,9 +15,9 @@
 </div>
    <h3><label [hidden]="!comenzoJuego" >Cual será?:  </label></h3><br>
 <div class="respuestas" [hidden]="!comenzoJuego">
-  <div *ngFor="let numero of listaNumeros">
+  <div *ngFor="let numero of listaNumeros" fxLayoutGap="12px" >
 
-    <input (click)="evaluarRespuesta(numero)" class="estrella" type="image" id="image" alt="Login"
+    <input (click)="evaluarRespuesta(numero)" class="estrella" type="image" id="image"
        src="/assets/imagenes/estrella.png">{{numero}}
   </div>
 </div>

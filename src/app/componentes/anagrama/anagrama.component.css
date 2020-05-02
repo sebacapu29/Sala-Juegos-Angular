@@ -1,0 +1,10 @@
+.background{
+    /* background-image: url('/assets/imagenes/tatetibackground.jpg'); */
+    /* background-size: 100% 100%; */
+    background:linear-gradient(blue,white);
+    background-position: top center;
+    width: 100%;
+    height: 100%;
+    padding-bottom: 250px;
+    
+}

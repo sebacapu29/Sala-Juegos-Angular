@@ -37,7 +37,7 @@
      <mat-form-field appearance="fill">
       <mat-label>Confirme Su Clave</mat-label>
       <input matInput [type]="hide ? 'password' : 'text'" [(ngModel)]="confirmacionClave" name="fieldName2">
-      <button mat-icon-button matSuffix (click)="hide = !hide" name="fieldName1" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+      <button mat-icon-button matSuffix (click)="hide = !hide2" name="fieldName1" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
       <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
       </button>
     </mat-form-field> 

@@ -26,6 +26,7 @@ export class RegistroComponent implements OnInit {
   hideRequiredControl = new FormControl(false);
   floatLabelControl = new FormControl('auto');
   hide=true;
+  hide2=true;
   email = new FormControl('', [Validators.required, Validators.email]);
 
   constructor(private router:Router ) {

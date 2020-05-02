@@ -44,6 +44,8 @@ import { ModalPreguntasComponent } from './componentes/modal-preguntas/modal-pre
 import { PptComponent } from './componentes/ppt/ppt.component';
 import { MaterialModule } from './material-Modules/material.module';
 import { ConfiguracionComponent } from './componentes/configuracion/configuracion.component';
+import { AnagramaComponent } from './componentes/anagrama/anagrama.component';
+import { TatetiComponent } from './componentes/tateti/tateti.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +72,9 @@ import { ConfiguracionComponent } from './componentes/configuracion/configuracio
     PreguntasComponent,
     ModalPreguntasComponent,
     PptComponent,
-    ConfiguracionComponent
+    ConfiguracionComponent,
+    AnagramaComponent,
+    TatetiComponent
   ],
   imports: [
     BrowserModule,

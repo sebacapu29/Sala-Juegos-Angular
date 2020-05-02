@@ -1,0 +1,32 @@
+<h3 class="titulo">Ta te ti!</h3>
+<div class="background"  fxLayout="column" fxLayoutAlign="space-around center"  >
+    <div class="contenido">
+
+    <div class="icon"  fxLayoutAlign="space-around center" >
+       <i class="fa fa-heart fa-lg" aria-hidden="true">: {{jugador.vidas}}</i><i class="fa fa-gamepad fa-lg" aria-hidden="true">: {{jugador.puntos}}</i>
+    </div>
+    <div fxLayOut="fxLayoutGap" *ngIf="!comenzoJuego" >
+
+        <div  class="celda"  (click)="tableroBloqueado ? mostrarMensaje() : llenarCasillero(0, 0)"><p>{{tablero[0].ficha}}</p></div>
+        <div class="celda"   (click)="tableroBloqueado ? mostrarMensaje() : llenarCasillero(0, 1)"><p>{{tablero[1].ficha}}</p></div>
+        <div  class="celda"  (click)="tableroBloqueado ? mostrarMensaje() : llenarCasillero(0, 2)"><p>{{tablero[2].ficha}}</p></div><br>
+        <div  class="celda"  (click)="tableroBloqueado ? mostrarMensaje() : llenarCasillero(1, 0)"><p>{{tablero[3].ficha}}</p></div>
+        <div  class="celda"  (click)="tableroBloqueado ? mostrarMensaje() : llenarCasillero(1, 1)"><p>{{tablero[4].ficha}}</p></div>
+        <div class="celda"   (click)="tableroBloqueado ? mostrarMensaje() : llenarCasillero(1, 2)"><p>{{tablero[5].ficha}}</p></div><br>
+        <div  class="celda"  (click)="tableroBloqueado ? mostrarMensaje() : llenarCasillero(2, 0)"><p>{{tablero[6].ficha}}</p></div>
+        <div class="celda"   (click)="tableroBloqueado ? mostrarMensaje() : llenarCasillero(2, 1)"><p>{{tablero[7].ficha}}</p></div>
+        <div class="celda"   (click)="tableroBloqueado ? mostrarMensaje() : llenarCasillero(2, 2)"><p>{{tablero[8].ficha}}</p></div><br>
+    </div>
+        <div class="footer">
+            <div style="margin:10px" [hidden]="ocultarSeleccionFichas">
+                <label>Seleccione Ficha: </label><br>
+                <mat-radio-group [(ngModel)]="nuevoJuego.ficha">
+                  <mat-radio-button name="fieldName3" value="x">X</mat-radio-button>
+                  <mat-radio-button name="fieldName1" value="o">O</mat-radio-button>
+                </mat-radio-group>
+              </div>
+            <button *ngIf="!comenzoJuego && !juegoTerminado && jugador.vidas>0" id="btnComenzar" class="btn btn-success btnComenzar" (click)="comenzar()">Comenzar</button>           
+            <button *ngIf="jugador.vidas==0 || juegoTerminado" id="btnComenzar" class="btn btn-warning btnComenzar" (click)="jugarOtraVez()">Jugar Otra vez</button>           
+          </div>    
+</div>
+</div>

@@ -33,6 +33,12 @@ export class MenuCardComponent implements OnInit {
       case 'PYR':
           this.router.navigate(['/Juegos/Preguntas']);
         break;
+        case 'Anagrama':
+          this.router.navigate(['/Juegos/Anagrama']);
+        break;
+        case 'Tateti':
+          this.router.navigate(['/Juegos/Tateti']);
+        break;
     }
   }
   animar(){

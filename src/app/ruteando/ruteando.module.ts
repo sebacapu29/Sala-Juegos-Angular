@@ -23,6 +23,8 @@ import { JugadoresListadoComponent } from '../componentes/jugadores-listado/juga
 import { PreguntasComponent } from '../componentes/preguntas/preguntas.component';
 import { PptComponent } from '../componentes/ppt/ppt.component';
 import { ConfiguracionComponent } from '../componentes/configuracion/configuracion.component';
+import { AnagramaComponent } from '../componentes/anagrama/anagrama.component';
+import { TatetiComponent } from '../componentes/tateti/tateti.component';
 
 
 // declaro donde quiero que se dirija
@@ -46,7 +48,9 @@ children:
       {path: 'AgilidadaMasListado' , component: AgilidadMasListadoComponent},
       {path: 'Agilidad' , component: AgilidadAritmeticaComponent},
       {path:'Preguntas',component:PreguntasComponent},
-      {path:'PPT',component:PptComponent}]
+      {path:'PPT',component:PptComponent},
+      {path:'Anagrama',component:AnagramaComponent},
+      {path:'Tateti',component:TatetiComponent}]
 },
 {path: '**' , component: ErrorComponent},
 {path: 'error' , component: ErrorComponent}];
