@@ -65,9 +65,7 @@ export class TatetiComponent implements OnInit {
       this.openSnackBar("Ganaste la ronda!","Ronda");
       this.bloquearDesbloqTablero(true);
       if(this.esJuegoTerminado()){
-        this.jugador.gano=true;
-        this.nuevoJuego.gano=true;
-        this.juegoTerminado=true;
+    
         this.nuevoJuego.actualizarDatosJuegos();
         this.actualizarPuntosUsuario();
         this.openSnackBar("Muy bien me Ganaste, intentemos de nuevo!","Juego terminado");
@@ -94,9 +92,7 @@ export class TatetiComponent implements OnInit {
         this.jugador.vidas--;       
         this.openSnackBar("Ops Perdiste la ronda","Ronda"); 
         if(this.esJuegoTerminado()){
-          this.jugador.gano=false;
-          this.nuevoJuego.gano=false;
-          this.juegoTerminado=true;
+        
           this.nuevoJuego.actualizarDatosJuegos();
           this.actualizarPuntosUsuario();
           this.openSnackBar("Perdiste el juego! vuelve a intentar","Juego Terminado");
@@ -110,9 +106,7 @@ export class TatetiComponent implements OnInit {
       //reiniciar
     }
     if(this.esJuegoTerminado()){      
-      this.juegoTerminado=true;
-      this.jugador.gano=false;
-      this.nuevoJuego.gano=false;
+    
       this.nuevoJuego.actualizarDatosJuegos();
       this.actualizarPuntosUsuario();
     }
@@ -136,11 +130,15 @@ export class TatetiComponent implements OnInit {
  
     esJuegoTerminado(){
       if(this.jugador.vidas ==0){
-       
+        this.juegoTerminado=true;
+        this.jugador.gano=false;
+        this.nuevoJuego.gano=false;
         return true;
       }
       else if(this.jugador.puntos==3){
-  
+        this.jugador.gano=true;
+        this.nuevoJuego.gano=true;
+        this.juegoTerminado=true;
         return true;
       }
     }

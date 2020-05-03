@@ -8,3 +8,81 @@
     padding-bottom: 250px;
     
 }
+.btnJugarOtraVez{
+    margin-top: 30px;
+    border-radius: 20x;
+    border: solid 1px black;
+}
+.celdaBorrar{
+    float: left;
+	border: solid 1px gray;
+    font-size: 25pt;
+    text-align: center;
+    border-radius: 20px;
+    background-color: rgb(224, 73, 73);
+    padding: 20px;
+    margin-top: 55px;
+    margin-left: 10px;
+
+}
+
+.respuesta{
+    margin-top: 50px;
+}
+.palabra{
+    color: black;
+}
+.celda button{
+    border-radius: 20px;
+    width: 55px;
+    height: 55px;
+    font-size:20pt ;
+    color: white;
+}
+
+.celda {
+    /* display: none; */
+    float: left;
+	border: solid 1px gray;
+    font-size: 25pt;
+    text-align: center;
+    border-radius: 20px;
+    background-color: grey;
+    padding: 20px;
+    margin-top: 55px;
+    margin-left: 10px;
+    }
+    .icons{
+        text-align: center;
+        border-radius: 15px;
+        width: 180px;
+        height: 35px;
+        background-color: white;
+        color: black;
+        margin-top: 25px;
+    }
+    i{
+        margin-left: 15px;
+        margin-top: 10px;
+    }
+    .titulo{
+        margin-left: 5px;
+        text-align: center;
+        margin-bottom: 2em;
+        background-color: black;
+        color: white;
+        width: 18%;
+        border-radius: 10px 10px 10px 10px;
+    }
+.celdaRespuesta{
+    
+    float: left;
+    background: #fff;
+	height: 80px;
+	width: 80px;
+	border: solid 1px gray;
+    font-size: 20pt;
+    text-align: center;
+    padding: 20px;
+    margin-top: 55px;
+}

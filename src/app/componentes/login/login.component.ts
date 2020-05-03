@@ -23,6 +23,7 @@ export class LoginComponent implements OnInit {
   esUsuarioRegistrado:number;
   esUnico:boolean=false;
   @Output() onUsuarioLogueado:EventEmitter<any>= new EventEmitter<any>();
+  @Output() onRegistrarUsuario:EventEmitter<any>= new EventEmitter<any>();
 
   clase="progress-bar progress-bar-info progress-bar-striped ";
 
@@ -59,7 +60,8 @@ export class LoginComponent implements OnInit {
     }
   }
   Registrarme() {
-      this.router.navigate(['/Registro']);
+      // this.router.navigate(['/Registro']);
+      this.onRegistrarUsuario.emit(true);
   }
   MoverBarraDeProgreso() {
     

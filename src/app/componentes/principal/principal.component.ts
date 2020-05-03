@@ -12,6 +12,9 @@ export class PrincipalComponent implements OnInit {
   seleccionoDeslogue=false;
   isLogged=false;
   usuarioParaCabecera="";
+  ocultarLogOutPrincipal=false;
+  registro=false;
+
   constructor(private router:Router) { 
 
     var isLogin = localStorage.getItem("isLoggedIn");
@@ -23,7 +26,14 @@ export class PrincipalComponent implements OnInit {
       this.seleccionoDeslogue = true;
     }
    }
+   tomarParaRegistro(e:boolean){
+     this.registro=e;
+   }
   ngOnInit() {
+  }
+  tomarRegistro(registroCompletado:boolean){
+    
+      this.registro=false;
   }
   tomarDeslogueo(estadoLogueo:boolean){
     this.seleccionoDeslogue = estadoLogueo;
@@ -34,5 +44,6 @@ export class PrincipalComponent implements OnInit {
     this.usuarioParaCabecera = JSON.parse(localStorage.getItem("usuarioLogueado")).nombre;
     this.isLogged=estadoLogueo;
     this.seleccionoDeslogue = false;
+    this.ocultarLogOutPrincipal=false;
   }
 }

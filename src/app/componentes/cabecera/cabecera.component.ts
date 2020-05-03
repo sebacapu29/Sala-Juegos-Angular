@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 })
 export class CabeceraComponent implements OnInit {
   @Input() nombreDeUsuarioLogged:string;
-  ocultar=false;
+  @Input() ocultarLogOut=false;
   @Output() logOutUsuario:EventEmitter<any>= new EventEmitter<any>();
 
   constructor(private router:Router) { 
@@ -25,6 +25,7 @@ export class CabeceraComponent implements OnInit {
     }
   }
   logOut(){
+    this.ocultarLogOut=true;
     localStorage.removeItem("isLoggedIn");
     localStorage.setItem("isLoggedIn",'false');
     this.logOutUsuario.emit(true);

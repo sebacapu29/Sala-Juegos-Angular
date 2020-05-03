@@ -43,7 +43,7 @@
     </mat-form-field> 
   </div>
   <div style="margin:10px">
-    <button mat-button routerLink="/Login" color="warn">Cancelar</button>
+    <button mat-button (click)="cancelar()" color="warn">Cancelar</button>
     <button mat-button (click)="registrar()" color="accent">Registrar</button>
   </div>
 </mat-card-content>

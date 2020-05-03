@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output,EventEmitter } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Usuario } from 'src/app/clases/usuario';
 import { Jugador } from 'src/app/clases/jugador';
 import { DateTimeHelper } from 'src/app/clases/helpers/date-time';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+
 
 //para poder hacer las validaciones
 //import { Validators, FormBuilder, FormControl, FormGroup} from '@angular/forms';
@@ -28,7 +29,8 @@ export class RegistroComponent implements OnInit {
   hide=true;
   hide2=true;
   email = new FormControl('', [Validators.required, Validators.email]);
-
+  @Output() onRegistroCompletado:EventEmitter<any>= new EventEmitter<any>();
+  
   constructor(private router:Router ) {
     this.usuarioNuevo= new Jugador();
     this.usuarios = new Array<any>();
@@ -58,12 +60,16 @@ export class RegistroComponent implements OnInit {
           
           this.usuarios.push({ "mail" : this.usuarioNuevo.mail, "clave": this.usuarioNuevo.clave,"sexo":this.usuarioNuevo.sexo,"nombre":this.usuarioNuevo.nombre,"puntosTotalesAcum":'0',"fechaActualizacion": DateTimeHelper.getFechaYHora()});
           localStorage.setItem("usuarios",JSON.stringify(this.usuarios));
-          console.log(this.usuarioNuevo);            
+          // console.log(this.usuarioNuevo);   
+          this.onRegistroCompletado.emit(true);         
           alert("Usuario Creado Con Éxito!");       
         }
     }
      else{
        alert("La clave tiene que coincidir con la confirmacion");
      }  
+  }
+  cancelar(){
+    this.onRegistroCompletado.emit(true);
   }
 }
