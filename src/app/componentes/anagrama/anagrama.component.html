@@ -11,8 +11,8 @@
         </div>
     </div>
     <div fxLayout="row">
-        <div *ngFor="let letra of palabraDesordenada" class="celda">
-            <button [disabled]="bloqueoPantalla" class="btn btn-secondary palabra2" (click)="enviarLetra(letra)">{{letra}}</button>
+        <div *ngFor="let letra of palabraDesordenada" class="celda" [disabled]="bloqueoPantalla" (click)="enviarLetra(letra)">
+            <p>{{letra}}</p>
         </div>
         <div class="celdaBorrar" >
             <button [disabled]="bloqueoPantalla" class="btn btn-danger" (click)="borrarUltimaLetra()"><i class="fa fa-arrow-left"></i></button>

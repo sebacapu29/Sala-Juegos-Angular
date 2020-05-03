@@ -32,25 +32,25 @@
 .palabra{
     color: black;
 }
-.celda button{
-    border-radius: 20px;
-    width: 55px;
-    height: 55px;
-    font-size:20pt ;
-    color: white;
-}
+
 
 .celda {
     /* display: none; */
     float: left;
 	border: solid 1px gray;
-    font-size: 25pt;
+    
     text-align: center;
     border-radius: 20px;
     background-color: grey;
     padding: 20px;
     margin-top: 55px;
     margin-left: 10px;
+    cursor: pointer;
+    }
+    .celda p{
+        text-align: center;
+        font-size: 25pt;
+        margin-top: 10px;
     }
     .icons{
         text-align: center;
@@ -85,4 +85,65 @@
     text-align: center;
     padding: 20px;
     margin-top: 55px;
+
 }
+
+@media screen and (max-width: 992px) {
+    .celda {
+      /* width: 20px; */
+      /* height: 20px; */
+      /* float: left; */
+	 border: solid 1px gray;
+    
+    text-align: center;
+    border-radius: 20px;
+    background-color: grey;
+    padding: 25px;
+    /* margin-top: 55px; */
+    margin-left: 10px;
+    cursor: pointer;
+    }
+    .celda p{
+        text-align: center;
+        font-size: 15pt;
+        /* margin-top: 10px; */
+    }
+  }
+  
+  /* On screens that are 600px or less, set the background color to olive */
+  @media screen and (max-width: 600px) {
+    .celdaRespuesta {
+        width: 20px;
+        height: 20px;
+        color:black;
+    }
+    
+    .celda {
+        width: 20px;
+        height: 20px;
+        /* float: left; */
+       border: solid 1px gray;
+      
+      text-align: center;
+      border-radius: 20px;
+      background-color: grey;
+      padding: 25px;
+      /* margin-top: 55px; */
+      margin-left: 10px;
+      cursor: pointer;
+      }
+      .celdaBorrar{
+        float: left;
+        border: solid 1px gray;
+        font-size: 20pt;
+        text-align: center;
+        border-radius: 20px;
+        background-color: rgb(224, 73, 73);
+        padding: 5px;
+        margin-top: 55px;
+        margin-left: 5px;
+    
+    }
+
+    
+  }

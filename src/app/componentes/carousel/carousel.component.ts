@@ -8,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 export class CarouselComponent implements OnInit {
 
   images = ["../../../assets/imagenes/tecladogamer.jpg","../../../assets/imagenes/listado1.jpg","../../../assets/imagenes/engranaje.jpg","../../../assets/imagenes/equipo.jpg"]
+  mostrarCarousel:boolean=true;
 
-  constructor() { }
-
+  constructor() {
+    this.comprobarUsuarioLogueado();
+   }
+ comprobarUsuarioLogueado(){
+    var isLogin = localStorage.getItem("isLoggedIn"); 
+    this.mostrarCarousel= isLogin=='true';
+  }
   ngOnInit(): void {
   }
 

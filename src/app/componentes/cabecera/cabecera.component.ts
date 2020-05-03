@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 })
 export class CabeceraComponent implements OnInit {
   @Input() nombreDeUsuarioLogged:string;
-  @Input() ocultarLogOut=false;
+  @Input() ocultarLogOut:boolean;
   @Output() logOutUsuario:EventEmitter<any>= new EventEmitter<any>();
 
   constructor(private router:Router) { 
@@ -20,8 +20,13 @@ export class CabeceraComponent implements OnInit {
   }
   comprobarUsuarioLogueado(){
     var isLogin = localStorage.getItem("isLoggedIn");
+    console.log(isLogin);
     if(isLogin=='true'){
       this.nombreDeUsuarioLogged = JSON.parse(localStorage.getItem("usuarioLogueado")).nombre;
+      this.ocultarLogOut=false;
+    }
+    else{
+      // this.ocultarLogOut=true;
     }
   }
   logOut(){

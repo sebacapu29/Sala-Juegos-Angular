@@ -12,14 +12,15 @@ export class PrincipalComponent implements OnInit {
   seleccionoDeslogue=false;
   isLogged=false;
   usuarioParaCabecera="";
-  ocultarLogOutPrincipal=false;
+  ocultarLogOutPrincipal:boolean;
   registro=false;
 
   constructor(private router:Router) { 
 
     var isLogin = localStorage.getItem("isLoggedIn");
-  
+
     if(isLogin=='true'){
+     this.tomarLogueo(true);
       this.isLogged =true;
     } 
     else{
@@ -42,7 +43,7 @@ export class PrincipalComponent implements OnInit {
   }
   tomarLogueo(estadoLogueo:boolean){
     this.usuarioParaCabecera = JSON.parse(localStorage.getItem("usuarioLogueado")).nombre;
-    this.isLogged=estadoLogueo;
+    this.isLogged=true;
     this.seleccionoDeslogue = false;
     this.ocultarLogOutPrincipal=false;
   }
