@@ -1,7 +1,4 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<!--app-menu></app-menu-->
-<!-- index.html -->
-
+<h3 class="titulo">Agilidad Aritmetica</h3>
 
 <div name="juego"   class="background" >
   <div class="body" fxLayout="column"  fxLayoutAlign="space-around center">
@@ -26,8 +23,8 @@
 </div>
 <div fxLayout="column">
 
-  <div class="respuestas" fxLayout="row-reverse" fxLayoutAlign="space-around center" >
-    <button  *ngFor="let numero of listaNumeros" fxFlex="20" [disabled]="deshabilitar" fxFlex="row"  type="text" (click)="evaluarRespuesta($event)" [value]="numero" class="btn btn-danger form-control" >{{numero}}</button>
+  <div class="respuestas" fxLayout="row" fxLayoutAlign="center center" >
+    <button  *ngFor="let numero of listaNumeros" fxFlex="20" fxLayoutAlign="center center" [disabled]="deshabilitar"  (click)="evaluarRespuesta($event)" [value]="numero" class="btn btn-danger form-control" >{{numero}}</button>
   </div>
   <div>
     <div fxLayout="row" fxLayoutAlign="space-around center">

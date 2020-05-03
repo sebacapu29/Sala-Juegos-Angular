@@ -81,19 +81,28 @@ export class PptComponent implements OnInit {
       case 'piedra':
         this.seleccionJugador = this.pathsPPT[3];
         this.seleccionadoPorJugador="piedra";
+        this.deseleccionarOtrosBotones("papel","tijera");
         break;
       case 'papel':
         this.seleccionJugador = this.pathsPPT[4];
         this.seleccionadoPorJugador="papel";
+        this.deseleccionarOtrosBotones("piedra","tijera");
         break;
       case 'tijera':
         this.seleccionJugador = this.pathsPPT[5];
         this.seleccionadoPorJugador="tijera";
+        this.deseleccionarOtrosBotones("papel","piedra");
         break;    
     }
     var btnSelect = document.getElementById(jugada);
     btnSelect.className = "btnSeleccionado";
     this.seleccionoOpcion=true;
+  }
+  deseleccionarOtrosBotones(boton1,boton2){
+    var btnSelect1 = document.getElementById(boton1);
+    var btnSelect2 = document.getElementById(boton2);
+    btnSelect1.className = "btnJ";
+    btnSelect2.className = "btnJ";
   }
   seleccionJugadaContrincante(){
     var randomNum = Math.round(Math.random() * (2  - 0) + 0);
@@ -114,12 +123,12 @@ export class PptComponent implements OnInit {
     }
   }
   comenzar(){
+
     this.deshabilitar=true;
     if(this.seleccionoOpcion){
     this.intervalId = setInterval(() => {
       this.tiempoAnimacion --;      
       this.estadoAnimJugada = this.estadoAnimJugada == "estado1" ? "estado2" : "estado1";
-      // console.log(this.tiempoAnimacion);
       if(this.tiempoAnimacion === 0) {  
         this.estadoAnimJugada = "estado1";
         this.seleccionJugadaContrincante();

@@ -19,14 +19,14 @@
     </div>
         <div class="footer">
             <div style="margin:10px" [hidden]="ocultarSeleccionFichas">
-                <label>Seleccione Ficha: </label><br>
+                <label><strong>Seleccione Ficha: </strong></label><br>
                 <mat-radio-group [(ngModel)]="nuevoJuego.ficha">
-                  <mat-radio-button name="fieldName3" value="x">X</mat-radio-button>
-                  <mat-radio-button name="fieldName1" value="o">O</mat-radio-button>
+                  <mat-radio-button name="fieldName3" value="x"><strong>X</strong></mat-radio-button>
+                  <mat-radio-button name="fieldName1" value="o"><strong>O</strong></mat-radio-button>
                 </mat-radio-group>
               </div>
-            <button *ngIf="!comenzoJuego && !juegoTerminado && jugador.vidas>0" id="btnComenzar" class="btn btn-success btnComenzar" (click)="comenzar()">Comenzar</button>           
-            <button *ngIf="jugador.vidas==0 || juegoTerminado" id="btnComenzar" class="btn btn-warning btnComenzar" (click)="jugarOtraVez()">Jugar Otra vez</button>           
+            <button *ngIf="!comenzoJuego && !juegoTerminado && jugador.vidas>0"  class="btn btn-success btnComenzar" (click)="comenzar()">Comenzar</button>           
+            <button *ngIf="jugador.vidas==0 || juegoTerminado"  class="btn btn-warning btnComenzar" (click)="jugarOtraVez()">Jugar Otra vez</button>           
           </div>    
 </div>
 </div>

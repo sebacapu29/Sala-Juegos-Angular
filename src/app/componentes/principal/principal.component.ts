@@ -39,6 +39,7 @@ export class PrincipalComponent implements OnInit {
   tomarDeslogueo(estadoLogueo:boolean){
     this.seleccionoDeslogue = estadoLogueo;
     this.isLogged=false;
+    this.ocultarLogOutPrincipal=true;
     this.usuarioParaCabecera="";
   }
   tomarLogueo(estadoLogueo:boolean){

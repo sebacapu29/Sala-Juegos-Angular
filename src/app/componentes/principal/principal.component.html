@@ -1,9 +1,9 @@
 
 <div class="principal">
+  <app-menu-nav [ocultarOpciones]="seleccionoDeslogue"></app-menu-nav>
   <app-cabecera (logOutUsuario)="tomarDeslogueo($event)"
   [nombreDeUsuarioLogged]="usuarioParaCabecera"
   [ocultarLogOut]="ocultarLogOutPrincipal"></app-cabecera>
-  <app-menu-nav [ocultarOpciones]="seleccionoDeslogue"></app-menu-nav>
   <div *ngIf="!registro">
     <app-login *ngIf="!isLogged"
     (onUsuarioLogueado)= "tomarLogueo($event)" 

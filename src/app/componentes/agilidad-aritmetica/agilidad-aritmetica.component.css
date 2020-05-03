@@ -6,6 +6,19 @@
     background-color: salmon;
     border-radius: 20px 20px 20px 20px;
 }
+.titulo{
+    margin-top: 10px;
+    margin-left: 5px;
+    text-align: center;
+    margin-bottom: 10px;
+    background-color: black;
+    color: white;
+    width: 18%;
+    border-radius: 10px 10px 10px 10px;
+}
+.respuestas button{
+    margin-left: 10px;
+}
 div div div input{
     background-color: white;
     text-align: center;

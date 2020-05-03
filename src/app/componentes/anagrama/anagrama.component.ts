@@ -119,6 +119,9 @@ export class AnagramaComponent implements OnInit {
    bloquearPantalla(){
     this.bloqueoPantalla=true;
    }
+   mostrarMensaje(){
+    this.openSnackBar("Haga Click en Jugar Otra Vez","Juego");
+   }
    actualizarPuntosUsuario(){
     var indexUser = LocalStorage.obtenerIndexUsuarioLogueado();
     if(indexUser!=-1){

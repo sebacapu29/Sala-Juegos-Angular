@@ -35,8 +35,9 @@ cursor: pointer;
 
 }
 ul{
-    background: white;
-    color: brown;
+    color: white;
+    text-align: right;
+    margin-right: 10px;
 }
 div div h1{
     background-color: white;

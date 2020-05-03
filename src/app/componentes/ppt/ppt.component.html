@@ -1,3 +1,5 @@
+<h3 fxLayout="column" fxLayoutAlign="center center" class="titulo">Piedra Papel o Tijera!</h3>
+
 <div class="background">
     <div class="container">
     <div class="row">
@@ -27,10 +29,10 @@
             </div>
         </div>
     </div>
-    <button class="btn btn-success" [disabled]="deshabilitar" *ngIf="!juegoTerminado" id="btnComenzar" (click)="comenzar()">
+    <button class="btn btn-success btnComenzar" [disabled]="deshabilitar" *ngIf="!juegoTerminado" (click)="comenzar()">
         Comenzar
     </button>
-    <button class="btn btn-warning" *ngIf="juegoTerminado" id="btnComenzar" (click)="reiniciar()">
+    <button class="btn btn-warning btnComenzar" *ngIf="juegoTerminado"  (click)="reiniciar()">
         Volver a jugar
     </button>
 </div>

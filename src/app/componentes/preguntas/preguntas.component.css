@@ -11,7 +11,7 @@
     padding: 120px;
 }
 .contenido{
-    margin-top: 20%;    
+    margin-top: 5%;    
 }
 .containerQuestion label strong{
     margin-left: 80px;
@@ -24,7 +24,7 @@
     border-radius: 30px;
 }
 .btnRespuesta{
-    width: 250px;
+    width: 350px;
     margin-bottom: 15px;
 }
 .icon i{
@@ -71,14 +71,14 @@
 }
 @media screen and (max-width: 992px) {
     .contenido {
-      margin-top:55%;
+      margin-top:25%;
     }
   }
   
   /* On screens that are 600px or less, set the background color to olive */
   @media screen and (max-width: 600px) {
     .contenido {
-        margin-top:55%;
+        margin-top:25%;
     }
   }
   
