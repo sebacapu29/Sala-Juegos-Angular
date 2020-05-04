@@ -5,6 +5,7 @@ import {Subscription} from "rxjs";
 import {TimerObservable} from "rxjs/observable/TimerObservable";
 import { Usuario } from 'src/app/clases/usuario';
 import { LocalStorage } from 'src/app/clases/helpers/local-storage';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -29,7 +30,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router) {
+    private router: Router,
+    private _snackBar:MatSnackBar) {
       this.progreso=0;
       this.ProgresoDeAncho="0%";      
       this.usuario=new Usuario();
@@ -42,7 +44,9 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
   }
-
+  openSnackBar(mensaje:string){
+    this._snackBar.open(mensaje,"Login",{duration:5000});
+  }
   Entrar() {
 
 
@@ -56,7 +60,7 @@ export class LoginComponent implements OnInit {
       //usuario invalido
       this.progreso=0;
       this.ProgresoDeAncho="0%"; 
-      alert("Error de usuario o contraseña, problablemente deba registrarse");
+      this.openSnackBar("Error de usuario o contraseña, problablemente deba registrarse")
     }
   }
   Registrarme() {
