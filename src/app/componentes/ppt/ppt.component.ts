@@ -4,6 +4,8 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
 import { JuegoPiedraPapelTijera } from 'src/app/clases/juego-piedra-papel-tijera';
 import { LocalStorage } from 'src/app/clases/helpers/local-storage';
 import { DateTimeHelper } from 'src/app/clases/helpers/date-time';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalPreguntasComponent } from '../modal-preguntas/modal-preguntas.component';
 
 @Component({
   selector: 'app-ppt',
@@ -41,7 +43,7 @@ export class PptComponent implements OnInit {
   esEmpate:boolean;
   deshabilitar:boolean;
 
-  constructor() {
+  constructor(private modalService: NgbModal) {
     this.pathContrincate = "./assets/imagenes/piedra.jpg";
     this.pathUsuario = "./assets/imagenes/piedra2.jpg";
     // this.imageBackground ="";
@@ -66,7 +68,7 @@ export class PptComponent implements OnInit {
     if(localStorage.getItem("usuarioLogueado")!=null){
       usuarioLocalStorage = JSON.parse(localStorage.getItem("usuarioLogueado"));              
     }    
-    this.jugador = new Jugador(usuarioLocalStorage.nombre,usuarioLocalStorage.mail,usuarioLocalStorage.clave,usuarioLocalStorage.sexo,"Poderoso Conocimiento"); 
+    this.jugador = new Jugador(usuarioLocalStorage.nombre,usuarioLocalStorage.mail,usuarioLocalStorage.clave,usuarioLocalStorage.sexo,"Piedra Papel o Tijera"); 
     this.nuevoJuego.jugador = this.jugador.mail;
    
     this.jugador.puntosTotalesAcum = usuarioLocalStorage.puntosTotalesAcum; 
@@ -97,6 +99,17 @@ export class PptComponent implements OnInit {
     var btnSelect = document.getElementById(jugada);
     btnSelect.className = "btnSeleccionado";
     this.seleccionoOpcion=true;
+  }
+  mostrarAyuda(){
+    this.openModal(["Piedra Papel o Tijera","1) Haga click en una de las imagenes en la parte inferior (Seleccione su Jugada)","2) Click en Comenzar "],"OBJETIVO: El juego terminará cuando se le acaben las 3 vidas o gane 3 puntos (Nombrados en el contador en la parte superior con los iconos de corazon y el control)","" ,"./assets/imagenes/ppt-help.jpg");
+  }
+  openModal(reglas:string[],mensaje:string,respCorrect:string,urlImg:string){    
+    const modalRef = this.modalService.open(ModalPreguntasComponent,{windowClass: 'modal-holder', centered: true});
+    modalRef.componentInstance.mensaje= mensaje;
+    modalRef.componentInstance.respCorrecta=respCorrect;
+    modalRef.componentInstance.imgAyuda = urlImg;
+    modalRef.componentInstance.listaReglas= reglas;
+    modalRef.componentInstance.reglas=true;
   }
   deseleccionarOtrosBotones(boton1,boton2){
     var btnSelect1 = document.getElementById(boton1);

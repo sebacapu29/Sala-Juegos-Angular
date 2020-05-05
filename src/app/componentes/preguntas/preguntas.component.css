@@ -32,12 +32,12 @@
 }
 .titulo{
     margin-left: 5px;
-    text-align: center;
     margin-bottom: 2em;
-    background-color: black;
     color: white;
     width: 18%;
-    border-radius: 10px 10px 10px 10px;
+}
+.titulo h4{
+    font-size: 20pt;
 }
 .background{
     background-image: url('/assets/imagenes/juegoFondo1.PNG');

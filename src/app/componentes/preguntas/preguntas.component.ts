@@ -193,6 +193,9 @@ export class PreguntasComponent implements OnInit {
         this.respuestasParaMostrar.sort(() => Math.random() > 0.5 ? 1 : -1);
     
   }
+  mostrarAyuda(){
+    
+  }
   evaluarRespuesta(e){
 
     if(e.target.value === this.preguntaSeleccionada.answerc){

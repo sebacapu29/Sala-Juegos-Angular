@@ -1,6 +1,14 @@
-<h3 class="titulo">Ta te ti!</h3>
-<div class="background"  fxLayout="column" fxLayoutAlign="space-around center"  >
-    <div class="contenido">
+
+<div class="background" >
+   <div  fxLayout="column" fxLayoutAlign="center center" class="titulo">
+    <h4>
+      {{nuevoJuego.nombre | uppercase}} !
+    </h4>
+    <button mat-raised-button (click)="mostrarAyuda()" color="primary"><i class="fa fa-question-circle"></i></button>
+
+   </div>
+  <div class="contenido" fxLayout="column" fxLayoutAlign="space-around center">
+    
 
     <div class="icon"  fxLayoutAlign="space-around center" >
        <i class="fa fa-heart fa-lg" aria-hidden="true">: {{jugador.vidas}}</i><i class="fa fa-gamepad fa-lg" aria-hidden="true">: {{jugador.puntos}}</i>

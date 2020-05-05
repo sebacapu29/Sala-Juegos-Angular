@@ -1,9 +1,16 @@
-<h3 class="titulo">Agilidad Aritmetica</h3>
 
 <div name="juego"   class="background" >
+  <div class="titulo" fxLayout="column" fxLayoutAlign="center center">
+    <h4>
+      {{nuevoJuego.nombre | uppercase}}!
+    </h4>
+    <button mat-raised-button (click)="mostrarAyuda()" color="primary"><i class="fa fa-question-circle"></i></button>
+
+   </div>
+
   <div class="body" fxLayout="column"  fxLayoutAlign="space-around center">
     <div class="icons">
-      <i class="fa fa-heart fa-lg" aria-hidden="true">: {{jugador.vidas}}</i><i class="fa fa-gamepad fa-lg" aria-hidden="true">: {{jugador.puntos}}</i>
+      <i class="fa fa-heart fa-lg" aria-hidden="true">: {{jugador.vidas}}</i><i class="fa fa-clock-o fa-lg" aria-hidden="true">: {{Tiempo}}  </i><i class="fa fa-gamepad fa-lg" aria-hidden="true">: {{jugador.puntos}}</i>
   </div>
     <div fxLayout="row" >
 
@@ -21,7 +28,7 @@
 <div >
   <p><h2>Respuestas:</h2>
 </div>
-<div fxLayout="column">
+<div fxLayout="column" class="botones">
 
   <div class="respuestas" fxLayout="row" fxLayoutAlign="center center" >
     <button  *ngFor="let numero of listaNumeros" fxFlex="20" fxLayoutAlign="center center" [disabled]="deshabilitar"  (click)="evaluarRespuesta($event)" [value]="numero" class="btn btn-danger form-control" >{{numero}}</button>

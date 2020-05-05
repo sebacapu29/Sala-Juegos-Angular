@@ -1,9 +1,4 @@
-h4{
-    background-color: black;
-    color: white;
-    width: 18%;
-    border-radius: 10px 10px 10px 10px;
-}
+
 i{
 
     /* margin-left: 25px; */
@@ -17,6 +12,9 @@ i{
     background-color: white;
     color: black;
 }
+.icons i{
+    font-size: 15pt;
+}
 form {
     /* border: 10px solid #f1f1f1; */
     padding: 10px;
@@ -25,7 +23,6 @@ form {
 .juego{
     /* width: 80%; */
     height: 80%;
-    margin-left: 20%;
 }
  
 .enemigo{
@@ -33,12 +30,23 @@ form {
     height: 50%;
     margin-left: 25%;
 }
-.respuestas {
+.respuestas div p{
     /* display: inline; */
-    display: flex;
+    /* display: flex; */
+    /* width: 100px; */
+    /* height: 100px; */
+    /* color: white; */
+    font-size: 15pt;
+    color: white;
 }
-button {
-    /*background-color: #4CAF50;*/
+h4{
+    font-size: 20pt;
+    color: white;
+}
+.titulo{
+    margin-bottom: 40px;
+}
+.btnComenzar {
     color: white;
     padding: 14px 20px;
     margin: 8px 0;
@@ -58,7 +66,7 @@ button:hover {
 
 .imgcontainer {
     text-align: center;
-    margin: 24px 0 12px 0;
+    /* margin: 24px 0 12px 0; */
 }
 img{
     width: 200px;
@@ -69,7 +77,11 @@ img.avatar {
     width: 40%;
     border-radius: 50%;
 }
-
+div label{
+    margin-top: 25px;
+    font-size: 15pt;
+    color: white
+}
 .container {
     padding: 16px;
 }

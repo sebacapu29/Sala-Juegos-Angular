@@ -19,3 +19,10 @@
             border-style: groove;
             border-width: thin;
         }
+        div h3{
+            font-size: 25pt;
+            /* margin-top: 45px; */
+        }
+        div p{
+            font-size: 15pt;
+        }

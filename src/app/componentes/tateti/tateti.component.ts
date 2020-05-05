@@ -3,6 +3,8 @@ import { JuegoTateti } from 'src/app/clases/juego-tateti';
 import { Jugador } from 'src/app/clases/jugador';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { LocalStorage } from 'src/app/clases/helpers/local-storage';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalPreguntasComponent } from '../modal-preguntas/modal-preguntas.component';
 
 @Component({
   selector: 'app-tateti',
@@ -19,7 +21,8 @@ export class TatetiComponent implements OnInit {
   comenzoJuego=false;
   juegoTerminado=false;
   tableroBloqueado=false;
-  constructor(private _snackBar: MatSnackBar) {
+  constructor(private _snackBar: MatSnackBar,
+    private modalService: NgbModal) {
     this.tablero=[
       {ocupada: false, ficha: "", posicion: [0,0]},
       {ocupada: false, ficha: "", posicion: [0,1]}, 
@@ -110,6 +113,17 @@ export class TatetiComponent implements OnInit {
       this.nuevoJuego.actualizarDatosJuegos();
       this.actualizarPuntosUsuario();
     }
+  }
+  mostrarAyuda(){
+    this.openModal(["Ta Te Ti","1) Seleccione su Ficha (X - O) Debajo del tablero","2) Click en el botón verde (Comenzar) "],"OBJETIVO: Para ganar hay que completar en diagonal, horizontal o de forma vertical con la ficha seleccionada. El juego terminará cuando se le acaben las 3 vidas o gane 3 puntos (Nombrados en el contador en la parte superior con los iconos de corazon y el control)","" ,"./assets/imagenes/tateti-help.png");
+  }
+  openModal(reglas:string[],mensaje:string,respCorrect:string,urlImg:string){    
+    const modalRef = this.modalService.open(ModalPreguntasComponent,{windowClass: 'modal-holder', centered: true});
+    modalRef.componentInstance.mensaje= mensaje;
+    modalRef.componentInstance.respCorrecta=respCorrect;
+    modalRef.componentInstance.imgAyuda = urlImg;
+    modalRef.componentInstance.listaReglas= reglas;
+    modalRef.componentInstance.reglas=true;
   }
   mostrarMensaje(){
     this.openSnackBar("Haga Click en Comenzar","Juego");

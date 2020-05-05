@@ -5,6 +5,8 @@ import { style, trigger, state, transition, animate } from '@angular/animations'
 import { Jugador } from 'src/app/clases/jugador';
 import { LocalStorage } from 'src/app/clases/helpers/local-storage';
 import { DateTimeHelper } from 'src/app/clases/helpers/date-time';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalPreguntasComponent } from '../modal-preguntas/modal-preguntas.component';
 
 @Component({
   selector: 'app-adivina-el-numero',
@@ -39,10 +41,10 @@ export class AdivinaElNumeroComponent implements OnInit {
   imgEstrella:string;
   juegoTerminado:boolean;
 
-  constructor() { 
+  constructor(private modalService:NgbModal) { 
     this.nuevoJuego = new JuegoAdivina();
     this.jugador = new Jugador();    
-    console.info("numero Secreto:",this.nuevoJuego.numeroSecreto);  
+    // console.info("numero Secreto:",this.nuevoJuego.numeroSecreto);  
     this.ocultarVerificar=false;
     this.comenzoJuego=false;
     this.respuestasParaMostrar = new Array<any>();
@@ -56,21 +58,33 @@ export class AdivinaElNumeroComponent implements OnInit {
     }    
     this.jugador = new Jugador(usuarioLocalStorage.nombre,usuarioLocalStorage.mail,usuarioLocalStorage.clave,usuarioLocalStorage.sexo,"Poderoso Conocimiento"); 
     this.nuevoJuego.jugador = this.jugador.mail;
-    this.jugador.vidas=5;
+    this.jugador.vidas=8;
     this.jugador.puntosTotalesAcum = usuarioLocalStorage.puntosTotalesAcum; 
     this.jugador.fechaActualizacion = usuarioLocalStorage.fechaActualizacion;   
     this.nuevoJuego.nombre = "Adivina el Número";
     
   }
-  generarnumero() {
+  mostrarAyuda(){
+    this.openModal(["Adivina el número","1) Click en el botón Comenzar (Botón Celeste)","2) Click en una de las estrellas donde esta el numero"],"OBJETIVO: Adivinar el número secreto a travéz de las estrellas. El juego terminará cuando se le acaben las 8 vidas o gane 3 puntos (Figura en el contador en la parte superior con los iconos de corazon y el control) NOTA: No te enojes si la máquina se ríe, sólo diviertete","" ,"./assets/imagenes/adivina-help.jpg");
+  }
+  openModal(reglas:string[],mensaje:string,respCorrect:string,urlImg:string){    
+    const modalRef = this.modalService.open(ModalPreguntasComponent,{windowClass: 'modal-holder', centered: true});
+    modalRef.componentInstance.mensaje= mensaje;
+    modalRef.componentInstance.respCorrecta=respCorrect;
+    modalRef.componentInstance.imgAyuda = urlImg;
+    modalRef.componentInstance.listaReglas= reglas;
+    modalRef.componentInstance.reglas=true;
+  }
+  generarnumeroJue() {
+    this.comenzoJuego=true;
     this.nuevoJuego.generarnumero();
     this.listaDeNumerosAleatorios();    
     this.contador=0;
-    this.comenzoJuego=true;
   }
   jugarOtraVez(){
     this.nuevoJuego = new JuegoAdivina();
     this.jugador.reiniciar();
+    this.jugador.vidas=8;
     this.reiniciar();  
   }
   esJuegoTerminado(){
@@ -96,6 +110,7 @@ export class AdivinaElNumeroComponent implements OnInit {
   }
   reiniciar(){
     this.comenzoJuego=false;
+    this.juegoTerminado=false;
   }
   evaluarRespuesta(numero)
   {
@@ -107,6 +122,9 @@ export class AdivinaElNumeroComponent implements OnInit {
       this.nuevoJuego.numeroSecreto=0;
       this.jugador.puntos++;
       this.jugador.puntosTotalesAcum++;
+      this.comenzoJuego=false;
+      console.log(this.juegoTerminado);
+
       this.mostrarAnimacion("enojado");
       this.MostarMensaje("Grrr adivinaste",true);
       this.reiniciar();
@@ -120,7 +138,7 @@ export class AdivinaElNumeroComponent implements OnInit {
           mensaje="No, intento fallido, animo";
           break;
           case 2:
-          mensaje="No,Te estaras Acercando???";
+          mensaje="No,Te estaras Acercando?";
           break;
           case 3:
           mensaje="No es, Yo crei que la tercera era la vencida.";
@@ -146,7 +164,7 @@ export class AdivinaElNumeroComponent implements OnInit {
     }
     if(this.esJuegoTerminado()){
       this.juegoTerminado =true;
-      this.comenzoJuego=true;
+      // this.comenzoJuego=false;
       this.actualizarPuntosUsuario();
       this.nuevoJuego.actualizarDatosJuegos();
     }

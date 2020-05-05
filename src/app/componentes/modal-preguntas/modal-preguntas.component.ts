@@ -13,6 +13,10 @@ export class ModalPreguntasComponent implements OnInit {
   @Input() respCorrecta;
   @Input() fin;
   @Input() imagenResultado:string;  
+  @Input() reglas:boolean=false;
+  @Input() listaReglas:string[];
+  @Input() imgAyuda:string;
+  
   imageBackground="";
   constructor(public activeModal:NgbActiveModal) {        
   }

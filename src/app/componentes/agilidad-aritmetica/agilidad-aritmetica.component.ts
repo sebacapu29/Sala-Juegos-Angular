@@ -8,6 +8,8 @@ import { Jugador } from 'src/app/clases/jugador';
 import { style, trigger, state, transition, animate } from '@angular/animations';
 import { LocalStorage } from 'src/app/clases/helpers/local-storage';
 import { DateTimeHelper } from 'src/app/clases/helpers/date-time';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalPreguntasComponent } from '../modal-preguntas/modal-preguntas.component';
 @Component({
   selector: 'app-agilidad-aritmetica',
   templateUrl: './agilidad-aritmetica.component.html',
@@ -35,7 +37,7 @@ export class AgilidadAritmeticaComponent implements OnInit {
   mensaje:string;
   deshabilitar:boolean;
   jugador:Jugador;
-  durationInSeconds = 5;
+  durationInSeconds = 5;  
 
   private subscription: Subscription;
   respuestasParaMostrar: string[];
@@ -43,7 +45,7 @@ export class AgilidadAritmeticaComponent implements OnInit {
   // usuariosEnLocalStorage: any;
   ngOnInit() {
   }
-   constructor(private _snackBar: MatSnackBar) {
+   constructor(private _snackBar: MatSnackBar,private modalService: NgbModal) {
      this.ocultarVerificar=true;
      this.Tiempo=5; 
     this.nuevoJuego = new JuegoAgilidad();
@@ -65,6 +67,17 @@ export class AgilidadAritmeticaComponent implements OnInit {
      this.jugador.puntosTotalesAcum = usuarioLocalStorage.puntosTotalesAcum;
      this.jugador.fechaActualizacion = usuarioLocalStorage.fechaActualizacion;
     this.nuevoJuego.jugador = this.jugador.mail;
+  }
+  mostrarAyuda(){
+    this.openModal(["Agilidad Aritmetica","1) El juego comienza cuando termina de cargar la pagina","2) Click en una de las 3 posibles respuestas (Botones Rojos)","3) Para volver a realizar otra operación click en 'Nuevo' (Botón Verde)"],"OBJETIVO: Realizar en el tiempo que figura en pantalla la operación que figura en la caja blanca (Suma + ; Resta - ; División / ; Multiplicación *) El juego terminará cuando se le acaben las 3 vidas o gane 3 puntos (Figura en el contador en la parte superior con los iconos de corazon y el control) NOTA: Las divisiones se redondean dando como resultado números enteros","" ,"./assets/imagenes/agilidad-help.jpg");
+  }
+  openModal(reglas:string[],mensaje:string,respCorrect:string,urlImg:string){    
+    const modalRef = this.modalService.open(ModalPreguntasComponent,{windowClass: 'modal-holder', centered: true});
+    modalRef.componentInstance.mensaje= mensaje;
+    modalRef.componentInstance.respCorrecta=respCorrect;
+    modalRef.componentInstance.imgAyuda = urlImg;
+    modalRef.componentInstance.listaReglas= reglas;
+    modalRef.componentInstance.reglas=true;
   }
   NuevoJuego() {
     this.ocultarVerificar=false;
@@ -129,6 +142,7 @@ export class AgilidadAritmeticaComponent implements OnInit {
       this.nuevoJuego.juegoTerminado = true;
       this.ocultarVerificar=false;
       var mensaje = this.nuevoJuego.gano ? "Muy bien! Ganaste!" : "Juego perdido vaquero";
+      
       this.actualizarPuntosUsuario();
       this.nuevoJuego.actualizarDatosJuegos(); 
            

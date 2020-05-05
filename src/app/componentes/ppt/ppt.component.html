@@ -1,6 +1,10 @@
-<h3 fxLayout="column" fxLayoutAlign="center center" class="titulo">Piedra Papel o Tijera!</h3>
-
 <div class="background">
+    <div style="text-align:center" class="titulo" fxLayout="column" fxLayoutAlign="center center">
+        <h4>
+          {{nuevoJuego.nombre | uppercase}}!
+        </h4>
+        <button mat-raised-button (click)="mostrarAyuda()" color="primary"><i class="fa fa-question-circle"></i></button>
+       </div>
     <div class="container">
     <div class="row">
         <h2>Contrincante</h2>

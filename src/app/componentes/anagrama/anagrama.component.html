@@ -1,5 +1,11 @@
-<h3 class="titulo">Anagrama!</h3>
 <div class="background" >
+    <div fxLayout="column" fxLayoutAlign="center center">
+        <h4 class="titulo" >
+          {{nuevoJuego.nombre | uppercase}}!
+        </h4>
+        <button mat-raised-button (click)="mostrarAyuda()" color="primary">Como se Juega<i class="fa fa-question-circle"></i></button>
+       </div>
+
     <div class="contenido" fxLayoutAlign="center center" fxLayout="column">
 
     <div class="icons" >

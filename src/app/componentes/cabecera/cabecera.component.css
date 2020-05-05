@@ -1,7 +1,7 @@
 .panel
 {
-    height: 200px;
-    background-image: url("/assets/imagenes/cabecera.png");
+    height: 170px;
+    background-image: url("/assets/imagenes/cabecera.png");    
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;

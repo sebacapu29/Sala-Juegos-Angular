@@ -1,33 +1,31 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<!--app-menu></app-menu-->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<div style="text-align:center">
-  <h4>
-    {{nuevoJuego.nombre}}!
-  </h4>
- </div>
-<h2></h2>
-<div class="background">
 
-<form class="juego" name="juego">
+<div class="background">
+  <div fxLayout="column" fxLayoutAlign="center center" class="titulo">
+    <h4>
+      {{nuevoJuego.nombre | uppercase}}!
+    </h4>
+    <button class="btnAyuda" mat-raised-button (click)="mostrarAyuda()" color="primary"><i class="fa fa-question-circle"></i></button>
+
+   </div>
+<div class="juego" name="juego" fxLayout="column" fxLayoutAlign="center center">
   <div class="icons">
     <i class="fa fa-heart fa-lg" aria-hidden="true">: {{jugador.vidas}}</i><i class="fa fa-gamepad fa-lg" aria-hidden="true">: {{jugador.puntos}}</i>
 </div>
-   <h3><label [hidden]="!comenzoJuego" >Cual será?:  </label></h3><br>
-<div class="respuestas" [hidden]="!comenzoJuego">
-  <div *ngFor="let numero of listaNumeros" fxLayoutGap="12px" >
-
+   <label [hidden]="!comenzoJuego" >Cual será?:  </label><br>
+<div class="respuestas" fxLayout="row" *ngIf="!juegoTerminado" [hidden]="!comenzoJuego">
+  <div *ngFor="let numero of listaNumeros" >
+    <p>{{numero}}</p>
     <input (click)="evaluarRespuesta(numero)" class="estrella" type="image" id="image"
-       src="/assets/imagenes/estrella.png">{{numero}}
+       src="/assets/imagenes/estrella.png">
   </div>
 </div>
-    <h2><button *ngIf="!comenzoJuego" (click)="generarnumero()"  class="btn btn-info btn-lg">Comenzar</button></h2>
-    <button *ngIf="jugador.vidas==0 || juegoTerminado" id="btnComenzar" class="btn btn-warning" (click)="jugarOtraVez()">Jugar Otra vez</button>           
+    <h2><button *ngIf="!comenzoJuego && !juegoTerminado" (click)="generarnumeroJue()"  class="btn btn-info btn-lg btnComenzar">Comenzar</button></h2>
+    <button *ngIf="jugador.vidas==0 || juegoTerminado"  class="btn btn-warning btnComenzar" (click)="jugarOtraVez()">Jugar Otra vez</button>           
 
     <div [@animacion]="animacionEnemigo" class="enemigo">
       <img [src]="imagenEnemigo">
       <p>{{mensaje}}</p>
     </div>
-</form>
+  </div>
 <div id="snackbar">{{Mensajes}}</div>
 </div>

@@ -3,6 +3,8 @@ import { Jugador } from 'src/app/clases/jugador';
 import { JuegoAnagrama } from 'src/app/clases/juego-anagrama';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { LocalStorage } from 'src/app/clases/helpers/local-storage';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalPreguntasComponent } from '../modal-preguntas/modal-preguntas.component';
 
 @Component({
   selector: 'app-anagrama',
@@ -20,7 +22,8 @@ export class AnagramaComponent implements OnInit {
   juegoTerminado:boolean=false;
   bloqueoPantalla:boolean=false;
 
-  constructor(private _snackBar: MatSnackBar) {
+  constructor(private _snackBar: MatSnackBar,
+    private modalService: NgbModal) {
     var usuarioLocalStorage:any;
 
     if(localStorage.getItem("usuarioLogueado")!=null){
@@ -44,6 +47,7 @@ export class AnagramaComponent implements OnInit {
     this.comenzarJuego();
     this.openSnackBar("Comenzo el Juego!","Juego");
    }
+
    comenzarJuego(){
      this.bloqueoPantalla=false;
     this.juegoTerminado = false;
@@ -57,6 +61,17 @@ export class AnagramaComponent implements OnInit {
    this.nuevoJuego.palabraUsuario = new Array<string>(cantidadLetrasDePalabra);
    this.nuevoJuego.palabraUsuario = this.nuevoJuego.palabra.map(function(){return ""});
    }
+   mostrarAyuda(){
+    this.openModal(["Anagrama","1) El Juego comienza ni bien termina de cargar la pantalla","2) Haga click en las letras completando la palabra en el tablero blanco "],"OBJETIVO: Completar la palabra en el tablero si es correcta ganará un punto. El juego terminará cuando se le acaben las 5 vidas o gane 3 puntos (Figura el contador en la parte superior con los iconos de corazon y el control)","" ,"./assets/imagenes/anagram-help.png");
+  }
+  openModal(reglas:string[],mensaje:string,respCorrect:string,urlImg:string){    
+    const modalRef = this.modalService.open(ModalPreguntasComponent,{windowClass: 'modal-holder', centered: true});
+    modalRef.componentInstance.mensaje= mensaje;
+    modalRef.componentInstance.respCorrecta=respCorrect;
+    modalRef.componentInstance.imgAyuda = urlImg;
+    modalRef.componentInstance.listaReglas= reglas;
+    modalRef.componentInstance.reglas=true;
+  }
    openSnackBar(mensaje:string,titulo:string){
     this._snackBar.open(mensaje,titulo,{duration:5000});
   }
