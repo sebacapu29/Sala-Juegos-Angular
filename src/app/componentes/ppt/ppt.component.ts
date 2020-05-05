@@ -143,21 +143,27 @@ export class PptComponent implements OnInit {
       this.tiempoAnimacion --;      
       this.estadoAnimJugada = this.estadoAnimJugada == "estado1" ? "estado2" : "estado1";
       if(this.tiempoAnimacion === 0) {  
+        console.log("ddd");
         this.estadoAnimJugada = "estado1";
         this.seleccionJugadaContrincante();
         this.pathUsuario = this.seleccionJugador;
         this.tiempoAnimacion=6;
         var btnSelect = document.getElementById(this.seleccionadoPorJugador);
-        btnSelect.className = "btnJ";
+        if(btnSelect!=null){
+          btnSelect.className = "btnJ";
+        }
         this.deshabilitar=false;
+        this.seleccionadoPorJugador="";
         this.verificarEstadoDeLaJugada();
-        clearInterval(this.intervalId);
+        clearInterval(this.intervalId);        
       }         
     }, 550);  
   }
 
   else{
     this.MostarMensaje("Selecciona una opción",false,true);
+    this.deshabilitar=false;
+    this.seleccionadoPorJugador="";
   }
   }
   verificarEstadoDeLaJugada(){

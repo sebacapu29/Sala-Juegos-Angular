@@ -12,7 +12,7 @@ export class Juego {
     if(jugador)
       this.jugador=jugador;
     else
-      this.jugador= "natalia natalia";
+      this.jugador= "NN";
   }
   actualizarDatosJuegos(){
   

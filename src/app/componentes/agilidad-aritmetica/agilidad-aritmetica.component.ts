@@ -102,7 +102,7 @@ export class AgilidadAritmeticaComponent implements OnInit {
       }, 900);    
   }
   openSnackBar(mensaje:string){
-    this._snackBar.open(mensaje,"Juego terminado",{duration:4000});
+    this._snackBar.open(mensaje,"Juego",{duration:4000});
   }
   realizarOperacion(){
     switch(this.nuevoJuego.operador){
@@ -125,16 +125,18 @@ export class AgilidadAritmeticaComponent implements OnInit {
     this.jugador.reiniciar();
     this.NuevoJuego();
   }
+  
   evaluarRespuesta(e){
 
     if(e.target.value === this.nuevoJuego.resultado.toString()){        
-      this.mensaje="Correcto!";
+      // this.mensaje="Correcto!";
+      this.openSnackBar("Correcto!");
       this.jugador.puntos++;
       this.jugador.puntosTotalesAcum++;
     }
 
     else{
-      this.mensaje="Noo! la correcta es:  " + this.nuevoJuego.resultado;
+      this.openSnackBar("Correcto!"+"Noo! la correcta es:  " + this.nuevoJuego.resultado);     
       this.jugador.vidas--;
     }
     this.deshabilitar=true;
