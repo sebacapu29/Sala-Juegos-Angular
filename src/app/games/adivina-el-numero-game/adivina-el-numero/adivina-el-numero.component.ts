@@ -1,12 +1,12 @@
 
 import { Component, OnInit ,Input,Output,EventEmitter} from '@angular/core';
-import { JuegoAdivina } from '../../clases/juego-adivina'
+import { JuegoAdivina } from '../../../classes/juego-adivina'
 import { style, trigger, state, transition, animate } from '@angular/animations';
 import { Jugador } from 'src/app/clases/jugador';
 import { LocalStorage } from 'src/app/clases/helpers/local-storage';
 import { DateTimeHelper } from 'src/app/clases/helpers/date-time';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ModalPreguntasComponent } from '../modal-preguntas/modal-preguntas.component';
+import { ModalPreguntasComponent } from '../../../components/modal-preguntas/modal-preguntas.component';
 
 @Component({
   selector: 'app-adivina-el-numero',

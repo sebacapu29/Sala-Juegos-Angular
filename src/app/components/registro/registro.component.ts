@@ -1,8 +1,8 @@
 import { Component, OnInit, Output,EventEmitter } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { Usuario } from '../..//clases/usuario';
-import { Jugador } from '../..//clases/jugador';
-import { DateTimeHelper } from '../../clases/helpers/date-time';
+import { Usuario } from '../../classes/usuario';
+import { Jugador } from '../../classes/jugador';
+import { DateTimeHelper } from '../../classes/helpers/date-time';
 import { FormGroup, FormControl, Validators, FormsModule } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CommonModule } from '@angular/common';

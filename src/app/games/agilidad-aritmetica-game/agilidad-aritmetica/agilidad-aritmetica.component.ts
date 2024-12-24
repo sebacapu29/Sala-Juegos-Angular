@@ -1,5 +1,5 @@
 import { Component, OnInit ,Input,Output,EventEmitter} from '@angular/core';
-import { JuegoAgilidad } from '../../clases/juego-agilidad'
+import { JuegoAgilidad } from '../../classes/juego-agilidad'
 import {MatSnackBar} from '@angular/material/snack-bar';
 
 import {Subscription} from "rxjs";

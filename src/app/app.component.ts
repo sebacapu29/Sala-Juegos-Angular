@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import {PrincipalComponent } from './componentes/principal/principal.component';
+import {PrincipalComponent } from './components/principal/principal.component';
 import { CommonModule } from '@angular/common';
 
 @Component({

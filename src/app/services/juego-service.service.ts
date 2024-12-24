@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Juego } from '../clases/Juego';
-import { JuegoAdivina } from '../clases/juego-adivina';
+import { Juego } from '../classes/Juego';
+import { JuegoAdivina } from '../classes/juego-adivina';
 import { MiHttpService } from './mi-http/mi-http.service'; 
 
 @Injectable()

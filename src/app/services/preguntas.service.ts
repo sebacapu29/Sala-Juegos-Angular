@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MiHttpService } from './mi-http/mi-http.service';
-import { Preguntas } from '../clases/preguntas';
+import { Preguntas } from '../classes/preguntas';
 import { Observable } from 'rxjs';
 
 @Injectable({

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Juego } from '../../clases/juego';
+import { Juego } from '../../classes/juego';
 @Component({
   selector: 'app-adivina-mas-listado',
   templateUrl: './adivina-mas-listado.component.html',

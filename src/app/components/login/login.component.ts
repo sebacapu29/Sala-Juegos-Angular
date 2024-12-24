@@ -3,8 +3,8 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 import {Subscription} from "rxjs";
 import { timer } from "rxjs";
-import { Usuario } from '../../clases/usuario';
-import { LocalStorage } from '../..//clases/helpers/local-storage';
+import { Usuario } from '../../classes/usuario';
+import { LocalStorage } from '../../classes/helpers/local-storage';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
