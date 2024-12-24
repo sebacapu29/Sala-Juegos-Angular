@@ -2,17 +2,22 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 import {Subscription} from "rxjs";
-import {TimerObservable} from "rxjs/observable/TimerObservable";
-import { Usuario } from 'src/app/clases/usuario';
-import { LocalStorage } from 'src/app/clases/helpers/local-storage';
+import { timer } from "rxjs";
+import { Usuario } from '../../clases/usuario';
+import { LocalStorage } from '../..//clases/helpers/local-storage';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
+  standalone:true,
+  imports:[CommonModule, FormsModule]
 })
 export class LoginComponent implements OnInit {
 
+  //@ts-ignore
   private subscription: Subscription;
   usuario:Usuario;
   clave= '';
@@ -20,8 +25,8 @@ export class LoginComponent implements OnInit {
   progresoMensaje="esperando..."; 
   logeando=true;
   ProgresoDeAncho:string;
-  usuariosEnLocalStorage:any[];
-  esUsuarioRegistrado:number;
+  usuariosEnLocalStorage:any[]=[];
+  esUsuarioRegistrado:number=0;
   esUnico:boolean=false;
   @Output() onUsuarioLogueado:EventEmitter<any>= new EventEmitter<any>();
   @Output() onRegistrarUsuario:EventEmitter<any>= new EventEmitter<any>();
@@ -72,14 +77,16 @@ export class LoginComponent implements OnInit {
     this.logeando=false;
     this.clase="progress-bar progress-bar-danger progress-bar-striped active";
     this.progresoMensaje="Iniciando sesión..."; 
-    let timer = TimerObservable.create(200, 50);
-    this.subscription = timer.subscribe(t => {
+    let timerAux = timer.bind(200, 50);
+    //@ts-ignore
+    this.subscription = timerAux.subscribe(t => {
       this.progreso=this.progreso+1;
       this.ProgresoDeAncho=this.progreso+20+"%";
       switch (this.progreso) {
         case 15:
         this.clase="progress-bar progress-bar-warning progress-bar-striped active";
         this.progresoMensaje="Obteniendo usuarios..";  
+        //@ts-ignore
         this.usuariosEnLocalStorage = JSON.parse(localStorage.getItem("usuarios"));          
           break;
         case 30:

@@ -1,17 +1,22 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit, Input } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-menu-nav',
   templateUrl: './menu-nav.component.html',
-  styleUrls: ['./menu-nav.component.css']
+  styleUrls: ['./menu-nav.component.css'],
+  standalone: true,
+  imports:[CommonModule, NgbCollapseModule, RouterModule] 
 })
 export class MenuNavComponent implements OnInit {
 
   @Input() ocultarGit:boolean=false;
   @Input() ocultarQuienSoy:boolean=false;
   @Input() ocultarAtras:boolean=true;
-  // @Input() isLogin:boolean=false;
-  @Input() ocultarOpciones:boolean;
+  @Input() ocultarOpciones:boolean=false;
+
   public isMenuCollapsed = true;
   public status: any = {
     isFirstOpen: true,

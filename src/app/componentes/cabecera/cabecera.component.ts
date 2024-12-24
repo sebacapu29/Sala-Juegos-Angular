@@ -4,11 +4,13 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-cabecera',
   templateUrl: './cabecera.component.html',
-  styleUrls: ['./cabecera.component.css']
+  styleUrls: ['./cabecera.component.css'],
+  standalone: true,
+  imports:[]
 })
 export class CabeceraComponent implements OnInit {
-  @Input() nombreDeUsuarioLogged:string;
-  @Input() ocultarLogOut:boolean;
+  @Input() nombreDeUsuarioLogged:string = "";
+  @Input() ocultarLogOut:boolean = false;
   @Output() logOutUsuario:EventEmitter<any>= new EventEmitter<any>();
 
   constructor(private router:Router) { 
@@ -22,6 +24,7 @@ export class CabeceraComponent implements OnInit {
     var isLogin = localStorage.getItem("isLoggedIn");
     console.log(isLogin);
     if(isLogin=='true'){
+      //@ts-ignore
       this.nombreDeUsuarioLogged = JSON.parse(localStorage.getItem("usuarioLogueado")).nombre;
       this.ocultarLogOut=false;
     }

@@ -1,18 +1,25 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { Router, RouterOutlet } from '@angular/router';
+import { MenuNavComponent } from '../menu-nav/menu-nav.component';
+import { CabeceraComponent } from '../cabecera/cabecera.component';
+import { LoginComponent } from '../login/login.component';
+import { RegistroComponent } from '../registro/registro.component';
 
 
 @Component({
   selector: 'app-principal',
   templateUrl: './principal.component.html',
-  styleUrls: ['./principal.component.css']
+  styleUrls: ['./principal.component.css'],
+  standalone: true,
+  imports: [CommonModule, MenuNavComponent, CabeceraComponent, LoginComponent, RegistroComponent,RouterOutlet]
 })
 export class PrincipalComponent implements OnInit {
   
   seleccionoDeslogue=false;
   isLogged=false;
   usuarioParaCabecera="";
-  ocultarLogOutPrincipal:boolean;
+  ocultarLogOutPrincipal:boolean = false;
   registro=false;
 
   constructor(private router:Router) { 
@@ -43,7 +50,8 @@ export class PrincipalComponent implements OnInit {
     this.usuarioParaCabecera="";
   }
   tomarLogueo(estadoLogueo:boolean){
-    this.usuarioParaCabecera = JSON.parse(localStorage.getItem("usuarioLogueado")).nombre;
+    const usuarioLogueado: any = localStorage.getItem("usuarioLogueado") != null ? localStorage.getItem("usuarioLogueado") : {};
+    this.usuarioParaCabecera = JSON.parse(usuarioLogueado).nombre;
     this.isLogged=true;
     this.seleccionoDeslogue = false;
     this.ocultarLogOutPrincipal=false;

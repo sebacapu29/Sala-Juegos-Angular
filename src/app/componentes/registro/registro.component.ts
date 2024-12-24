@@ -1,10 +1,15 @@
 import { Component, OnInit, Output,EventEmitter } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { Usuario } from 'src/app/clases/usuario';
-import { Jugador } from 'src/app/clases/jugador';
-import { DateTimeHelper } from 'src/app/clases/helpers/date-time';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Usuario } from '../..//clases/usuario';
+import { Jugador } from '../..//clases/jugador';
+import { DateTimeHelper } from '../../clases/helpers/date-time';
+import { FormGroup, FormControl, Validators, FormsModule } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { CommonModule } from '@angular/common';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatIconModule } from '@angular/material/icon';
 
 
 //para poder hacer las validaciones
@@ -12,14 +17,17 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-registro',
   templateUrl: './registro.component.html',
-  styleUrls: ['./registro.component.css']
+  styleUrls: ['./registro.component.css'],
+  standalone:true,
+  imports:[CommonModule, FormsModule, MatCardModule, MatFormFieldModule, MatRadioModule, MatIconModule]
 })
 export class RegistroComponent implements OnInit {
 
 
   usuarioNuevo:Jugador;
   usuarios:any[];
-  confirmacionClave:string;
+  confirmacionClave:string="";
+  //@ts-ignore
   options: FormGroup;
   hideRequiredControl = new FormControl(false);
   floatLabelControl = new FormControl('auto');
