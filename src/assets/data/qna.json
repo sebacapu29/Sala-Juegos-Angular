@@ -1,0 +1,36 @@
+[{
+    "question":"¿Cuántos elementos químicos hay en la tabla periódica?",
+    "answer1":"119",
+    "answer2":"120",
+    "answerc":"118"
+},
+{
+    "question":"¿A qué país pertenece la isla de Creta?",
+    "answer1":"Egipto",
+    "answerc":"Grecia",
+    "answer2":"Italia"
+},
+{
+    "question":" ¿Cuánto duró la Guerra de los Cien Años?",
+    "answer1":"100",
+    "answerc":"116",
+    "answer2":"105"
+},
+{
+    "question":"¿Qué órgano segrega la hormona insulina?",
+    "answer1":"Riñon",
+    "answerc":"Pancreas",
+    "answer2":"Vesicula"
+},
+{
+    "question":"¿A cuánto equivale π?",
+    "answerc":"3.141592",
+    "answer2":"3.149215",
+    "answer1":"3.144123"
+},
+{
+    "question":"¿Cuál es la capital de Suecia?",
+    "answerc":"Estocolmo",
+    "answer2":"Berna",
+    "answer1":"Lisboa"
+}]
