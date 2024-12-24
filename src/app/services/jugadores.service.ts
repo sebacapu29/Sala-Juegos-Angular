@@ -30,6 +30,7 @@ filtrado:any;
       }
 
       this.filtrado =this.filtrado.filter(
+        //@ts-ignore
         data => data.gano === ganador  || filtro=="todos" ); return this.filtrado}
       )
       .catch(errror=>{console.log("error")

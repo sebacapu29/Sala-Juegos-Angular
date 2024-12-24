@@ -1,10 +1,12 @@
 
+import { CommonModule } from '@angular/common';
 import { Component, OnInit , Input, EventEmitter} from '@angular/core';
 
 @Component({
   selector: 'app-listado-de-resultados',
   templateUrl: './listado-de-resultados.component.html',
-  styleUrls: ['./listado-de-resultados.component.css']
+  styleUrls: ['./listado-de-resultados.component.css'],
+  imports:[CommonModule]
 })
 export class ListadoDeResultadosComponent implements OnInit {
  
@@ -12,6 +14,7 @@ export class ListadoDeResultadosComponent implements OnInit {
  listadoOriginal: Array<any>;
 
   constructor() {
+    //@ts-ignore
     this.listadoOriginal =  this.listado = JSON.parse(localStorage.getItem("juegos")); 
    }
 

@@ -1,19 +1,21 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
-import { Preguntas } from 'src/app/clases/preguntas';
-import { PreguntasService } from 'src/app/servicios/preguntas.service';
-import { Jugador } from 'src/app/clases/jugador';
+import { Preguntas } from '../../../classes/preguntas';
+import { PreguntasService } from '../../../services/preguntas.service';
+import { Jugador } from '../../../classes/jugador';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ModalPreguntasComponent } from '../modal-preguntas/modal-preguntas.component';
-import { JuegoPreguntas } from 'src/app/clases/juego-preguntas';
-import { LocalStorage } from 'src/app/clases/helpers/local-storage';
-import { DateTimeHelper } from 'src/app/clases/helpers/date-time';
+import { ModalPreguntasComponent } from '../../../components/modal-preguntas/modal-preguntas.component';
+import { JuegoPreguntas } from '../../../classes/juego-preguntas';
+import { LocalStorage } from '../../../classes/helpers/local-storage';
+import { DateTimeHelper } from '../../../classes/helpers/date-time';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
   selector: 'app-preguntas',
   templateUrl: './preguntas.component.html',
   styleUrls: ['./preguntas.component.css'],
+  imports:[CommonModule],
   animations:[  
     trigger('animacion2',[
       state('estado1Anim2',style({
@@ -52,7 +54,7 @@ export class PreguntasComponent implements OnInit {
   estadoAnimacion3="estado1Anim3";
   estadoAnimacion4 = "estado1Anim4";
   imagenCofre ="./assets/imagenes/cofre.jpg";
-  mensajeJuego:string;
+  mensajeJuego:string="";
   intervalId:any;
   contadorTiempo:number =20;
   contadorTiempoAnimacion:number=4;
@@ -64,9 +66,9 @@ export class PreguntasComponent implements OnInit {
   juegoPreguntas:Preguntas[];
   preguntaSeleccionada:Preguntas;
   jugador:Jugador;
-  randomCuriosidad:number;
+  randomCuriosidad:number=0;
   audio:any;
-  nuevoJuego:JuegoPreguntas;
+  nuevoJuego:JuegoPreguntas= new JuegoPreguntas;
 
   constructor(private preguntasSerive:PreguntasService,
     private modalService: NgbModal) { 
@@ -86,6 +88,7 @@ export class PreguntasComponent implements OnInit {
     var usuarioLocalStorage:any;
 
     if(localStorage.getItem("usuarioLogueado")!=null){
+      //@ts-ignore
       usuarioLocalStorage = JSON.parse(localStorage.getItem("usuarioLogueado"));              
     }    
     this.jugador = new Jugador(usuarioLocalStorage.nombre,usuarioLocalStorage.mail,usuarioLocalStorage.clave,usuarioLocalStorage.sexo,"Poderoso Conocimiento"); 
@@ -100,6 +103,7 @@ export class PreguntasComponent implements OnInit {
   configuracionesIniciarles(){
     var usuarioLocalStorage:any;
     if(localStorage.getItem("usuarioLogueado")!=null){
+      //@ts-ignore
       usuarioLocalStorage = JSON.parse(localStorage.getItem("usuarioLogueado"));              
     }    
     this.jugador = new Jugador(usuarioLocalStorage.nombre,usuarioLocalStorage.mail,usuarioLocalStorage.clave,usuarioLocalStorage.sexo,"Poderoso Conocimiento"); 
@@ -153,6 +157,7 @@ export class PreguntasComponent implements OnInit {
       Tiempo--;
       }, 200);
   }
+  //@ts-ignore
   esJuegoTerminado(){
     if(this.juegoPreguntas.length ==0){
       this.audio.src = "./assets/sonidos/sonido-victoria.mp3";
@@ -196,7 +201,7 @@ export class PreguntasComponent implements OnInit {
   mostrarAyuda(){
     
   }
-  evaluarRespuesta(e){
+  evaluarRespuesta(e:any){
 
     if(e.target.value === this.preguntaSeleccionada.answerc){
       this.jugador.gano=true;  

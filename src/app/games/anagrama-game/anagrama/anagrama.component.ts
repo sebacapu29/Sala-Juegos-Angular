@@ -1,24 +1,26 @@
 import { Component, OnInit } from '@angular/core';
-import { Jugador } from 'src/app/clases/jugador';
-import { JuegoAnagrama } from 'src/app/clases/juego-anagrama';
+import { Jugador } from '../../../classes/jugador';
+import { JuegoAnagrama } from '../../../classes/juego-anagrama';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { LocalStorage } from 'src/app/clases/helpers/local-storage';
+import { LocalStorage } from '../../../classes/helpers/local-storage';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ModalPreguntasComponent } from '../modal-preguntas/modal-preguntas.component';
+import { ModalPreguntasComponent } from '../../../components/modal-preguntas/modal-preguntas.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-anagrama',
   templateUrl: './anagrama.component.html',
-  styleUrls: ['./anagrama.component.css']
+  styleUrls: ['./anagrama.component.css'],
+  imports:[CommonModule]
 })
 export class AnagramaComponent implements OnInit {
 
   jugador:Jugador;
   nuevoJuego:JuegoAnagrama;
   contadorTiempo=0;
-  palabraDesordenada:string[];
+  palabraDesordenada:string[]=[];
   lista:Array<any>;
-  numeroAleatorio:number;
+  numeroAleatorio:number=0;
   juegoTerminado:boolean=false;
   bloqueoPantalla:boolean=false;
 
@@ -27,6 +29,7 @@ export class AnagramaComponent implements OnInit {
     var usuarioLocalStorage:any;
 
     if(localStorage.getItem("usuarioLogueado")!=null){
+      //@ts-ignore
       usuarioLocalStorage = JSON.parse(localStorage.getItem("usuarioLogueado"));              
     } 
     this.nuevoJuego= new JuegoAnagrama();   
@@ -75,6 +78,7 @@ export class AnagramaComponent implements OnInit {
    openSnackBar(mensaje:string,titulo:string){
     this._snackBar.open(mensaje,titulo,{duration:5000});
   }
+  //@ts-ignore
    enviarLetra(letra){
      for (let index = 0; index < this.nuevoJuego.palabraUsuario.length; index++) {
        const element = this.nuevoJuego.palabraUsuario[index];
@@ -117,6 +121,7 @@ export class AnagramaComponent implements OnInit {
       }
     }
    }
+   //@ts-ignore
    esJuegoTerminado(){
       if(this.jugador.vidas ==0){
         this.juegoTerminado=true;

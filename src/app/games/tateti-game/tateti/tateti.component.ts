@@ -1,15 +1,20 @@
-import { Component, OnInit } from '@angular/core';
-import { JuegoTateti } from 'src/app/clases/juego-tateti';
-import { Jugador } from 'src/app/clases/jugador';
+import { Component, NO_ERRORS_SCHEMA, OnInit } from '@angular/core';
+import { JuegoTateti } from '../../../classes/juego-tateti';
+
+import { Jugador } from '../../../classes/jugador';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import { LocalStorage } from 'src/app/clases/helpers/local-storage';
+import { LocalStorage } from '../../../classes/helpers/local-storage';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ModalPreguntasComponent } from '../modal-preguntas/modal-preguntas.component';
+import { ModalPreguntasComponent } from '../../../components/modal-preguntas/modal-preguntas.component';
+import { MatRadioGroup, MatRadioModule } from '@angular/material/radio';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-tateti',
   templateUrl: './tateti.component.html',
-  styleUrls: ['./tateti.component.css']
+  styleUrls: ['./tateti.component.css'],
+  imports:[CommonModule, MatRadioModule, MatRadioGroup],
+  schemas:[NO_ERRORS_SCHEMA]
 })
 export class TatetiComponent implements OnInit {
 
@@ -37,6 +42,7 @@ export class TatetiComponent implements OnInit {
     var usuarioLocalStorage:any;
 
     if(localStorage.getItem("usuarioLogueado")!=null){
+      //@ts-ignore
       usuarioLocalStorage = JSON.parse(localStorage.getItem("usuarioLogueado"));              
     } 
     this.nuevoJuego= new JuegoTateti();   
@@ -52,6 +58,7 @@ export class TatetiComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  //@ts-ignore
   llenarCasillero(posicion1,posicion2){
     this.nuevoJuego.fichaEnemigo = this.nuevoJuego.ficha == "x" ? "o" : "x";
 
@@ -136,12 +143,13 @@ export class TatetiComponent implements OnInit {
     if(indexUser!=-1){
       LocalStorage.actualizarUnUsuario(this.jugador,indexUser);
     }
-  }  
+  } 
+  //@ts-ignore 
   bloquearDesbloqTablero(bloqueo){
     this.tableroBloqueado=bloqueo;
     // this.juegoTerminado=true;
   }
- 
+ //@ts-ignore
     esJuegoTerminado(){
       if(this.jugador.vidas ==0){
         this.juegoTerminado=true;
@@ -177,6 +185,7 @@ export class TatetiComponent implements OnInit {
     }
     return false;
   }
+  //@ts-ignore
   esRondaGanada(ficha){
     if (this.tablero[0].ficha == ficha && this.tablero[1].ficha == ficha && this.tablero[2].ficha == ficha)
     return true
@@ -199,6 +208,7 @@ export class TatetiComponent implements OnInit {
   }
 
   //Devuelve -1 si la celda esta ocupada
+  //@ts-ignore
   esCasilleroOcupado(fila,columna){
     var indexTablero=-1;
 

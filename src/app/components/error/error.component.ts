@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import 'rxjs/add/operator/switchMap';
+import { switchMap } from 'rxjs/operators';
 @Component({
   selector: 'app-error',
   templateUrl: './error.component.html',

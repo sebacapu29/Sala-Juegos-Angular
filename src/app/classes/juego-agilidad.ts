@@ -2,12 +2,12 @@ import { Juego } from './juego';
 
 export class JuegoAgilidad extends Juego {
    
-    numeroIngresado:number;
+    numeroIngresado:number=0;
     // gano:boolean;
-    primerNumero:number;
-    segundoNumero:number;
-    operador:string;
-    resultado:number;
+    primerNumero:number=0;
+    segundoNumero:number=0;
+    operador:string="";
+    resultado:number=0;
     juegoTerminado:boolean;
 
 

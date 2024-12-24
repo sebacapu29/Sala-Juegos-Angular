@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Juego } from '../classes/Juego';
+import { Juego } from '../classes/juego';
 import { JuegoAdivina } from '../classes/juego-adivina';
 import { MiHttpService } from './mi-http/mi-http.service'; 
 
@@ -14,18 +14,22 @@ export class JuegoServiceService {
 
   public listar(): Array<Juego> {
    this.miHttp.httpGetP("https://restcountries.eu/rest/v2/all")
+   //@ts-ignore
     .then( data => {
       console.log( data );
     })
+    //@ts-ignore
     .catch( err => {
       console.log( err );
     });
    
   
     this.peticion
+    //@ts-ignore
     .subscribe( data => {
       console.log("En listar");
       console.log( data );
+      //@ts-ignore
     }, err => {
       console.info("error: " ,err );
     })
@@ -43,9 +47,11 @@ export class JuegoServiceService {
 
   public listarPromesa(): Promise<Array<Juego>> {
     this.peticion
+    //@ts-ignore
     .subscribe( data => {
       console.log("En listarPromesa");
       console.log( data );
+      //@ts-ignore
     }, err => {
       console.log( err );
     })

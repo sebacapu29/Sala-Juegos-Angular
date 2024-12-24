@@ -8,10 +8,12 @@ export class PaisesService {
 
   public listar():Promise<Array<any>> {
        return   this.miHttp.httpGetP("https://restcountries.eu/rest/v2/all")
+       //@ts-ignore
           .then( data => {
             console.log( data );
             return data;
           })
+          //@ts-ignore
           .catch( err => {
             console.log( err );
             return null;

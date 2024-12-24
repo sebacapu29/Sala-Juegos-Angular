@@ -1,15 +1,17 @@
 import { Component, OnInit ,Input,Output,EventEmitter} from '@angular/core';
-import { JuegoAgilidad } from '../../classes/juego-agilidad'
+import { JuegoAgilidad } from '../../../classes/juego-agilidad';
 import {MatSnackBar} from '@angular/material/snack-bar';
 
 import {Subscription} from "rxjs";
-import {TimerObservable} from "rxjs/observable/TimerObservable";
-import { Jugador } from 'src/app/clases/jugador';
+import {timer} from "rxjs";
+import { Jugador } from '../../../classes/jugador';
 import { style, trigger, state, transition, animate } from '@angular/animations';
-import { LocalStorage } from 'src/app/clases/helpers/local-storage';
-import { DateTimeHelper } from 'src/app/clases/helpers/date-time';
+import { LocalStorage } from '../../../classes/helpers/local-storage';
+import { DateTimeHelper } from '../../../classes/helpers/date-time';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ModalPreguntasComponent } from '../modal-preguntas/modal-preguntas.component';
+import { ModalPreguntasComponent } from '../../../components/modal-preguntas/modal-preguntas.component';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-agilidad-aritmetica',
   templateUrl: './agilidad-aritmetica.component.html',
@@ -21,8 +23,9 @@ import { ModalPreguntasComponent } from '../modal-preguntas/modal-preguntas.comp
       opacity:'0'
     })),
     transition('estado1 <=> estado2',animate('100ms'))
-  ])
-]
+  ]),
+],
+imports:[CommonModule, FormsModule]
 })
 export class AgilidadAritmeticaComponent implements OnInit {
    @Output() 
@@ -34,14 +37,14 @@ export class AgilidadAritmeticaComponent implements OnInit {
   min:number = 1;
   max:number= 50;
   operadores:number=4;
-  mensaje:string;
-  deshabilitar:boolean;
-  jugador:Jugador;
+  mensaje:string="";
+  deshabilitar:boolean=false;
+  jugador:Jugador= new Jugador;
   durationInSeconds = 5;  
-
+  //@ts-ignore
   private subscription: Subscription;
   respuestasParaMostrar: string[];
-  listaNumeros: any[];
+  listaNumeros: any[]=[];
   // usuariosEnLocalStorage: any;
   ngOnInit() {
   }
@@ -58,6 +61,7 @@ export class AgilidadAritmeticaComponent implements OnInit {
   configuracionesIniciarles(){
     var usuarioLocalStorage:any;
     if(localStorage.getItem("usuarioLogueado")!=null){
+      //@ts-ignore
       usuarioLocalStorage = JSON.parse(localStorage.getItem("usuarioLogueado"));              
     }
     else{
@@ -97,6 +101,7 @@ export class AgilidadAritmeticaComponent implements OnInit {
         this.deshabilitar=true;
         this.ocultarVerificar= this.nuevoJuego.juegoTerminado ? false: true;
         this.Tiempo=6;
+        //@ts-ignore
         this.nuevoJuego.gano=this.comprobarResultado();        
       }
       }, 900);    
@@ -125,7 +130,7 @@ export class AgilidadAritmeticaComponent implements OnInit {
     this.jugador.reiniciar();
     this.NuevoJuego();
   }
-  
+  //@ts-ignore
   evaluarRespuesta(e){
 
     if(e.target.value === this.nuevoJuego.resultado.toString()){        
@@ -168,6 +173,7 @@ export class AgilidadAritmeticaComponent implements OnInit {
     }
     return false;
   }
+  //@ts-ignore
   comprobarResultado(){
     switch(this.nuevoJuego.operador){
       case "+":

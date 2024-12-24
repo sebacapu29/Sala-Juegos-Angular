@@ -2,11 +2,12 @@
 import { Component, OnInit ,Input,Output,EventEmitter} from '@angular/core';
 import { JuegoAdivina } from '../../../classes/juego-adivina'
 import { style, trigger, state, transition, animate } from '@angular/animations';
-import { Jugador } from 'src/app/clases/jugador';
-import { LocalStorage } from 'src/app/clases/helpers/local-storage';
-import { DateTimeHelper } from 'src/app/clases/helpers/date-time';
+import { Jugador } from '../../../classes/jugador';
+import { LocalStorage } from '../../../classes/helpers/local-storage';
+import { DateTimeHelper } from '../../../classes/helpers/date-time';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalPreguntasComponent } from '../../../components/modal-preguntas/modal-preguntas.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-adivina-el-numero',
@@ -21,25 +22,26 @@ import { ModalPreguntasComponent } from '../../../components/modal-preguntas/mod
     })),
     transition('estado1 <=> estado2',animate('0.5ms'))
   ])
-]
+],
+imports:[CommonModule]
 })
 export class AdivinaElNumeroComponent implements OnInit {
  @Output() enviarJuego: EventEmitter<any>= new EventEmitter<any>();
 
   nuevoJuego: JuegoAdivina;
   jugador:Jugador;
-  Mensajes:string;
-  contador:number;
+  Mensajes:string="";
+  contador:number=0;
   ocultarVerificar:boolean;
   comenzoJuego:boolean;
   respuestasParaMostrar:any[];
   mensaje:string;
   mostrarEnemigo:boolean;
   animacionEnemigo:string;
-  imagenEnemigo:string;
-  listaNumeros:string[];
-  imgEstrella:string;
-  juegoTerminado:boolean;
+  imagenEnemigo:string="";
+  listaNumeros:string[]=[];
+  imgEstrella:string="";
+  juegoTerminado:boolean=false;
 
   constructor(private modalService:NgbModal) { 
     this.nuevoJuego = new JuegoAdivina();
@@ -54,6 +56,7 @@ export class AdivinaElNumeroComponent implements OnInit {
     var usuarioLocalStorage:any;
 
     if(localStorage.getItem("usuarioLogueado")!=null){
+      //@ts-ignore
       usuarioLocalStorage = JSON.parse(localStorage.getItem("usuarioLogueado"));              
     }    
     this.jugador = new Jugador(usuarioLocalStorage.nombre,usuarioLocalStorage.mail,usuarioLocalStorage.clave,usuarioLocalStorage.sexo,"Poderoso Conocimiento"); 
@@ -87,6 +90,7 @@ export class AdivinaElNumeroComponent implements OnInit {
     this.jugador.vidas=8;
     this.reiniciar();  
   }
+  //@ts-ignore
   esJuegoTerminado(){
     if(this.jugador.puntos ==3){
 
@@ -112,7 +116,8 @@ export class AdivinaElNumeroComponent implements OnInit {
     this.comenzoJuego=false;
     this.juegoTerminado=false;
   }
-  evaluarRespuesta(numero)
+
+  evaluarRespuesta(numero:any)
   {
     this.contador++;
     this.nuevoJuego.numeroIngresado = numero;
@@ -159,6 +164,7 @@ export class AdivinaElNumeroComponent implements OnInit {
       }
       this.jugador.vidas--;
       this.MostarMensaje("# "+this.contador+" "+mensaje+" ayuda : "+this.nuevoJuego.retornarAyuda());
+      //@ts-ignore
       this.nuevoJuego.numeroIngresado=null;
      
     }
@@ -189,6 +195,7 @@ export class AdivinaElNumeroComponent implements OnInit {
     }
     
     setTimeout(function(){ 
+      //@ts-ignore
       this.animacionEnemigo="estado1";     
      }, 3000); 
   }
@@ -197,12 +204,15 @@ export class AdivinaElNumeroComponent implements OnInit {
     var x = document.getElementById("snackbar");
     if(ganador)
       {
+        //@ts-ignore
         x.className = "show Ganador";
       }else{
+        //@ts-ignore
         x.className = "show Perdedor";
       }
     var modelo=this;
-    setTimeout(function(){ 
+    setTimeout(function(){
+      //@ts-ignore 
       x.className = x.className.replace("show", "");  
       modelo.ocultarVerificar=true;   
       modelo.mostrarAnimacion('noMostrar');     

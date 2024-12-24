@@ -77,7 +77,7 @@ export class LoginComponent implements OnInit {
     this.logeando=false;
     this.clase="progress-bar progress-bar-danger progress-bar-striped active";
     this.progresoMensaje="Iniciando sesión..."; 
-    let timerAux = timer.bind(200, 50);
+    let timerAux = timer(200, 50);
     //@ts-ignore
     this.subscription = timerAux.subscribe(t => {
       this.progreso=this.progreso+1;

@@ -1,16 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { Jugador } from 'src/app/clases/jugador';
+import { Jugador } from '../../../classes/jugador';
 import { trigger, state, style, animate, transition } from '@angular/animations';
-import { JuegoPiedraPapelTijera } from 'src/app/clases/juego-piedra-papel-tijera';
-import { LocalStorage } from 'src/app/clases/helpers/local-storage';
-import { DateTimeHelper } from 'src/app/clases/helpers/date-time';
+import { JuegoPiedraPapelTijera } from '../../../classes/juego-piedra-papel-tijera';
+import { LocalStorage } from '../../../classes/helpers/local-storage';
+import { DateTimeHelper } from '../../../classes/helpers/date-time';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ModalPreguntasComponent } from '../modal-preguntas/modal-preguntas.component';
+import { ModalPreguntasComponent } from '../../../components/modal-preguntas/modal-preguntas.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-ppt',
   templateUrl: './ppt.component.html',
   styleUrls: ['./ppt.component.css'],
+  imports:[CommonModule],
   animations: [trigger('animacion',[
     state('estado1',style({        
     })),
@@ -27,21 +29,21 @@ export class PptComponent implements OnInit {
   pathUsuario:string;
   pathsPPT:string[] = new Array<string>();
   tiempoAnimacion:number;
-  seleccionContrincante:string;
-  seleccionJugador:string;
-  seleccionadoPorJugador:string
+  seleccionContrincante:string="";
+  seleccionJugador:string="";
+  seleccionadoPorJugador:string="";
   jugador:Jugador;
   estadoAnimJugada:string;
   intervalId: any;
   valorSeleccionado:string;
-  imageBackground:string;
-  Mensajes:string;
-  juegoTerminado:boolean;
+  imageBackground:string="";
+  Mensajes:string="";
+  juegoTerminado:boolean=false;
   seleccionoOpcion:boolean=false;
   audio:any;
   nuevoJuego:JuegoPiedraPapelTijera;
-  esEmpate:boolean;
-  deshabilitar:boolean;
+  esEmpate:boolean=false;
+  deshabilitar:boolean=false;
 
   constructor(private modalService: NgbModal) {
     this.pathContrincate = "./assets/imagenes/piedra.jpg";
@@ -66,6 +68,7 @@ export class PptComponent implements OnInit {
     var usuarioLocalStorage:any;
 
     if(localStorage.getItem("usuarioLogueado")!=null){
+      //@ts-ignore
       usuarioLocalStorage = JSON.parse(localStorage.getItem("usuarioLogueado"));              
     }    
     this.jugador = new Jugador(usuarioLocalStorage.nombre,usuarioLocalStorage.mail,usuarioLocalStorage.clave,usuarioLocalStorage.sexo,"Piedra Papel o Tijera"); 
@@ -97,6 +100,7 @@ export class PptComponent implements OnInit {
         break;    
     }
     var btnSelect = document.getElementById(jugada);
+    //@ts-ignore
     btnSelect.className = "btnSeleccionado";
     this.seleccionoOpcion=true;
   }
@@ -111,10 +115,12 @@ export class PptComponent implements OnInit {
     modalRef.componentInstance.listaReglas= reglas;
     modalRef.componentInstance.reglas=true;
   }
-  deseleccionarOtrosBotones(boton1,boton2){
+  deseleccionarOtrosBotones(boton1:any, boton2:any){
     var btnSelect1 = document.getElementById(boton1);
     var btnSelect2 = document.getElementById(boton2);
+    //@ts-ignore
     btnSelect1.className = "btnJ";
+    //@ts-ignore
     btnSelect2.className = "btnJ";
   }
   seleccionJugadaContrincante(){
@@ -233,6 +239,7 @@ export class PptComponent implements OnInit {
     }
     return ganaRonda;
   }
+  //@ts-ignore
   esJuegoTerminado(){
     if(this.jugador.vidas==0){
       this.juegoTerminado=true;      
@@ -259,15 +266,19 @@ export class PptComponent implements OnInit {
     var snackerBar = document.getElementById("snackbar");
     if(ganador)
       {
+        //@ts-ignore
         snackerBar.className = "show Ganador";
       }else if(!ganador && !empate){
+        //@ts-ignore
         snackerBar.className = "show Perdedor";
       }
       else{
+        //@ts-ignore
         snackerBar.className = "show Empate";
       }
     var modelo=this;
     setTimeout(function(){ 
+      //@ts-ignore
       snackerBar.className = snackerBar.className.replace("show", "");      
      }, 3000);
    } 

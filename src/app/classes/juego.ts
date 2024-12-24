@@ -20,6 +20,7 @@ export class Juego {
     var usuarioLogueadoEnJuego:any;
 
     if(localStorage.getItem("juegos")!=null){
+      //@ts-ignore
       juegosEnLocalStorage = <Array<any>> JSON.parse(localStorage.getItem("juegos"));              
 
     }

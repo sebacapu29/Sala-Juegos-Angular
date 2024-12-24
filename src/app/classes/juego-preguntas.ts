@@ -1,5 +1,5 @@
 import { Juego } from './juego';
 
 export class JuegoPreguntas extends Juego{
-    numCuriosidad:number;
+    numCuriosidad:number=0;
 }

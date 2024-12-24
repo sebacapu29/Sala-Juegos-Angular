@@ -1,14 +1,17 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { MatTabsModule } from '@angular/material/tabs';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 @Component({
   selector: 'app-menu-card',
   templateUrl: './menu-card.component.html',
   styleUrls: ['./menu-card.component.css'],
+   imports:[CommonModule, MatTabsModule]
 })
 export class MenuCardComponent implements OnInit {
 
   
-  imageBackground:string;
+  imageBackground:string="";
   estadoAnimacion = "estado1";
   imageBackgroundList:string;
 
