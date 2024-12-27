@@ -1,47 +1,119 @@
-<mat-card class="background" fxLayout="column" fxLayoutAlign="center center" style="margin:25px" >
-  <mat-card-content class="col-sm-9 col-md-7 col-lg-5 mx-auto matcontent">
-    <mat-card-title>Registro Usuarios</mat-card-title>
-  <mat-form-field appearance="outline" style="margin:10px">
-    <mat-label>Nombre</mat-label>
-    <input matInput placeholder="Ingrese Nombre" [(ngModel)]="usuarioNuevo.nombre" name="fieldName1">
-    <mat-icon matSuffix>perm_identity</mat-icon>
-    <mat-hint>Ingrese Nombre</mat-hint>
-  </mat-form-field>
-  <br>
-  <mat-form-field appearance="fill" style="margin:10px">
-    <mat-label>Email</mat-label>
-    <input matInput placeholder="mail@ejemplo.com" [(ngModel)]="usuarioNuevo.mail"  name="fieldName1" required>
-    <mat-error *ngIf="email.invalid">Ingrese un mail valido</mat-error>
-  </mat-form-field>
-  <br>
-  <div style="margin:10px">
-    <label>Sexo: </label>
-    <mat-radio-group [(ngModel)]="usuarioNuevo.sexo">
-      <mat-radio-button name="fieldName3" value="masculino">Masculino</mat-radio-button>
-      <mat-radio-button name="fieldName1" value="femenino">Fenenino</mat-radio-button>
-    </mat-radio-group>
+<div class="container mt-5" >
+  <div class="row justify-content-center">
+    <div class="col-sm-9 col-md-7 col-lg-5">
+      <div class="register-card">
+        <div class="card-body ">
+          <h5 class="card-title text-center">Registro Usuarios</h5>
+          
+          <form>
+            <!-- Nombre -->
+            <div class="form-group mb-3">
+              <label for="nombre">Nombre</label>
+              <div class="input-group">
+                <input 
+                  type="text" 
+                  class="form-control" 
+                  id="nombre" 
+                  placeholder="Ingrese Nombre" 
+                  [(ngModel)]="usuarioNuevo.nombre" 
+                  name="fieldName1">
+                <span class="input-group-text"><i class="bi bi-person"></i></span>
+              </div>
+              <small class="form-text text-muted">Ingrese Nombre</small>
+            </div>
+
+            <!-- Email -->
+            <div class="form-group mb-3">
+              <label for="email">Email</label>
+              <input 
+                type="email" 
+                class="form-control" 
+                id="email" 
+                placeholder="mail@ejemplo.com" 
+                [(ngModel)]="usuarioNuevo.mail" 
+                name="fieldName1" 
+                required>
+              <div class="invalid-feedback">Ingrese un mail válido.</div>
+            </div>
+
+            <!-- Sexo -->
+            <div class="form-group mb-3">
+              <label>Sexo:</label>
+              <div>
+                <div class="form-check form-check-inline">
+                  <input 
+                    class="form-check-input" 
+                    type="radio" 
+                    id="sexoMasculino" 
+                    value="masculino" 
+                    [(ngModel)]="usuarioNuevo.sexo" 
+                    name="sexo">
+                  <label class="form-check-label" for="sexoMasculino">Masculino</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input 
+                    class="form-check-input" 
+                    type="radio" 
+                    id="sexoFemenino" 
+                    value="femenino" 
+                    [(ngModel)]="usuarioNuevo.sexo" 
+                    name="sexo">
+                  <label class="form-check-label" for="sexoFemenino">Femenino</label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Clave -->
+            <div class="form-group mb-3">
+              <label for="clave">Clave</label>
+              <div class="input-group">
+                <input 
+                  type="{{ hide ? 'password' : 'text' }}" 
+                  class="form-control" 
+                  id="clave" 
+                  placeholder="Clave" 
+                  [(ngModel)]="usuarioNuevo.clave" 
+                  name="fieldName1">
+                <button 
+                  class="btn btn-outline-secondary" 
+                  type="button" 
+                  (click)="hide = !hide" 
+                  aria-label="Mostrar u ocultar clave">
+                  <i class="bi" [ngClass]="hide ? 'bi-eye-slash' : 'bi-eye'"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Confirmar Clave -->
+            <div class="form-group mb-3">
+              <label for="confirmacionClave">Confirme Su Clave</label>
+              <div class="input-group">
+                <input 
+                  type="{{ hide2 ? 'password' : 'text' }}" 
+                  class="form-control" 
+                  id="confirmacionClave" 
+                  placeholder="Confirme Clave" 
+                  [(ngModel)]="confirmacionClave" 
+                  name="fieldName2">
+                <button 
+                  class="btn btn-outline-secondary" 
+                  type="button" 
+                  (click)="hide2 = !hide2" 
+                  aria-label="Mostrar u ocultar clave">
+                  <i class="bi" [ngClass]="hide2 ? 'bi-eye-slash' : 'bi-eye'"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Botones -->
+            <div class="form-group d-flex justify-content-between">
+              <button type="button" class="btn btn-danger" (click)="cancelar()">Cancelar</button>
+              <button type="button" class="btn btn-primary" (click)="registrar()">Registrar</button>
+            </div>
+          </form>
+          
+        </div>
+      </div>
+    </div>
   </div>
-  <div style="margin:10px">
-    <mat-form-field appearance="fill">
-      <mat-label>Clave</mat-label>
-      <input matInput [type]="hide ? 'password' : 'text'" [(ngModel)]="usuarioNuevo.clave" name="fieldName1">
-       <button mat-icon-button matSuffix (click)="hide = !hide" name="fieldName2" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-      <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-      </button>
-    </mat-form-field>
-  </div>
-  <div style="margin:10px">
-     <mat-form-field appearance="fill">
-      <mat-label>Confirme Su Clave</mat-label>
-      <input matInput [type]="hide ? 'password' : 'text'" [(ngModel)]="confirmacionClave" name="fieldName2">
-      <button mat-icon-button matSuffix (click)="hide = !hide2" name="fieldName1" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-      <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-      </button>
-    </mat-form-field> 
-  </div>
-  <div style="margin:10px">
-    <button mat-button (click)="cancelar()" color="warn">Cancelar</button>
-    <button mat-button (click)="registrar()" color="accent">Registrar</button>
-  </div>
-</mat-card-content>
-</mat-card>
+</div>

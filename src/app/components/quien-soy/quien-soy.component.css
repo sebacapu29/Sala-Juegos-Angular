@@ -49,3 +49,10 @@ ul li{
     margin: 10px;
     list-style: none;
 }
+
+.custom-image {
+    width: 100%; /* Las imágenes ocuparán todo el ancho disponible dentro de su contenedor */
+    height: 250px; /* Fija una altura uniforme */
+    object-fit: cover; /* Asegura que las imágenes se adapten al contenedor sin distorsionarse */
+    border-radius: 10px; /* Opcional: añade bordes redondeados */
+  }

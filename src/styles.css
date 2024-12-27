@@ -1,1 +1,10 @@
-/* You can add global styles to this file, and also import other style files */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    height: 100vh;
+    /* display: flex; */
+    align-items: center;
+    justify-content: center;
+    background: url('../src/assets/imagenes/game-background.jpeg') no-repeat center center/cover;
+    background-attachment: fixed;
+  }

@@ -5,15 +5,16 @@ import {Subscription} from "rxjs";
 import { timer } from "rxjs";
 import { Usuario } from '../../classes/usuario';
 import { LocalStorage } from '../../classes/helpers/local-storage';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
   standalone:true,
-  imports:[CommonModule, FormsModule]
+  imports:[CommonModule, FormsModule, MatSnackBarModule]
 })
 export class LoginComponent implements OnInit {
 
@@ -54,7 +55,6 @@ export class LoginComponent implements OnInit {
   }
   Entrar() {
 
-
     if (this.esUsuarioRegistrado!=-1) {
       localStorage.setItem("isLoggedIn","true");
       LocalStorage.actualizarUsuarioLogueado(this.esUsuarioRegistrado);   
@@ -65,7 +65,7 @@ export class LoginComponent implements OnInit {
       //usuario invalido
       this.progreso=0;
       this.ProgresoDeAncho="0%"; 
-      this.openSnackBar("Error de usuario o contraseña, problablemente deba registrarse")
+      this.openSnackBar("Error de usuario o contraseña")
     }
   }
   Registrarme() {

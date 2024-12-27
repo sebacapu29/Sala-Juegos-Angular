@@ -10,6 +10,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 
 
 //para poder hacer las validaciones
@@ -19,7 +20,7 @@ import { MatIconModule } from '@angular/material/icon';
   templateUrl: './registro.component.html',
   styleUrls: ['./registro.component.css'],
   standalone:true,
-  imports:[CommonModule, FormsModule, MatCardModule, MatFormFieldModule, MatRadioModule, MatIconModule]
+  imports:[CommonModule, FormsModule, MatCardModule, MatFormFieldModule, MatRadioModule, MatIconModule, MatInputModule]
 })
 export class RegistroComponent implements OnInit {
 
@@ -55,8 +56,6 @@ export class RegistroComponent implements OnInit {
         localStorage.removeItem("usuarios");
         if(usuariosLocalStorage!= null && Array.isArray(JSON.parse(usuariosLocalStorage))){     
           this.usuarios = JSON.parse(usuariosLocalStorage);
-          // console.log("1"); 
-          // console.log(Array.isArray(usuariosLocalStorage));
         }
 
         else if(usuariosLocalStorage!= null && !Array.isArray(JSON.parse(usuariosLocalStorage))){                 

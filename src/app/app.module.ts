@@ -6,7 +6,7 @@ import { AdivinaElNumeroComponent } from './games/adivina-el-numero-game/adivina
 import { ListadoDeResultadosComponent } from './components/listado-de-resultados/listado-de-resultados.component';
 import { LoginComponent } from './components/login/login.component';
  import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http'; 
 
 import { RouterModule, Routes } from '@angular/router';
@@ -88,7 +88,8 @@ import { CarouselComponent } from './components/carousel/carousel.component';
     NgbModule,
     HttpClientModule,
     MaterialModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    NoopAnimationsModule
   ],
   providers: [ JuegoServiceService, MiHttpService,PaisesService,ArchivosJugadoresService,JugadoresService],
   bootstrap: [AppComponent]

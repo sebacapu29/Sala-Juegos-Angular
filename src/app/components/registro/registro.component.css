@@ -1,42 +1,9 @@
-.background{
-    /* background-image: url('/assets/imagenes/tatetibackground.jpg'); */
-    /* background-size: 100% 100%; */
-    background: #007bff;
-    background: linear-gradient(to right, #0062E6, #33AEFF);
-    background-position: top center;
-   
-    padding-bottom: 250px;
-    
+.register-card{
+    background: rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 16px;
+  padding: 2rem;
+  text-align: center;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5); 
 }
-mat-card-title{
-    text-align: center;
-    margin-bottom: 20px;
-}
-.matcontent{
-    background: white;
-    border-radius: 20px;
-  }
-.registro{
-    background-color: lightgrey;
-    width: 50%;
-    border: 1px solid blue;
-    box-sizing: border-box;
-    padding: 50px;
-    margin-top: 10px;
-}
-.example-container .mat-form-field + .mat-form-field {
-    margin-left: 8px;
-  }
-  
-  .example-right-align {
-    text-align: right;
-  }
-  
-  input.example-right-align::-webkit-outer-spin-button,
-  input.example-right-align::-webkit-inner-spin-button {
-    display: none;
-  }
-  
-  input.example-right-align {
-    -moz-appearance: textfield;
-  }
