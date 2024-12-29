@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
   selector: 'app-jugadores-listado',
   templateUrl: './jugadores-listado.component.html',
   styleUrls: ['./jugadores-listado.component.css'],
+  providers: [JugadoresService],
   imports:[CommonModule]
 })
 export class JugadoresListadoComponent implements OnInit {

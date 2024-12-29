@@ -1,57 +1,64 @@
-<div class="container" >  
-   
-  <mat-tab-group>
-    <mat-tab label="Aritmética">  
-     
-      <div fxLayout="column" >
-        <div fxLayout="column" fxLayoutAlign="center stretch"  class="bloque">  
-          <h2 fxLayout="column" fxFlex fxLayoutAlign="center stretch">Velocidad y agilidad aritmética</h2>
-          <p fxLayout="column" fxLayoutAlign="center stretch"> Un juego donde pondrás a prueba tu agilidad con los numeros</p>  
-          <img  fxLayout="column" fxLayoutAlign="center stretch"  src="./assets/imagenes/cerebro.jpg"  alt="quixote">          
-          </div>
-          <p><button class="button"  (click)="Juego('Agilidad')">Jugar</button></p>
+<div class="container py-4">
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    <div class="col">
+      <div class="card h-100">
+        <img src="./assets/imagenes/cerebro.jpg" class="card-img-top img-fluid card-img-custom" alt="Velocidad y agilidad aritmética">
+        <div class="card-body">
+          <h5 class="card-title">Velocidad y agilidad aritmética</h5>
+          <p class="card-text">Un juego donde pondrás a prueba tu agilidad con los números.</p>
+          <button class="btn btn-primary w-100" (click)="Juego('Agilidad')">Jugar</button>
         </div>
-      
-      </mat-tab>
-    <mat-tab label="P.P.T.">
-      <div class="image-parent" fxLayout="column" fxLayoutAlign="center stretch"  class="bloque">
-      <h2 fxLayout="column" fxLayoutAlign="center stretch"  >Piedra Papel o Tijeras</h2>
-      <p fxLayout="column" fxLayoutAlign="center stretch"  class="bloque">Desafía a la máquina con este juego milenario</p>
-          <img fxLayout="column" fxLayoutAlign="center stretch"  class="bloque" src="./assets/imagenes/ppt.jpg" class="img-fluid" alt="lay">
-        </div>  
-        <p><button class="button"  (click)="Juego('PPT')">Jugar</button></p>
-    </mat-tab>
-    <mat-tab label="Adivina"> 
-      <div class="image-parent"fxLayout="column" fxLayoutAlign="center stretch"  class="bloque">
-      <h2 fxLayout="column" fxLayoutAlign="center stretch" >Adivina el número</h2>  
-      <p fxLayout="column" fxLayoutAlign="center stretch"  >Serás capaz de vencer a la máquina adivinando el numero secreto?</p>      
-          <img fxLayout="column" fxLayoutAlign="center stretch"   src="./assets/imagenes/adivina.png" class="img-fluid" alt="things">
-        </div>  
-        <p><button class="button"  (click)="Juego('Adivina')">Jugar</button></p>
-    </mat-tab>
-    <mat-tab label="Conocimiento">
-      <div class="image-parent"fxLayout="column" fxLayoutAlign="center stretch"  class="bloque">
-      <h2 fxLayout="column" fxLayoutAlign="center stretch"  class="bloque">Poderoso Conocimiento</h2>
-            <p fxLayout="column" fxLayoutAlign="center stretch"  class="bloque">Un interesante juego de preguntas y respuestas donde ganar tiene su premio</p>        
-                <img fxLayout="column" fxLayoutAlign="center stretch"  class="bloque" src="./assets/imagenes/questions-answers.jpg" class="img-fluid" alt="things">
-              </div>
-              <p><button  fxLayoutAlign="center stretch"  class="bloque"class="button"  (click)="Juego('PYR')">Jugar</button></p>
-       </mat-tab>
-       <mat-tab label="Ta Te Ti!">
-        <div class="image-parent"fxLayout="column" fxLayoutAlign="center stretch"  class="bloque">
-        <h2 fxLayout="column" fxLayoutAlign="center stretch"  class="bloque">Ta Te Ti</h2>
-              <p fxLayout="column" fxLayoutAlign="center stretch"  class="bloque">Juga con la familia para ver quien gana al clásico ta te ti</p>        
-                  <img fxLayout="column" fxLayoutAlign="center stretch"  class="bloque" src="./assets/imagenes/tateti-de-tela.jpg" class="img-fluid" alt="things">
-              </div>
-                <p><button  fxLayoutAlign="center stretch"  class="bloque"class="button"  (click)="Juego('Tateti')">Jugar</button></p>
-         </mat-tab>
-         <mat-tab label="Anagrama">
-          <div class="image-parent"fxLayout="column" fxLayoutAlign="center stretch"  class="bloque">
-          <h2 fxLayout="column" fxLayoutAlign="center stretch"  class="bloque">Anagrama</h2>
-                <p fxLayout="column" fxLayoutAlign="center stretch"  class="bloque">Completa las palabras del anagrama!</p>        
-                    <img fxLayout="column" fxLayoutAlign="center stretch"  class="bloque" src="./assets/imagenes/anagrama.jpg" class="img-fluid" alt="things">
-                  </div>
-                  <p><button  fxLayoutAlign="center stretch"  class="bloque"class="button"  (click)="Juego('Anagrama')">Jugar</button></p>
-           </mat-tab>
-  </mat-tab-group>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card h-100">
+        <img src="./assets/imagenes/ppt.jpg" class="card-img-top img-fluid card-img-custom" alt="Piedra Papel o Tijeras">
+        <div class="card-body">
+          <h5 class="card-title">Piedra Papel o Tijeras</h5>
+          <p class="card-text">Desafía a la máquina con este juego milenario.</p>
+          <button class="btn btn-primary w-100" (click)="Juego('PPT')">Jugar</button>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card h-100">
+        <img src="./assets/imagenes/adivina.png" class="card-img-top img-fluid card-img-custom" alt="Adivina el número">
+        <div class="card-body">
+          <h5 class="card-title">Adivina el número</h5>
+          <p class="card-text">¿Serás capaz de vencer a la máquina adivinando el número secreto?</p>
+          <button class="btn btn-primary w-100" (click)="Juego('Adivina')">Jugar</button>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card h-100">
+        <img src="./assets/imagenes/questions-answers.jpg" class="card-img-top img-fluid card-img-custom" alt="Preguntas">
+        <div class="card-body">
+          <h5 class="card-title">Preguntas</h5>
+          <p class="card-text">Un interesante juego de preguntas y respuestas donde ganar tiene su premio.</p>
+          <button class="btn btn-primary w-100" (click)="Juego('PYR')">Jugar</button>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card h-100">
+        <img src="./assets/imagenes/tateti-de-tela.jpg" class="card-img-top img-fluid card-img-custom" alt="Ta Te Ti">
+        <div class="card-body">
+          <h5 class="card-title">Ta Te Ti</h5>
+          <p class="card-text">Juega con la familia para ver quién gana al clásico Ta Te Ti.</p>
+          <button class="btn btn-primary w-100" (click)="Juego('Tateti')">Jugar</button>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card h-100">
+        <img src="./assets/imagenes/anagrama.jpg" class="card-img-top img-fluid card-img-custom" alt="Anagrama">
+        <div class="card-body">
+          <h5 class="card-title">Anagrama</h5>
+          <p class="card-text">¡Completa las palabras del anagrama!</p>
+          <button class="btn btn-primary w-100" (click)="Juego('Anagrama')">Jugar</button>
+        </div>
+      </div>
+    </div>
   </div>
+</div>

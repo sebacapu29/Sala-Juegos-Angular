@@ -51,8 +51,8 @@ ul li{
 }
 
 .custom-image {
-    width: 100%; /* Las imágenes ocuparán todo el ancho disponible dentro de su contenedor */
-    height: 250px; /* Fija una altura uniforme */
-    object-fit: cover; /* Asegura que las imágenes se adapten al contenedor sin distorsionarse */
-    border-radius: 10px; /* Opcional: añade bordes redondeados */
+    width: 100%; 
+    height: 250px;
+    object-fit: cover; 
+    border-radius: 10px;
   }

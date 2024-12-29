@@ -6,6 +6,7 @@ import { catchError, map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root', // Esto hace que el servicio esté disponible de manera global
 })
+
 export class MiHttpService {
   constructor(private httpClient: HttpClient) {}
 

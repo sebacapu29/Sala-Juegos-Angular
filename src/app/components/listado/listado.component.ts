@@ -7,6 +7,7 @@ import { ListadoDeResultadosComponent } from '../listado-de-resultados/listado-d
   selector: 'app-listado',
   templateUrl: './listado.component.html',
   styleUrls: ['./listado.component.css'],
+  providers: [JuegoServiceService],
   imports:[CommonModule, ListadoDeResultadosComponent]
 })
 export class ListadoComponent implements OnInit {
