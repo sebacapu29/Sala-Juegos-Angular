@@ -1,7 +1,7 @@
 .panel
 {
     height: 170px;
-    background-image: url("/assets/imagenes/cabecera.png");    
+    /* background-image: url("/assets/imagenes/cabecera.png");     */
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -29,13 +29,13 @@ outline: 0;
 display: inline-block;
 padding: 10px 25px;
 color: black;
-background-color: #ddd;
+background-color: black;
 text-align: center;
 cursor: pointer;
 
 }
 ul{
-    color: white;
+    color: black;
     text-align: right;
     margin-right: 10px;
 }
