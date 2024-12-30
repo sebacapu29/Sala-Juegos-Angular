@@ -3,13 +3,13 @@
         <h4>
           {{nuevoJuego.nombre | uppercase}}!
         </h4>
-        <button mat-raised-button (click)="mostrarAyuda()" color="primary"><i class="fa fa-question-circle"></i></button>
+        <button mat-raised-button (click)="mostrarAyuda()" color="primary">Reglas<i class="fa fa-question-circle"></i></button>
        </div>
     <div class="container">
-    <div class="row">
+    <!-- <div class="row">
         <h2>Contrincante</h2>
         <h2 class="usuario">Usted</h2>
-    </div>
+    </div> -->
     <div class="icons">
         <i class="fa fa-heart fa-lg icon" aria-hidden="true">: {{jugador.vidas}}</i><i class="fa fa-gamepad fa-lg" aria-hidden="true">: {{jugador.puntos}}</i>
     </div>

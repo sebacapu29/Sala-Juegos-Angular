@@ -2,7 +2,6 @@ body {
     margin: 0;
     font-family: Arial, sans-serif;
     height: 100vh;
-    display: flex;
     align-items: center;
     justify-content: center;
     background: url('../src/assets/imagenes/game-background.jpg') no-repeat center center/cover;

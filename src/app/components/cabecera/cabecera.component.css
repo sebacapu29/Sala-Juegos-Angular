@@ -1,7 +1,6 @@
 .panel
 {
     height: 170px;
-    /* background-image: url("/assets/imagenes/cabecera.png");     */
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -35,15 +34,15 @@ cursor: pointer;
 
 }
 ul{
-    color: black;
+    color: white;
     text-align: right;
     margin-right: 10px;
 }
 div div h1{
     background-color: white;
-border-radius: 20px;
-padding: 20px;
-opacity: 0.8;
+    border-radius: 20px;
+    padding: 20px;
+    opacity: 0.8;
 }
 .hero-text a:hover {
 background-color: #555;
