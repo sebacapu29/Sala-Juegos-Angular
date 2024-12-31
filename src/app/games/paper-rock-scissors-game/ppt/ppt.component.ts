@@ -8,278 +8,240 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalPreguntasComponent } from '../../../components/modal-preguntas/modal-preguntas.component';
 import { CommonModule } from '@angular/common';
 
+declare var bootstrap: any;
+
 @Component({
   selector: 'app-ppt',
   templateUrl: './ppt.component.html',
   styleUrls: ['./ppt.component.css'],
-  imports:[CommonModule],
-  animations: [trigger('animacion',[
-    state('estado1',style({        
-    })),
-    state('estado2',style({
-      opacity:'0'
-    })),
-    transition('estado1 <=> estado2',animate('100ms'))
-  ])
-]
+  imports: [CommonModule],
+  animations: [
+    trigger('animacion', [
+      state('estado1', style({ opacity: 1 })),
+      state('estado2', style({ opacity: 0.5 })),
+      transition('estado1 <=> estado2', animate('300ms ease-in-out')),
+    ]),
+  ]
 })
 export class PptComponent implements OnInit {
+  public readonly pathsPPT: string[] = [
+    './assets/imagenes/piedra.jpg',
+    './assets/imagenes/papel.jpg',
+    './assets/imagenes/tijera.jpg',
+    './assets/imagenes/piedra2.jpg',
+    './assets/imagenes/papel2.jpg',
+    './assets/imagenes/tijera2.jpg',
+  ];
 
-  pathContrincate:string;
-  pathUsuario:string;
-  pathsPPT:string[] = new Array<string>();
-  tiempoAnimacion:number;
-  seleccionContrincante:string="";
-  seleccionJugador:string="";
-  seleccionadoPorJugador:string="";
-  jugador:Jugador;
-  estadoAnimJugada:string;
-  intervalId: any;
-  valorSeleccionado:string;
-  imageBackground:string="";
-  Mensajes:string="";
-  juegoTerminado:boolean=false;
-  seleccionoOpcion:boolean=false;
-  audio:any;
-  nuevoJuego:JuegoPiedraPapelTijera;
-  esEmpate:boolean=false;
-  deshabilitar:boolean=false;
+  public pathContrincante: string = this.pathsPPT[0];
+  public pathUsuario: string = this.pathsPPT[3];
+  public tiempoAnimacion: number = 6;
+  public seleccionContrincante: string = '';
+  public seleccionJugador: string = '';
+  public seleccionadoPorJugador: string = '';
+  public jugador: Jugador;
+  public estadoAnimJugada: string = 'estado1';
+  public valorSeleccionado: string = 'piedra';
+  public imageBackground: string = '';
+  public mensajes: string = '';
+  public juegoTerminado: boolean = false;
+  public seleccionoOpcion: boolean = false;
+  public esEmpate: boolean = false;
+  public deshabilitar: boolean = false;
+  public toastMessage: string = '';
+  public toastType: string = 'text-bg-success';
+
+  private audio = new Audio();
+  private intervalId: any;
+  private nuevoJuego: JuegoPiedraPapelTijera;
 
   constructor(private modalService: NgbModal) {
-    this.pathContrincate = "./assets/imagenes/piedra.jpg";
-    this.pathUsuario = "./assets/imagenes/piedra2.jpg";
-    // this.imageBackground ="";
-    this.pathsPPT.push("./assets/imagenes/piedra.jpg");
-    this.pathsPPT.push("./assets/imagenes/papel.jpg");
-    this.pathsPPT.push("./assets/imagenes/tijera.jpg");
-    this.pathsPPT.push("./assets/imagenes/piedra2.jpg");
-    this.pathsPPT.push("./assets/imagenes/papel2.jpg");
-    this.pathsPPT.push("./assets/imagenes/tijera2.jpg");
-    
-
-    this.estadoAnimJugada ="estado1";
-    this.valorSeleccionado="piedra";
-    this.tiempoAnimacion = 6;
-    this.jugador = new Jugador();
-    this.audio = new Audio();  
-    // this.jugador.vidas=3;
-    // this.jugador.puntos=0;
-    this.nuevoJuego = new JuegoPiedraPapelTijera();
-    var usuarioLocalStorage:any;
-
-    if(localStorage.getItem("usuarioLogueado")!=null){
-      //@ts-ignore
-      usuarioLocalStorage = JSON.parse(localStorage.getItem("usuarioLogueado"));              
-    }    
-    this.jugador = new Jugador(usuarioLocalStorage.nombre,usuarioLocalStorage.mail,usuarioLocalStorage.clave,usuarioLocalStorage.sexo,"Piedra Papel o Tijera"); 
-    this.nuevoJuego.jugador = this.jugador.mail;
-   
-    this.jugador.puntosTotalesAcum = usuarioLocalStorage.puntosTotalesAcum; 
-    this.jugador.fechaActualizacion = usuarioLocalStorage.fechaActualizacion;
-    this.nuevoJuego.nombre = "Piedra Papel o Tijera";
-   }
-
-  ngOnInit(): void {
+    this.jugador = this.inicializarJugador();
+    this.nuevoJuego = this.inicializarJuego();
   }
-  seleccionJugadaJugador(jugada:string){
-    switch(jugada){
-      case 'piedra':
-        this.seleccionJugador = this.pathsPPT[3];
-        this.seleccionadoPorJugador="piedra";
-        this.deseleccionarOtrosBotones("papel","tijera");
-        break;
-      case 'papel':
-        this.seleccionJugador = this.pathsPPT[4];
-        this.seleccionadoPorJugador="papel";
-        this.deseleccionarOtrosBotones("piedra","tijera");
-        break;
-      case 'tijera':
-        this.seleccionJugador = this.pathsPPT[5];
-        this.seleccionadoPorJugador="tijera";
-        this.deseleccionarOtrosBotones("papel","piedra");
-        break;    
-    }
-    var btnSelect = document.getElementById(jugada);
+
+  ngOnInit(): void {}
+
+  private inicializarJugador(): Jugador {
     //@ts-ignore
-    btnSelect.className = "btnSeleccionado";
-    this.seleccionoOpcion=true;
+    // if(localStorage.getItem("usuarioLogueado")!=null){
+    //   //@ts-ignore
+      
+    // } 
+    const usuarioLocalStorage = JSON.parse(localStorage.getItem("usuarioLogueado"));              
+    // const usuarioLocalStorage = LocalStorage.obtenerUsuarioLogueado();
+
+    if (!usuarioLocalStorage) {
+      throw new Error('No se encontró un usuario logueado en el LocalStorage.');
+    }
+
+    return new Jugador(
+      usuarioLocalStorage.nombre,
+      usuarioLocalStorage.mail,
+      usuarioLocalStorage.clave,
+      usuarioLocalStorage.sexo,
+      'Piedra Papel o Tijera',
+      usuarioLocalStorage.puntosTotalesAcum,
+      usuarioLocalStorage.fechaActualizacion
+    );
   }
-  mostrarAyuda(){
-    this.openModal(["Piedra Papel o Tijera","1) Haga click en una de las imagenes en la parte inferior (Seleccione su Jugada)","2) Click en Comenzar "],"OBJETIVO: El juego terminará cuando se le acaben las 3 vidas o gane 3 puntos (Nombrados en el contador en la parte superior con los iconos de corazon y el control)","" ,"./assets/imagenes/ppt-help.jpg");
+
+  private inicializarJuego(): JuegoPiedraPapelTijera {
+    const juego = new JuegoPiedraPapelTijera();
+    juego.jugador = this.jugador.mail;
+    juego.nombre = 'Piedra Papel o Tijera';
+    return juego;
   }
-  openModal(reglas:string[],mensaje:string,respCorrect:string,urlImg:string){    
-    const modalRef = this.modalService.open(ModalPreguntasComponent,{windowClass: 'modal-holder', centered: true});
-    modalRef.componentInstance.mensaje= mensaje;
-    modalRef.componentInstance.respCorrecta=respCorrect;
+
+  public seleccionJugadaJugador(jugada: string): void {
+    const jugadaMap: Record<string, number> = {
+      piedra: 3,
+      papel: 4,
+      tijera: 5,
+    };
+
+    this.seleccionJugador = this.pathsPPT[jugadaMap[jugada]];
+    this.seleccionadoPorJugador = jugada;
+    this.deseleccionarOtrosBotones(['piedra', 'papel', 'tijera'].filter((j) => j !== jugada));
+    this.marcarBotonSeleccionado(jugada);
+    this.seleccionoOpcion = true;
+  }
+
+  public mostrarAyuda(): void {
+    this.openModal(
+      ['1) Haga click en una imagen (Seleccione su Jugada)', '2) Click en Comenzar'],
+      'OBJETIVO: El juego terminará cuando se le acaben las 3 vidas o gane 3 puntos.',
+      './assets/imagenes/ppt-help.jpg'
+    );
+  }
+
+  private openModal(reglas: string[], mensaje: string, urlImg: string): void {
+    const modalRef = this.modalService.open(ModalPreguntasComponent, {
+      windowClass: 'modal-holder',
+      centered: true,
+    });
+    modalRef.componentInstance.mensaje = mensaje;
+    modalRef.componentInstance.listaReglas = reglas;
     modalRef.componentInstance.imgAyuda = urlImg;
-    modalRef.componentInstance.listaReglas= reglas;
-    modalRef.componentInstance.reglas=true;
   }
-  deseleccionarOtrosBotones(boton1:any, boton2:any){
-    var btnSelect1 = document.getElementById(boton1);
-    var btnSelect2 = document.getElementById(boton2);
-    //@ts-ignore
-    btnSelect1.className = "btnJ";
-    //@ts-ignore
-    btnSelect2.className = "btnJ";
-  }
-  seleccionJugadaContrincante(){
-    var randomNum = Math.round(Math.random() * (2  - 0) + 0);
 
-    switch(randomNum){
-      case 0:
-        this.pathContrincate = this.pathsPPT[0];
-        this.seleccionContrincante="piedra";
-        break;
-      case 1:
-        this.pathContrincate = this.pathsPPT[1];
-        this.seleccionContrincante="papel";
-        break;
-      case 2:
-        this.pathContrincate = this.pathsPPT[2];
-        this.seleccionContrincante="tijera";
-        break;
+  private deseleccionarOtrosBotones(botones: string[]): void {
+    botones.forEach((boton) => {
+      const btnElement = document.getElementById(boton);
+      if (btnElement) btnElement.className = 'btnJ';
+    });
+  }
+
+  private marcarBotonSeleccionado(boton: string): void {
+    const btnElement = document.getElementById(boton);
+    if (btnElement) btnElement.className = 'btnSeleccionado';
+  }
+
+  public comenzar(): void {
+    if (!this.seleccionoOpcion) {
+      this.showToast('Selecciona una opción', 'warning');
+      return;
     }
-  }
-  comenzar(){
 
-    this.deshabilitar=true;
-    if(this.seleccionoOpcion){
+    this.deshabilitar = true;
     this.intervalId = setInterval(() => {
-      this.tiempoAnimacion --;      
-      this.estadoAnimJugada = this.estadoAnimJugada == "estado1" ? "estado2" : "estado1";
-      if(this.tiempoAnimacion === 0) {  
-        console.log("ddd");
-        this.estadoAnimJugada = "estado1";
+      this.tiempoAnimacion--;
+      this.estadoAnimJugada =
+        this.estadoAnimJugada === 'estado1' ? 'estado2' : 'estado1';
+
+      if (this.tiempoAnimacion === 0) {
+        clearInterval(this.intervalId);
+        this.estadoAnimJugada = 'estado1';
         this.seleccionJugadaContrincante();
         this.pathUsuario = this.seleccionJugador;
-        this.tiempoAnimacion=6;
-        var btnSelect = document.getElementById(this.seleccionadoPorJugador);
-        if(btnSelect!=null){
-          btnSelect.className = "btnJ";
-        }
-        this.deshabilitar=false;
-        this.seleccionadoPorJugador="";
         this.verificarEstadoDeLaJugada();
-        clearInterval(this.intervalId);        
-      }         
-    }, 550);  
+        this.resetEstadoPostRonda();
+      }
+    }, 550);
   }
 
-  else{
-    this.MostarMensaje("Selecciona una opción",false,true);
-    this.deshabilitar=false;
-    this.seleccionadoPorJugador="";
+  private seleccionJugadaContrincante(): void {
+    const randomNum = Math.floor(Math.random() * 3);
+    this.seleccionContrincante = ['piedra', 'papel', 'tijera'][randomNum];
+    this.pathContrincante = this.pathsPPT[randomNum];
   }
-  }
-  verificarEstadoDeLaJugada(){
-    var esGanadaLaRonda = this.ganaLaRonda();
 
-    if(esGanadaLaRonda && !this.esEmpate){
+  private verificarEstadoDeLaJugada(): void {
+    const esGanadaLaRonda = this.ganaLaRonda();
+
+    if (esGanadaLaRonda && !this.esEmpate) {
       this.jugador.puntos++;
-      this.jugador.puntosTotalesAcum++;     
-      this.MostarMensaje("Suertudo!",true);   
-    }
-    else if (!esGanadaLaRonda && !this.esEmpate){
-      this.jugador.vidas--; 
-      this.MostarMensaje("Esta ronda es mia!",false);       
+      this.showToast('¡Suertudo!', 'success');
+    } else if (!esGanadaLaRonda && !this.esEmpate) {
+      this.jugador.vidas--;
+      this.showToast('¡Esta ronda es mía!', 'error');
+    } else if (this.esEmpate) {
+      this.showToast('¡Empate!', 'warning');
     }
 
-    if(this.esJuegoTerminado() && esGanadaLaRonda){      
-        this.MostarMensaje("Bien lo tuyo",true);  
-        this.nuevoJuego.gano=true;
-             
-        this.actualizarPuntosUsuario(); 
-        this.nuevoJuego.actualizarDatosJuegos();
-      }
-    else if(this.esJuegoTerminado() && !esGanadaLaRonda){  
-        this.MostarMensaje("Mejor la próxima!",false);
-        this.nuevoJuego.gano=false;   
-        this.actualizarPuntosUsuario(); 
-        this.nuevoJuego.actualizarDatosJuegos();        
-      }
-      else if(this.esJuegoTerminado() && this.esEmpate){     
-        this.jugador.fechaActualizacion =DateTimeHelper.getFechaYHora();     
-        this.nuevoJuego.gano= esGanadaLaRonda ? true : false;
-        this.actualizarPuntosUsuario(); 
-        this.nuevoJuego.actualizarDatosJuegos();
+    if (this.esJuegoTerminado()) {
+      this.terminarJuego(esGanadaLaRonda);
+    }
+  }
 
-      }
-      this.esEmpate = false;
+  private resetEstadoPostRonda(): void {
+    this.tiempoAnimacion = 6;
+    this.deshabilitar = false;
+    this.seleccionadoPorJugador = '';
   }
-  ganaLaRonda():boolean{
-    var ganaRonda=false;
 
-    if(this.seleccionadoPorJugador=="piedra" && this.seleccionContrincante=="papel"){
-      ganaRonda=false;
-     
-    } 
-    else if(this.seleccionadoPorJugador=="piedra" && this.seleccionContrincante=="tijera"){
-      ganaRonda=true;      
-      
-    } 
-    else if(this.seleccionadoPorJugador=="papel" && this.seleccionContrincante=="tijera"){
-      ganaRonda=false;
-      
-    } 
-    else if(this.seleccionadoPorJugador=="papel" && this.seleccionContrincante=="piedra"){
-      ganaRonda=true;
-  
-    } 
-    else if(this.seleccionadoPorJugador=="tijera" && this.seleccionContrincante=="piedra"){
-      ganaRonda=false;
-  
-    } 
-    else if(this.seleccionadoPorJugador=="tijera" && this.seleccionContrincante=="papel"){     
-      ganaRonda=true;      
-    } 
-    else{
-        this.MostarMensaje("Empate!",false,true); 
-        this.esEmpate=true; 
+  private ganaLaRonda(): boolean {
+    const reglas: Record<string, string> = {
+      piedra: 'tijera',
+      papel: 'piedra',
+      tijera: 'papel',
+    };
+
+    if (this.seleccionadoPorJugador === this.seleccionContrincante) {
+      this.esEmpate = true;
+      return false;
     }
-    return ganaRonda;
+
+    return reglas[this.seleccionadoPorJugador] === this.seleccionContrincante;
   }
-  //@ts-ignore
-  esJuegoTerminado(){
-    if(this.jugador.vidas==0){
-      this.juegoTerminado=true;      
-      return true;         
-    }    
-    else if(this.jugador.puntos==3){
-      this.juegoTerminado=true;
-      return true;    
+
+  private esJuegoTerminado(): boolean {
+    return this.jugador.vidas === 0 || this.jugador.puntos === 3;
+  }
+
+  private terminarJuego(ganado: boolean): void {
+    this.juegoTerminado = true;
+    this.nuevoJuego.gano = ganado;
+    //@ts-ignore
+    LocalStorage.actualizarUsuario(this.jugador);
+    this.nuevoJuego.actualizarDatosJuegos();
+
+    this.showToast(
+      ganado ? '¡Bien lo tuyo!' : '¡Mejor la próxima!',
+      ganado ? 'success' : 'error'
+    );
+  }
+
+  public reiniciar(): void {
+    this.juegoTerminado = false;
+    this.jugador.vidas = 3;
+    this.jugador.puntos = 0;
+  }
+
+  public showToast(message: string, type: 'success' | 'error' | 'warning'): void {
+    this.toastMessage = message;
+    this.toastType =
+      type === 'success'
+        ? 'text-bg-success'
+        : type === 'error'
+        ? 'text-bg-danger'
+        : 'text-bg-warning';
+
+    const toastElement = document.getElementById('myToast');
+    if (toastElement) {
+      toastElement.setAttribute('class', this.toastType);
+      const toast = new bootstrap.Toast(toastElement);
+      toast.show();
     }
   }
-  actualizarPuntosUsuario(){
-    var indexUser = LocalStorage.obtenerIndexUsuarioLogueado();
-    if(indexUser!=-1){
-      LocalStorage.actualizarUnUsuario(this.jugador,indexUser);
-    }
-  }  
-  reiniciar(){
-    this.juegoTerminado=false;
-    this.jugador.vidas=3;
-    this.jugador.puntos=0;
-  }
-  MostarMensaje(mensaje:string,ganador:boolean=false,empate:boolean=false) {
-    this.Mensajes=mensaje;    
-    var snackerBar = document.getElementById("snackbar");
-    if(ganador)
-      {
-        //@ts-ignore
-        snackerBar.className = "show Ganador";
-      }else if(!ganador && !empate){
-        //@ts-ignore
-        snackerBar.className = "show Perdedor";
-      }
-      else{
-        //@ts-ignore
-        snackerBar.className = "show Empate";
-      }
-    var modelo=this;
-    setTimeout(function(){ 
-      //@ts-ignore
-      snackerBar.className = snackerBar.className.replace("show", "");      
-     }, 3000);
-   } 
 }

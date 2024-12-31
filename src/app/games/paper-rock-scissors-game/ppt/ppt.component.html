@@ -1,45 +1,75 @@
 <div class="background">
-    <div style="text-align:center" class="titulo" fxLayout="column" fxLayoutAlign="center center">
-        <h4>
-          {{nuevoJuego.nombre | uppercase}}!
-        </h4>
-        <button mat-raised-button (click)="mostrarAyuda()" color="primary">Reglas<i class="fa fa-question-circle"></i></button>
-       </div>
-    <div class="container">
-    <!-- <div class="row">
-        <h2>Contrincante</h2>
-        <h2 class="usuario">Usted</h2>
-    </div> -->
-    <div class="icons">
-        <i class="fa fa-heart fa-lg icon" aria-hidden="true">: {{jugador.vidas}}</i><i class="fa fa-gamepad fa-lg" aria-hidden="true">: {{jugador.puntos}}</i>
-    </div>
-
-    <hr>
-    <div class="row mostrar">
+    <div class="juego-container">
+      <!-- Botón para mostrar reglas -->
+      <button class="btn btn-secondary reglas-btn" (click)="mostrarAyuda()">Reglas</button>
+  
+      <!-- Sección superior: Vidas y puntos -->
+      <div class="header">
+        <div class="stat">
+          <i class="bi bi-heart-fill"></i> Vidas: {{jugador.vidas}}
+        </div>
+        <div class="stat">
+          <i class="bi bi-star"></i> Puntos: {{jugador.puntos}}
+        </div>
+      </div>
+  
+      <!-- Sección central: Contrincante vs Usuario -->
+      <div class="problema-container">
         <div class="contrincante">
-            <img [@animacion]="estadoAnimJugada" [src]="pathContrincate">
+          <h3>Contrincante</h3>
+          <img class="jugada-img" [src]="pathContrincante" alt="Jugada del contrincante">
         </div>
         <div class="usuario">
-            <img [@animacion]="estadoAnimJugada" [src]="pathUsuario">
+          <h3>Usuario</h3>
+          <img class="jugada-img" [src]="pathUsuario" alt="Jugada del usuario">
         </div>
-    </div>
-    <div class="jugada">
+      </div>
+  
+      <!-- Sección de respuestas -->
+      <div class="respuestas-container">
         <p>Seleccione su jugada:</p>
-        <div class="jugadaInside">
-            <div>
-                <button  class="btnJ" id="piedra" name="ppt" (click)="seleccionJugadaJugador('piedra')" value="piedra"><img [src]="pathsPPT[0]" class="rotate90"></button> 
-                <button class="btnJ" id="papel" name="ppt" (click)="seleccionJugadaJugador('papel')"value="papel"><img [src]="pathsPPT[1]" class="rotate90"></button>
-                <button class="btnJ" id="tijera" name="ppt" (click)="seleccionJugadaJugador('tijera')" value="tijera"><img [src]="pathsPPT[2]" class="rotate90">  </button>  
-            </div>
+        <div class="jugadas">
+          <button class="btnJ" (click)="seleccionJugadaJugador('piedra')">
+            <img class="jugada-opcion" [src]="pathsPPT[0]" alt="Piedra">
+          </button>
+          <button class="btnJ" (click)="seleccionJugadaJugador('papel')">
+            <img class="jugada-opcion" [src]="pathsPPT[1]" alt="Papel">
+          </button>
+          <button class="btnJ" (click)="seleccionJugadaJugador('tijera')">
+            <img class="jugada-opcion" [src]="pathsPPT[2]" alt="Tijera">
+          </button>
         </div>
+      </div>
+  
+      <!-- Mensajes y acciones -->
+      <div class="acciones">
+        <button class="btn btn-success btnComenzar" [disabled]="deshabilitar" *ngIf="!juegoTerminado" (click)="comenzar()">
+          Comenzar
+        </button>
+        <button class="btn btn-warning btnComenzar" *ngIf="juegoTerminado" (click)="reiniciar()">
+          Volver a jugar
+        </button>
+      </div>
     </div>
-    <button class="btn btn-success btnComenzar" [disabled]="deshabilitar" *ngIf="!juegoTerminado" (click)="comenzar()">
-        Comenzar
-    </button>
-    <button class="btn btn-warning btnComenzar" *ngIf="juegoTerminado"  (click)="reiniciar()">
-        Volver a jugar
-    </button>
+  </div>
+
+  <div
+  id="myToast"
+  class="toast align-items-center border-0"
+  role="alert"
+  aria-live="assertive"
+  aria-atomic="true"
+  [ngClass]="toastType"
+>
+  <div class="d-flex">
+    <div class="toast-body">
+      {{ toastMessage }}
+    </div>
+    <button
+      type="button"
+      class="btn-close btn-close-white me-2 m-auto"
+      data-bs-dismiss="toast"
+      aria-label="Close"
+    ></button>
+  </div>
 </div>
-<div id="snackbar">{{Mensajes}}</div>
-</div>
-    

@@ -1,162 +1,90 @@
-
-.icon{
-    margin-left: 38%;
-}
-.background{
-    background-image:url('/assets/imagenes/background-playing.jpg');
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-    background-position: top center;
-    width: 100%;
-    height: 100%;
-    padding-bottom: 250px;
-}
-.usuario{
-    margin-left: 50%;
-}
-.mostrar{
-    /* background-color: #92B6B1; */
-    padding-bottom: 50px;
-    border-radius: 30px 30px 30px 30px;
-}
-.contrincante img{
-    padding-bottom: 50px;
-
-}
-.titulo{
-    margin-left: 5px;
-    margin-bottom: 10px;
+.juego-container {
+    font-family: Arial, sans-serif;
     color: white;
-}
-.titulo h4{
-    font-size: 20pt;
-}
-img{
-    border-radius: 15px 15px 15px 15px;
-}
-.rotate90{
-        -webkit-transform: rotate(-90deg);
-        -moz-transform: rotate(-90deg);
-        -o-transform: rotate(-90deg);
-        -ms-transform: rotate(-90deg);
-        transform: rotate(-90deg);
-}
-.btnSeleccionado {
-    width: 120px;
-    height: 120px;
-    margin-left: 30px;
-    /* background: lightgreen; */
-    border-radius: 30px 30px 30px 30px;
-}
-.jugada{
-    margin-top: 20px;
-    padding: 10px;
-    /* background: lightblue; */
-    border-radius: 30px 30px 30px 30px;
-}
-.jugada img{
-    /* margin-left: 50px; */
-    width: 100px;
-}
-.jugadaInside{
-    margin-left: 20%
-}
-.jugada input{
-    margin-left: 25px;
-}
-
-.jugadaInside .btnJ{
-    width: 120px;
-    height: 120px;
-    margin-left: 30px;
-    background: lightblue;
-    border-radius: 30px 30px 30px 30px;
-}
-
-  @media only screen and (min-width: 600px) {
-    /* For tablets: */
-    .col-s-1 {width: 8.33%;}
-    .col-s-2 {width: 16.66%;}
-    .col-s-3 {width: 25%;}
-    .col-s-4 {width: 33.33%;}
-    .col-s-5 {width: 41.66%;}
-    .col-s-6 {width: 50%;}
-    .col-s-7 {width: 58.33%;}
-    .col-s-8 {width: 66.66%;}
-    .col-s-9 {width: 75%;}
-    .col-s-10 {width: 83.33%;}
-    .col-s-11 {width: 91.66%;}
-    .col-s-12 {width: 100%;}
-  }
-  i{
-    margin-left: 5%;
-    /* margin-right: auto; */
-  }
-  .icons{
-      background: white;
-      border-radius: 30px 30px 30px 30px;
-      padding:5px;
-  }
-  .radio{
-      background-color: white;
-      border-radius: 30px 30px 30px 30px;
-  }
-  #snackbar {
-    visibility: hidden;
-    min-width: 250px;
-    margin-left: -125px;
-   
-    color: #fff;
+    background-color: #2c2c2c;
+    background-image: url('/assets/imagenes/background-playing.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 1000px;
+    margin: auto;
     text-align: center;
-    border-radius: 2px;
-    padding: 16px;
-    position: fixed;
-    z-index: 1;
-    left: 50%;
-    bottom: 30px;
-    font-size: 17px;
-}
-.btnComenzar{
-    /* width: 150px; */
-    height: 80px;
-    border-radius: 20px;
-    border: solid 1px black;
-    margin-top: 5px;
-    margin-left: 40%;
-    padding-left: 50px;
-    padding-right: 50px;
-}
-#snackbar.Ganador {
-    background-color: #059F2F;
-}
-#snackbar.Perdedor {
-    background-color: #FF0000;
-}
-#snackbar.Empate {
-    background-color: yellow;
-}
-#snackbar.show {
-    visibility: visible;
-    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
-    animation: fadein 0.5s, fadeout 0.5s 2.5s;
-}
-
-@-webkit-keyframes fadein {
-    from {bottom: 0; opacity: 0;} 
-    to {bottom: 30px; opacity: 1;}
-}
-
-@keyframes fadein {
-    from {bottom: 0; opacity: 0;}
-    to {bottom: 30px; opacity: 1;}
-}
-
-@-webkit-keyframes fadeout {
-    from {bottom: 30px; opacity: 1;} 
-    to {bottom: 0; opacity: 0;}
-}
-
-@keyframes fadeout {
-    from {bottom: 30px; opacity: 1;}
-    to {bottom: 0; opacity: 0;}
-}
+  }
+  .btnJ {
+    background-color: lightgray;
+  }
+  .btnSeleccionado {
+    background-color: blue;
+    color: white;
+  }
+  .header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    font-size: 18px;
+  }
+  
+  .stat {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  
+  .problema-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 30px 0;
+  }
+  
+  .contrincante,
+  .usuario {
+    text-align: center;
+  }
+  
+  .jugada-img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border: 3px solid white;
+    border-radius: 10px;
+  }
+  
+  .respuestas-container {
+    margin-top: 20px;
+  }
+  
+  .jugadas {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  .jugada-opcion {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border: 2px solid white;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+  
+  .jugada-opcion:hover {
+    transform: scale(1.1);
+    border-color: #ffd700;
+  }
+  
+  .acciones {
+    margin-top: 30px;
+  }
+  
+  .reglas-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 10;
+  }
+  
