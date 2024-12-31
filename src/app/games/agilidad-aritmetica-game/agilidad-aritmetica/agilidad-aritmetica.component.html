@@ -1,47 +1,85 @@
-
-<div name="juego"   class="background" >
-  <div class="titulo" fxLayout="column" fxLayoutAlign="center center">
-    <h4>
-      {{nuevoJuego.nombre | uppercase}}!
-    </h4>
-    <button mat-raised-button (click)="mostrarAyuda()" color="primary"><i class="fa fa-question-circle"></i></button>
-
-   </div>
-
-  <div class="body" fxLayout="column"  fxLayoutAlign="space-around center">
-    <div class="icons">
-      <i class="fa fa-heart fa-lg" aria-hidden="true">: {{jugador.vidas}}</i><i class="fa fa-clock-o fa-lg" aria-hidden="true">: {{Tiempo}}  </i><i class="fa fa-gamepad fa-lg" aria-hidden="true">: {{jugador.puntos}}</i>
-  </div>
-    <div fxLayout="row" >
-
-      <h1>N°1: </h1><input [(ngModel)]="nuevoJuego.primerNumero" placeholder="primer numero" name="primer numero" type="text" class="form-control" readonly/>
-      </div>
-      <div fxLayout="row">
-        <h1>Opr: </h1><input [(ngModel)]="nuevoJuego.operador" placeholder="ingrese numero" name="operador" type="text" class="form-control"  readonly/>
-
-     </div>
-    <div fxLayout="row">
-          <h1>N°2:</h1> <input [(ngModel)]="nuevoJuego.segundoNumero" placeholder="ingrese numero" name="segundo numero" type="text" class="form-control"  readonly/>
+<div class="juego-container">
+  <!-- Sección superior: Vidas, tiempo y puntos -->
+  <div class="header">
+    <div class="stat">
+      <i class="bi bi-heart-fill"></i> Vidas: {{jugador.vidas}}
     </div>
-       
-</div>
-<div >
-  <p><h2>Respuestas:</h2>
-</div>
-<div fxLayout="column" class="botones">
-
-  <div class="respuestas" fxLayout="row" fxLayoutAlign="center center" >
-    <button  *ngFor="let numero of listaNumeros" fxFlex="20" fxLayoutAlign="center center" [disabled]="deshabilitar"  (click)="evaluarRespuesta($event)" [value]="numero" class="btn btn-danger form-control" >{{numero}}</button>
-  </div>
-  <div>
-    <div fxLayout="row" fxLayoutAlign="space-around center">
-      <h2 fxFlex="40" class="mensaje">{{mensaje}}</h2>
+    <div class="stat">
+      <i class="bi bi-clock"></i> Tiempo: {{Tiempo}}
     </div>
-    <div fxLayout="row" fxLayoutAlign="space-around center">
-      <h2 [hidden]="!ocultarVerificar"><button (click)="NuevoJuego()"  class="btn btn-success btn-lg nuevo">Nuevo</button></h2>  
-      <h2 *ngIf="nuevoJuego.juegoTerminado"><button (click)="Reiniciar()"  class="btn btn-warning btn-lg nuevo">Jugar Otra Vez</button></h2>  
-      <h2 [hidden]="ocultarVerificar || nuevoJuego.juegoTerminado"><p><i class="fa fa-spinner fa-spin"></i>Esperando Respuesta</p></h2>
+    <div class="stat">
+      <i class="bi bi-star"></i> Puntos: {{jugador.puntos}}
     </div>
   </div>
+
+  <!-- Sección central: Problema a resolver -->
+  <div class="problema-container">
+    <label class="numero">{{nuevoJuego.primerNumero}}</label>
+    <label class="numero">{{nuevoJuego.operador}}</label>
+    <label class="numero">{{nuevoJuego.segundoNumero}}</label>
+  </div>
+
+  <!-- Sección de respuestas -->
+  <div class="respuestas-container">
+    <h2>Respuestas:</h2>
+    <div class="respuestas">
+      <button
+        *ngFor="let numero of listaNumeros"
+        class="btn respuesta-btn"
+        [disabled]="deshabilitar"
+        (click)="evaluarRespuesta($event)"
+        [value]="numero"
+      >
+        {{numero}}
+      </button>
+    </div>
+  </div>
+
+  <!-- Mensajes y acciones -->
+  <div class="acciones">
+    <h2 class="mensaje">{{mensaje}}</h2>
+    <div class="botones-acciones">
+      <button
+        *ngIf="!ocultarVerificar && !nuevoJuego.juegoTerminado"
+        class="btn btn-primary"
+        disabled
+      >
+        <i class="fa fa-spinner fa-spin"></i> Esperando Respuesta
+      </button>
+      <button
+        *ngIf="ocultarVerificar"
+        class="btn btn-success"
+        (click)="NuevoJuego()"
+      >
+        Nuevo
+      </button>
+      <button
+        *ngIf="nuevoJuego.juegoTerminado"
+        class="btn btn-warning"
+        (click)="Reiniciar()"
+      >
+        Jugar Otra Vez
+      </button>
+    </div>
+  </div>
 </div>
+<div
+  id="myToast"
+  class="toast align-items-center border-0"
+  role="alert"
+  aria-live="assertive"
+  aria-atomic="true"
+  [ngClass]="toastType"
+>
+  <div class="d-flex">
+    <div class="toast-body">
+      {{ toastMessage }}
+    </div>
+    <button
+      type="button"
+      class="btn-close btn-close-white me-2 m-auto"
+      data-bs-dismiss="toast"
+      aria-label="Close"
+    ></button>
+  </div>
 </div>

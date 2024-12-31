@@ -1,7 +1,5 @@
 import { Component, OnInit ,Input,Output,EventEmitter} from '@angular/core';
 import { JuegoAgilidad } from '../../../classes/juego-agilidad';
-import {MatSnackBar} from '@angular/material/snack-bar';
-
 import {Subscription} from "rxjs";
 import {timer} from "rxjs";
 import { Jugador } from '../../../classes/jugador';
@@ -12,6 +10,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalPreguntasComponent } from '../../../components/modal-preguntas/modal-preguntas.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+declare var bootstrap: any;
 @Component({
   selector: 'app-agilidad-aritmetica',
   templateUrl: './agilidad-aritmetica.component.html',
@@ -46,9 +45,12 @@ export class AgilidadAritmeticaComponent implements OnInit {
   respuestasParaMostrar: string[];
   listaNumeros: any[]=[];
   // usuariosEnLocalStorage: any;
+  toastMessage: string = '';
+  toastType: string = 'text-bg-success';
+
   ngOnInit() {
   }
-   constructor(private _snackBar: MatSnackBar,private modalService: NgbModal) {
+   constructor(private modalService: NgbModal) {
      this.ocultarVerificar=true;
      this.Tiempo=5; 
     this.nuevoJuego = new JuegoAgilidad();
@@ -106,8 +108,21 @@ export class AgilidadAritmeticaComponent implements OnInit {
       }
       }, 900);    
   }
-  openSnackBar(mensaje:string){
-    this._snackBar.open(mensaje,"Juego",{duration:4000});
+  showToast(message: string, type: 'success' | 'error' | 'warning'): void {
+    this.toastMessage = message;
+    this.toastType = type === 'success'
+      ? 'text-bg-success'
+      : type === 'error'
+      ? 'text-bg-danger'
+      : 'text-bg-warning';
+  
+    const toastElement = document.getElementById('myToast');
+
+    if (toastElement) {
+      toastElement.setAttribute('style', this.toastType);
+      const toast = new bootstrap.Toast(toastElement);
+      toast.show();
+    }
   }
   realizarOperacion(){
     switch(this.nuevoJuego.operador){
@@ -134,14 +149,13 @@ export class AgilidadAritmeticaComponent implements OnInit {
   evaluarRespuesta(e){
 
     if(e.target.value === this.nuevoJuego.resultado.toString()){        
-      // this.mensaje="Correcto!";
-      this.openSnackBar("Correcto!");
+      this.showToast("Correcto!", "success");
       this.jugador.puntos++;
       this.jugador.puntosTotalesAcum++;
     }
 
     else{
-      this.openSnackBar("Correcto!"+"Noo! la correcta es:  " + this.nuevoJuego.resultado);     
+      this.showToast("Noo! la correcta es:  " + this.nuevoJuego.resultado, "error");     
       this.jugador.vidas--;
     }
     this.deshabilitar=true;
@@ -153,7 +167,7 @@ export class AgilidadAritmeticaComponent implements OnInit {
       this.actualizarPuntosUsuario();
       this.nuevoJuego.actualizarDatosJuegos(); 
            
-      this.openSnackBar(mensaje);
+      this.showToast(mensaje, "warning");
     }
   }
   actualizarPuntosUsuario(){
