@@ -1,31 +1,79 @@
+<div class="game-background">
+  <div class="game-container">
+    <!-- Header con título y botón de ayuda -->
+    <div class="game-header">
+      <h1>Adivina el Número</h1>
+      <button class="btn-help" mat-raised-button (click)="mostrarAyuda()" color="primary">Reglas</button>
+    </div>
 
-<div class="background">
-  <div fxLayout="column" fxLayoutAlign="center center" class="titulo">
-    <h4>
-      {{nuevoJuego.nombre | uppercase}}!
-    </h4>
-    <button class="btnAyuda" mat-raised-button (click)="mostrarAyuda()" color="primary"><i class="fa fa-question-circle"></i></button>
+    <!-- Estadísticas del jugador -->
+    <div class="game-stats">
+      <div class="stat">
+        <i class="bi bi-heart-fill"></i> Vidas: {{ jugador.vidas }}
+      </div>
+      <div class="stat">
+        <i class="bi bi-star"></i> Puntos: {{ jugador.puntos }}
+      </div>
+    </div>
 
-   </div>
-<div class="juego" name="juego" fxLayout="column" fxLayoutAlign="center center">
-  <div class="icons">
-    <i class="fa fa-heart fa-lg" aria-hidden="true">: {{jugador.vidas}}</i><i class="fa fa-gamepad fa-lg" aria-hidden="true">: {{jugador.puntos}}</i>
-</div>
-   <label [hidden]="!comenzoJuego" >Cual será?:  </label><br>
-<div class="respuestas" fxLayout="row" *ngIf="!juegoTerminado" [hidden]="!comenzoJuego">
-  <div *ngFor="let numero of listaNumeros" >
-    <p>{{numero}}</p>
-    <input (click)="evaluarRespuesta(numero)" class="estrella" type="image" id="image"
-       src="/assets/imagenes/estrella.png">
-  </div>
-</div>
-    <h2><button *ngIf="!comenzoJuego && !juegoTerminado" (click)="generarnumeroJue()"  class="btn btn-info btn-lg btnComenzar">Comenzar</button></h2>
-    <button *ngIf="jugador.vidas==0 || juegoTerminado"  class="btn btn-warning btnComenzar" (click)="jugarOtraVez()">Jugar Otra vez</button>           
+    <!-- Juego principal -->
+    <div class="game-main">
+      <label *ngIf="comenzoJuego" class="game-label">¿Cuál será?</label>
 
-    <div [@animacion]="animacionEnemigo" class="enemigo">
-      <img [src]="imagenEnemigo">
-      <p>{{mensaje}}</p>
+      <!-- Opciones de respuesta -->
+      <div class="game-options" *ngIf="!juegoTerminado && comenzoJuego">
+        <div class="game-option" *ngFor="let numero of listaNumeros">
+          <p>{{ numero }}</p>
+          <img 
+            (click)="evaluarRespuesta(numero)" 
+            class="option-image" 
+            src="/assets/imagenes/estrella.png" 
+            alt="Opción">
+        </div>
+      </div>
+
+      <!-- Botones de control -->
+      <div class="game-controls">
+        <button 
+          *ngIf="!comenzoJuego && !juegoTerminado" 
+          class="btn-start" 
+          (click)="generarnumeroJue()">
+          Comenzar
+        </button>
+        <button 
+          *ngIf="jugador.vidas === 0 || juegoTerminado" 
+          class="btn-restart" 
+          (click)="jugarOtraVez()">
+          Jugar Otra vez
+        </button>
+      </div>
+    </div>
+
+    <!-- Animación del enemigo -->
+    <div class="enemy-animation" [@animacion]="animacionEnemigo">
+      <img [src]="imagenEnemigo" alt="Enemigo">
+      <p>{{ mensaje }}</p>
+    </div>
+
+    <!-- Notificaciones tipo Toast -->
+    <div 
+      id="myToast" 
+      class="toast align-items-center border-0" 
+      role="alert" 
+      aria-live="assertive" 
+      aria-atomic="true" 
+      [ngClass]="toastType">
+      <div class="d-flex">
+        <div class="toast-body">
+          {{ toastMessage }}
+        </div>
+        <button 
+          type="button" 
+          class="btn-close btn-close-white me-2 m-auto" 
+          data-bs-dismiss="toast" 
+          aria-label="Close">
+        </button>
+      </div>
     </div>
   </div>
-<div id="snackbar">{{Mensajes}}</div>
 </div>

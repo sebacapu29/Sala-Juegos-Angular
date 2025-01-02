@@ -9,6 +9,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalPreguntasComponent } from '../../../components/modal-preguntas/modal-preguntas.component';
 import { CommonModule } from '@angular/common';
 
+declare var bootstrap: any;
 @Component({
   selector: 'app-adivina-el-numero',
   templateUrl: './adivina-el-numero.component.html',
@@ -42,6 +43,8 @@ export class AdivinaElNumeroComponent implements OnInit {
   listaNumeros:string[]=[];
   imgEstrella:string="";
   juegoTerminado:boolean=false;
+  public toastMessage: string = '';
+  public toastType: string = 'text-bg-success';
 
   constructor(private modalService:NgbModal) { 
     this.nuevoJuego = new JuegoAdivina();
@@ -201,24 +204,34 @@ export class AdivinaElNumeroComponent implements OnInit {
   }
   MostarMensaje(mensaje:string="este es el mensaje",ganador:boolean=false) {
     this.Mensajes=mensaje;    
-    var x = document.getElementById("snackbar");
     if(ganador)
-      {
-        //@ts-ignore
-        x.className = "show Ganador";
-      }else{
-        //@ts-ignore
-        x.className = "show Perdedor";
-      }
+      this.showToast("Adivinaste!","success")
+        else
+      this.showToast("Nooo! Volvé a intentar","error")
+
     var modelo=this;
-    setTimeout(function(){
-      //@ts-ignore 
-      x.className = x.className.replace("show", "");  
+    setTimeout(function(){ 
       modelo.ocultarVerificar=true;   
       modelo.mostrarAnimacion('noMostrar');     
      }, 3000); 
    } 
   ngOnInit() {
+    this.generarnumeroJue();
   }
+  public showToast(message: string, type: 'success' | 'error' | 'warning'): void {
+    this.toastMessage = message;
+    this.toastType =
+      type === 'success'
+        ? 'text-bg-success'
+        : type === 'error'
+        ? 'text-bg-danger'
+        : 'text-bg-warning';
 
+    const toastElement = document.getElementById('myToast');
+    if (toastElement) {
+      toastElement.setAttribute('class', this.toastType);
+      const toast = new bootstrap.Toast(toastElement);
+      toast.show();
+    }
+  }
 }

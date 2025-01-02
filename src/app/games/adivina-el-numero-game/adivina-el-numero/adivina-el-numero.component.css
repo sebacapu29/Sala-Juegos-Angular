@@ -1,149 +1,122 @@
-
-i{
-
-    /* margin-left: 25px; */
-    padding: 13px;
-}
-.icons{
-    text-align: center;
-    border-radius: 15px;
-    width: 200px;
-    height: 35px;
-    background-color: white;
-    color: black;
-}
-.icons i{
-    font-size: 15pt;
-}
-form {
-    /* border: 10px solid #f1f1f1; */
-    padding: 10px;
-    color: white;
-}
-.juego{
-    /* width: 80%; */
-    height: 80%;
-}
- 
-.enemigo{
-    width: 50%;
-    height: 50%;
-    margin-left: 25%;
-}
-.respuestas div p{
-    /* display: inline; */
-    /* display: flex; */
-    /* width: 100px; */
-    /* height: 100px; */
-    /* color: white; */
-    font-size: 15pt;
-    color: white;
-}
-h4{
-    font-size: 20pt;
-    color: white;
-}
-.titulo{
-    margin-bottom: 40px;
-}
-.btnComenzar {
-    color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    cursor: pointer;
-    /* width: 100%; */
-}
-.estrella{
-    background: url('/assets/imagenes/estrella.png');
-    width: 30%;
-    cursor: pointer;
-}
-button:hover {
-    opacity: 0.8;
-}
-
-
-.imgcontainer {
-    text-align: center;
-    /* margin: 24px 0 12px 0; */
-}
-img{
-    width: 200px;
-    height: 200px;
-    margin-right: 50px;
-}
-img.avatar {
-    width: 40%;
-    border-radius: 50%;
-}
-div label{
-    margin-top: 25px;
-    font-size: 15pt;
-    color: white
-}
-.container {
-    padding: 16px;
-}
-
-span.psw {
-    float: right;
-    padding-top: 16px;
-}
-
-
-
-.background{
-    background-image:url('/assets/imagenes/galaxy.png');
-    background-size: 100% 100%;
-    background-position: top center;
+/* General styles for the game */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f0f4f8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .game-background {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
     height: 100%;
-    padding-bottom: 250px;
-}
-#snackbar {
-    visibility: hidden;
-    min-width: 250px;
-    margin-left: -125px;
-   
-    color: #fff;
+    background: linear-gradient(to bottom, #4facfe, #00f2fe);
+  }
+  
+  .game-container {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    max-width: 600px;
+    width: 100%;
     text-align: center;
-    border-radius: 2px;
-    padding: 16px;
-    position: fixed;
-    z-index: 1;
-    left: 50%;
-    bottom: 30px;
-    font-size: 17px;
-}
-#snackbar.Ganador {
-    background-color: #059F2F;
-}
-#snackbar.Perdedor {
-    background-color: #FF0000;
-}
-#snackbar.show {
-    visibility: visible;
-    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
-    animation: fadein 0.5s, fadeout 0.5s 2.5s;
-}
-
-@-webkit-keyframes fadein {
-    from {bottom: 0; opacity: 0;} 
-    to {bottom: 30px; opacity: 1;}
-}
-
-@keyframes fadein {
-    from {bottom: 0; opacity: 0;}
-    to {bottom: 30px; opacity: 1;}
-}
-
-@-webkit-keyframes fadeout {
-    from {bottom: 30px; opacity: 1;} 
-    to {bottom: 0; opacity: 0;}
-}
-
-@keyframes fadeout {
-    from {bottom: 30px; opacity: 1;}
-    to {bottom: 0; opacity: 0;}
-}
+  }
+  
+  .game-header {
+    margin-bottom: 20px;
+  }
+  
+  .game-header h1 {
+    margin: 0;
+    font-size: 24px;
+    color: #333;
+  }
+  
+  .btn-help {
+    margin-top: 10px;
+  }
+  
+  .game-stats {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+    font-size: 18px;
+    color: #555;
+  }
+  
+  .game-main {
+    margin-top: 20px;
+  }
+  
+  .game-label {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+  .game-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    gap: 10px;
+    margin: 20px 0;
+  }
+  
+  .game-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .option-image {
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    transition: transform 0.2s;
+  }
+  
+  .option-image:hover {
+    transform: scale(1.1);
+  }
+  
+  .game-controls {
+    margin-top: 20px;
+  }
+  
+  .btn-start, .btn-restart {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .btn-start {
+    background-color: #007bff;
+  }
+  
+  .btn-restart {
+    background-color: #ffc107;
+  }
+  
+  .enemy-animation {
+    margin-top: 20px;
+  }
+  
+  .enemy-animation img {
+    max-width: 100px;
+  }
+  
+  .toast {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+  }
+  
