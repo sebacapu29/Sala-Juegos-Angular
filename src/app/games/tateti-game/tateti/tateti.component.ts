@@ -9,6 +9,8 @@ import { ModalPreguntasComponent } from '../../../components/modal-preguntas/mod
 import { MatRadioGroup, MatRadioModule } from '@angular/material/radio';
 import { CommonModule } from '@angular/common';
 
+declare var bootstrap: any;
+
 @Component({
   selector: 'app-tateti',
   templateUrl: './tateti.component.html',
@@ -26,6 +28,8 @@ export class TatetiComponent implements OnInit {
   comenzoJuego=false;
   juegoTerminado=false;
   tableroBloqueado=false;
+  public toastMessage: string = '';
+  public toastType: string = 'text-bg-success';
   constructor(private _snackBar: MatSnackBar,
     private modalService: NgbModal) {
     this.tablero=[
@@ -60,6 +64,8 @@ export class TatetiComponent implements OnInit {
   }
   //@ts-ignore
   llenarCasillero(posicion1,posicion2){
+    posicion1 = Math.floor(posicion1 / 3);
+    posicion2 = posicion2 % 3 ;
     this.nuevoJuego.fichaEnemigo = this.nuevoJuego.ficha == "x" ? "o" : "x";
 
     var posicionCelda = this.esCasilleroOcupado(posicion1,posicion2);
@@ -235,5 +241,21 @@ export class TatetiComponent implements OnInit {
     this.jugador.vidas =3;
     this.juegoTerminado=false;
     this.comenzar();
+  }
+  public showToast(message: string, type: 'success' | 'error' | 'warning'): void {
+    this.toastMessage = message;
+    this.toastType =
+      type === 'success'
+        ? 'text-bg-success'
+        : type === 'error'
+        ? 'text-bg-danger'
+        : 'text-bg-warning';
+
+    const toastElement = document.getElementById('myToast');
+    if (toastElement) {
+      toastElement.setAttribute('class', this.toastType);
+      const toast = new bootstrap.Toast(toastElement);
+      toast.show();
+    }
   }
 }

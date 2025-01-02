@@ -1,84 +1,78 @@
-
-.btnComenzar{
-    padding: 20px;
-    border-radius: 30px;
-    border: solid 1px black;
-}
-.footer{
-    margin-top: 15px;
-}
-.icon i{
-    margin-bottom: 10px;   
-    padding: 5px; 
-}
-.icon{
-    background-color: white;
-    margin-bottom: 40px;
-    border-radius: 30px;
-}
-div mat-radio-group mat-radio-button{
-    margin-left: 10px;
-}
-
-i{
-    font-size: 20pt;
-    margin-left: 28px;
-}
-label{
-    margin-top: 30px;
-    font-size: 15pt;
-    
-}
-strong{
-    font-size: 15pt;
-
-}
-.background{
-    background-image:url('/assets/imagenes/cyber.jpg');
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-    background-position: top center;
-    width: 100%;
-    height: 100%;
-    padding-bottom: 250px;
-}
-.titulo{
-    margin-left: 5px;
-    margin-bottom: 40px;
-    color: white;
-    
-}
-.titulo h4{
-    font-size: 25pt;
-}
-.celda {
-    /* display: none; */
-    float: left;
-    background: #fff;
-	height: 80px;
-	width: 80px;
-	border: solid 1.5px black;
-    font-size: 20pt;
-    text-align: center;
-    background-color: white;
-    padding: 20px;
-	}
-#tablero {
-	height: 248px;
-	width: 248px;
-	margin: 30px auto;
-    }
-	
-@media screen and (max-width: 992px) {
-    .contenido {
-      margin-top:55%;
-    }
+/* Fondo */
+.background {
+    /* background: url('ruta-a-tu-imagen.png') no-repeat center center fixed; */
+    background-size: cover;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-family: Arial, sans-serif;
   }
   
-  /* On screens that are 600px or less, set the background color to olive */
-  @media screen and (max-width: 600px) {
-    .contenido {
-        margin-top:55%;
-    }
+  /* Título */
+  .titulo h4 {
+    color: #ffeb3b;
+    text-shadow: 2px 2px 5px #000;
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+  
+  /* Tablero */
+  .tablero {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin: 20px 0;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+  }
+  
+  .celda {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 100px;
+    border: 2px solid #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.8);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .celda:hover {
+    background-color: #ffeb3b;
+    transform: scale(1.1);
+  }
+  
+  .celda p {
+    margin: 0;
+    font-size: 24px;
+    font-weight: bold;
+    color: #000;
+  }
+  
+  /* Footer */
+  .footer {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .btnComenzar {
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btnComenzar:hover {
+    background-color: #ffeb3b;
+    color: #000;
   }
   
