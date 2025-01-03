@@ -76,3 +76,15 @@
     color: #000;
   }
   
+  .stat {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 35px;
+  }
+  .header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    font-size: 18px;
+  }

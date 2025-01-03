@@ -64,12 +64,7 @@ export class PptComponent implements OnInit {
 
   private inicializarJugador(): Jugador {
     //@ts-ignore
-    // if(localStorage.getItem("usuarioLogueado")!=null){
-    //   //@ts-ignore
-      
-    // } 
     const usuarioLocalStorage = JSON.parse(localStorage.getItem("usuarioLogueado"));              
-    // const usuarioLocalStorage = LocalStorage.obtenerUsuarioLogueado();
 
     if (!usuarioLocalStorage) {
       throw new Error('No se encontró un usuario logueado en el LocalStorage.');

@@ -5,7 +5,7 @@
 
 .card {
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Agrega algo de sombreado para destacar las tarjetas */
-  background-color: #593C8F;
+  background-color: lightslategray;
 }
 
 .card-title {

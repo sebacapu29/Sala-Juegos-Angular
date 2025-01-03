@@ -78,13 +78,13 @@ export class TatetiComponent implements OnInit {
     if(this.esRondaGanada(this.nuevoJuego.ficha)){      
       this.jugador.puntos++;
       this.jugador.puntosTotalesAcum++;
-      this.openSnackBar("Ganaste la ronda!","Ronda");
+      this.showToast("Ganaste la ronda!", "success");
       this.bloquearDesbloqTablero(true);
       if(this.esJuegoTerminado()){
     
         this.nuevoJuego.actualizarDatosJuegos();
         this.actualizarPuntosUsuario();
-        this.openSnackBar("Muy bien me Ganaste, intentemos de nuevo!","Juego terminado");
+        this.showToast("Muy bien me Ganaste, intentemos de nuevo!", "success");
       }
       return;
       //juegoTerminado
@@ -106,20 +106,19 @@ export class TatetiComponent implements OnInit {
       this.tablero[posicionCeldaEnemigo].ocupada=true;
       if(this.esRondaGanada(this.nuevoJuego.fichaEnemigo)){ 
         this.jugador.vidas--;       
-        this.openSnackBar("Ops Perdiste la ronda","Ronda"); 
+        this.showToast("Ops Perdiste la ronda", "error");
         if(this.esJuegoTerminado()){
         
           this.nuevoJuego.actualizarDatosJuegos();
           this.actualizarPuntosUsuario();
-          this.openSnackBar("Perdiste el juego! vuelve a intentar","Juego Terminado");
+          this.showToast("Perdiste el juego! vuelve a intentar!", "warning");
         }       
         this.bloquearDesbloqTablero(true);
       }
     }
     
     else{
-      this.openSnackBar("Empate!","Ronda");           
-      //reiniciar
+      this.showToast("Empate!", "warning");
     }
     if(this.esJuegoTerminado()){      
     
@@ -138,12 +137,10 @@ export class TatetiComponent implements OnInit {
     modalRef.componentInstance.listaReglas= reglas;
     modalRef.componentInstance.reglas=true;
   }
-  mostrarMensaje(){
-    this.openSnackBar("Haga Click en Comenzar","Juego");
+  mostrarMensajeInicial(){
+    this.showToast("Haga click para comenzar!", "warning");
   }
-  openSnackBar(mensaje:string,titulo:string){
-    this._snackBar.open(mensaje,titulo,{duration:5000});
-  }
+
   actualizarPuntosUsuario(){
     var indexUser = LocalStorage.obtenerIndexUsuarioLogueado();
     if(indexUser!=-1){
@@ -232,9 +229,9 @@ export class TatetiComponent implements OnInit {
   comenzar(){
     this.reiniciarTablero();
     this.ocultarSeleccionFichas=true;
-    this.bloquearDesbloqTablero(false);
-    
+    this.bloquearDesbloqTablero(false);    
   }
+
 
   jugarOtraVez(){
     this.jugador.puntos =0;
