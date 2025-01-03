@@ -6,6 +6,7 @@ import { LocalStorage } from '../../../classes/helpers/local-storage';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalPreguntasComponent } from '../../../components/modal-preguntas/modal-preguntas.component';
 import { CommonModule } from '@angular/common';
+declare var bootstrap: any;
 
 @Component({
   selector: 'app-anagrama',
@@ -23,9 +24,10 @@ export class AnagramaComponent implements OnInit {
   numeroAleatorio:number=0;
   juegoTerminado:boolean=false;
   bloqueoPantalla:boolean=false;
+  public toastMessage: string = '';
+  public toastType: string = 'text-bg-success';
 
-  constructor(private _snackBar: MatSnackBar,
-    private modalService: NgbModal) {
+  constructor(private modalService: NgbModal) {
     var usuarioLocalStorage:any;
 
     if(localStorage.getItem("usuarioLogueado")!=null){
@@ -48,7 +50,7 @@ export class AnagramaComponent implements OnInit {
     {"palabra":"SERGIO"}, {"palabra":"PODER"}];
 
     this.comenzarJuego();
-    this.openSnackBar("Comenzo el Juego!","Juego");
+    this.openSnackBar("Comenzo el Juego!","s");
    }
 
    comenzarJuego(){
@@ -75,8 +77,15 @@ export class AnagramaComponent implements OnInit {
     modalRef.componentInstance.listaReglas= reglas;
     modalRef.componentInstance.reglas=true;
   }
-   openSnackBar(mensaje:string,titulo:string){
-    this._snackBar.open(mensaje,titulo,{duration:5000});
+   openSnackBar(mensaje:string, type:string){
+
+    if (type=="e")
+      this.showToast(mensaje,"error")
+    else if(type =="w")
+      this.showToast(mensaje,"warning")
+    else
+      this.showToast(mensaje,"success")
+
   }
   //@ts-ignore
    enviarLetra(letra){
@@ -92,19 +101,19 @@ export class AnagramaComponent implements OnInit {
        if(this.verificarRespuesta()){  
          this.jugador.puntos++;
          this.jugador.puntosTotalesAcum++;               
-         this.openSnackBar("Ronda ganada! groso!","Juego");         
+         this.openSnackBar("Ronda ganada! groso!","s");         
          this.pasarANuevaPalabra();
          this.refrescarPantalla();
        }
        else{
          this.jugador.vidas--;
-         this.openSnackBar("Intenta con otra palabra!","Juego");
+         this.openSnackBar("Intenta con otra palabra!","e");
          this.refrescarPantalla();
        }
 
      }
      if(this.esJuegoTerminado()){
-       this.openSnackBar("Juego Terminado!","Juego");
+       this.openSnackBar("Juego Terminado!","w");
        this.bloquearPantalla();
        this.nuevoJuego.actualizarDatosJuegos();
        this.actualizarPuntosUsuario();
@@ -140,7 +149,7 @@ export class AnagramaComponent implements OnInit {
     this.bloqueoPantalla=true;
    }
    mostrarMensaje(){
-    this.openSnackBar("Haga Click en Jugar Otra Vez","Juego");
+    this.showToast("Haga Click en Jugar Otra Vez", "warning");
    }
    actualizarPuntosUsuario(){
     var indexUser = LocalStorage.obtenerIndexUsuarioLogueado();
@@ -198,5 +207,20 @@ export class AnagramaComponent implements OnInit {
   ngOnInit(): void {
     
   }
+  public showToast(message: string, type: 'success' | 'error' | 'warning'): void {
+    this.toastMessage = message;
+    this.toastType =
+      type === 'success'
+        ? 'text-bg-success'
+        : type === 'error'
+        ? 'text-bg-danger'
+        : 'text-bg-warning';
 
+    const toastElement = document.getElementById('myToast');
+    if (toastElement) {
+      toastElement.setAttribute('class', this.toastType);
+      const toast = new bootstrap.Toast(toastElement);
+      toast.show();
+    }
+  }
 }

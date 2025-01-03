@@ -25,12 +25,12 @@ declare var bootstrap: any;
 })
 export class PptComponent implements OnInit {
   public readonly pathsPPT: string[] = [
-    './assets/imagenes/piedra.jpg',
-    './assets/imagenes/papel.jpg',
-    './assets/imagenes/tijera.jpg',
     './assets/imagenes/piedra2.jpg',
     './assets/imagenes/papel2.jpg',
     './assets/imagenes/tijera2.jpg',
+    './assets/imagenes/piedra.jpg',
+    './assets/imagenes/papel.jpg',
+    './assets/imagenes/tijera.jpg',
   ];
 
   public pathContrincante: string = this.pathsPPT[0];

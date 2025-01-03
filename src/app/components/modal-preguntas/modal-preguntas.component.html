@@ -1,11 +1,7 @@
 <div class="modal-holder" [ngStyle]="{'background-image': 'url('+ imageBackground+')'}">
     <div>
         <img [src]="imagenResultado">
-        <img class="imgAyuda" [src]="imgAyuda">
-<!-- <div class="modal-header"> -->
-    <!-- <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
-      &times;
-    </button> -->
+        <img *ngIf="imgAyuda"   class="imgAyuda" [src]="imgAyuda">
       <div *ngIf="reglas">
         <ol class="list-group">
           <li class="list-group-item list-group-item-action active">

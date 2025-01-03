@@ -1,5 +1,11 @@
-import { Injectable } from '@angular/core';
+import { Component, Injectable } from '@angular/core';
 import { ArchivosJugadoresService}from './archivos-jugadores.service'
+
+@Component({
+  template: '<p></p>',
+  providers:[ArchivosJugadoresService]
+})
+
 @Injectable()
 export class JugadoresService {
 

@@ -16,7 +16,7 @@ export class JugadoresListadoComponent implements OnInit {
   listadoOriginal:any;
   usuariosEnLocalStorage:any[]=[];
 
-    constructor(serviceJugadores:JugadoresService) {
+    constructor(private serviceJugadores:JugadoresService) {
       this.miJugadoresServicio = serviceJugadores;
       this.TraerTodos();      
     }

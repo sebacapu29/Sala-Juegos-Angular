@@ -76,7 +76,7 @@ export class PreguntasComponent implements OnInit {
     this.jugador = new Jugador();
     this.jugador.vidas=3;
     this.jugador.puntos=0;
-    this.preguntaSeleccionada = new Preguntas("","","","");
+    this.preguntaSeleccionada = new Preguntas("",""," ","");
     this.jugador.gano = false; 
     this.preguntasSerive.getPreguntasYRespuestas().subscribe(data=> {     
     this.juegoPreguntas =  data as Preguntas[];  
@@ -91,14 +91,15 @@ export class PreguntasComponent implements OnInit {
       //@ts-ignore
       usuarioLocalStorage = JSON.parse(localStorage.getItem("usuarioLogueado"));              
     }    
-    this.jugador = new Jugador(usuarioLocalStorage.nombre,usuarioLocalStorage.mail,usuarioLocalStorage.clave,usuarioLocalStorage.sexo,"Poderoso Conocimiento"); 
+    this.jugador = new Jugador(usuarioLocalStorage.nombre,usuarioLocalStorage.mail,usuarioLocalStorage.clave,usuarioLocalStorage.sexo,"Conocimiento"); 
     this.nuevoJuego.jugador = this.jugador.mail;
     this.jugador.puntosTotalesAcum = usuarioLocalStorage.puntosTotalesAcum;
-    this.nuevoJuego.nombre = "Poderoso Conocimiento";
+    this.nuevoJuego.nombre = "Conocimiento";
   }
   );
 }
   ngOnInit(): void {
+
   }
   configuracionesIniciarles(){
     var usuarioLocalStorage:any;
@@ -106,11 +107,11 @@ export class PreguntasComponent implements OnInit {
       //@ts-ignore
       usuarioLocalStorage = JSON.parse(localStorage.getItem("usuarioLogueado"));              
     }    
-    this.jugador = new Jugador(usuarioLocalStorage.nombre,usuarioLocalStorage.mail,usuarioLocalStorage.clave,usuarioLocalStorage.sexo,"Poderoso Conocimiento"); 
+    this.jugador = new Jugador(usuarioLocalStorage.nombre,usuarioLocalStorage.mail,usuarioLocalStorage.clave,usuarioLocalStorage.sexo,"Conocimiento"); 
     this.nuevoJuego.jugador = this.jugador.mail;
     this.jugador.puntosTotalesAcum = usuarioLocalStorage.puntosTotalesAcum;
     this.jugador.fechaActualizacion = usuarioLocalStorage.fechaActualizacion;
-    this.nuevoJuego.nombre = "Poderoso Conocimiento";
+    this.nuevoJuego.nombre = "Conocimiento";
   }
   
   comenzar(){
@@ -131,7 +132,7 @@ export class PreguntasComponent implements OnInit {
       this.intervalId = setInterval(() => {
       this.contadorTiempo -= 1;      
       if(this.contadorTiempo === 0) {  
-        this.openModal("Se agoto el tiempo!","La respuesta correcta es: " + this.preguntaSeleccionada.answerc,"./assets/imagenes/llorando.PNG");        
+        this.openModal("Se agoto el tiempo!","La respuesta correcta es: " + this.preguntaSeleccionada.answerc,"./assets/imagenes/respuesta-incorrecta.jpg");        
         this.clearGame();
       }         
   }, 1000);
@@ -165,7 +166,7 @@ export class PreguntasComponent implements OnInit {
       this.audio.play();
       this.nuevoJuego.gano=true;
       this.cofreOculto =false;
-      this.openModal("Felicitaciones! Terminaste El Juego!","Ahora puedes abrir el cofre del conocimiento ubicado al comienzo del juego","./assets/imagenes/fondoFin.PNG");
+      this.openModal("Felicitaciones! Terminaste El Juego!","Ahora puedes abrir el cofre del conocimiento ubicado al comienzo del juego","./assets/imagenes/winner.png");
       this.clearGame();
       return true;
     }
@@ -207,13 +208,13 @@ export class PreguntasComponent implements OnInit {
       this.jugador.gano=true;  
       this.jugador.puntos++;  
       this.jugador.puntosTotalesAcum++;  
-      this.openModal("Bravo! Correcto","","./assets/imagenes/festejo.PNG");
+      this.openModal("Bravo! Correcto","","./assets/imagenes/respuesta-correcta.jpg");
       this.clearGame();
     }
     else{
       this.jugador.gano=false;
       this.jugador.vidas--;
-      this.openModal("Ups! Lastima, Incorrecta!","La respuesta correcta es: " + this.preguntaSeleccionada.answerc,"./assets/imagenes/llorando.PNG");         
+      this.openModal("Ups! Lastima, Incorrecta!","La respuesta correcta es: " + this.preguntaSeleccionada.answerc,"./assets/imagenes/respuesta-incorrecta.jpg");         
       this.clearGame();
     }
     if(this.esJuegoTerminado()){

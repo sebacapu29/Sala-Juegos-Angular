@@ -1,33 +1,75 @@
-<div class="background" >
-    <div fxLayout="column" fxLayoutAlign="center center">
-        <h4 class="titulo" >
-          {{nuevoJuego.nombre | uppercase}}!
-        </h4>
-        <button mat-raised-button (click)="mostrarAyuda()" color="primary">Como se Juega<i class="fa fa-question-circle"></i></button>
-       </div>
-
-    <div class="contenido" fxLayoutAlign="center center" fxLayout="column">
-
-    <div class="icons" >
-       <i class="fa fa-heart fa-lg" aria-hidden="true">: {{jugador.vidas}}</i>  <i class="fa fa-gamepad fa-lg" aria-hidden="true">: {{jugador.puntos}}</i>
+<div class="background">
+    <div class="header">
+      <h4 class="titulo">
+        {{ nuevoJuego.nombre | uppercase }}!
+      </h4>
+      <button class="btn btn-primary ayuda-btn" (click)="mostrarAyuda()"> 
+        Cómo se Juega
+        
+      </button>
     </div>
-    <div fxLayout="row" >
-        <div  *ngFor="let letra of nuevoJuego.palabraUsuario" class="celdaRespuesta"  >
-            <p class="palabra">{{letra}}</p>
+  
+    <div class="contenido">
+        <div class="header">
+      
+              <i class="bi bi-heart-fill"></i> Vidas: {{jugador.vidas}}
+     
+              <i class="bi bi-star"></i> Puntos: {{jugador.puntos}}
+ 
+          </div>
+  
+      <div class="palabra-usuario">
+        <div 
+          *ngFor="let letra of nuevoJuego.palabraUsuario" 
+          class="celda-respuesta">
+          <p class="letra">{{ letra }}</p>
         </div>
+      </div>
+  
+      <div class="palabra-desordenada">
+        <div 
+          *ngFor="let letra of palabraDesordenada" 
+          class="celda" 
+          (click)="bloqueoPantalla ? mostrarMensaje() : enviarLetra(letra)">
+          <p class="letra">{{ letra }}</p>
+        </div>
+        <div class="celda-borrar">
+          <button 
+            [disabled]="bloqueoPantalla" 
+            class="btn btn-danger borrar-btn" 
+            (click)="borrarUltimaLetra()">
+            <i class="bi bi-arrow-left"></i>
+          </button>
+        </div>
+      </div>
+  
+      <div class="footer">
+        <button 
+          *ngIf="jugador.vidas == 0 || juegoTerminado" 
+          class="btn btn-warning jugar-otra-vez" 
+          (click)="jugarOtraVez()">Jugar Otra Vez
+        </button>
+      </div>
     </div>
-    <div fxLayout="row">
-        <div *ngFor="let letra of palabraDesordenada" class="celda" (click)="bloqueoPantalla ? mostrarMensaje() : enviarLetra(letra)">
-            <p>{{letra}}</p>
-        </div>
-        <div class="celdaBorrar" >
-            <button [disabled]="bloqueoPantalla" class="btn btn-danger" (click)="borrarUltimaLetra()"><i class="fa fa-arrow-left"></i></button>
-        </div>
+  </div>
 
+  <div
+  id="myToast"
+  class="toast align-items-center border-0"
+  role="alert"
+  aria-live="assertive"
+  aria-atomic="true"
+  [ngClass]="toastType"
+>
+  <div class="d-flex">
+    <div class="toast-body">
+      {{ toastMessage }}
     </div>
-    <div fxLayout="row">
-        <button  class="btnJugarOtraVez" *ngIf="jugador.vidas==0 || juegoTerminado" class="btn btn-warning" (click)="jugarOtraVez()">Jugar Otra Vez</button>
-    </div>
-    
-</div>
+    <button
+      type="button"
+      class="btn-close btn-close-white me-2 m-auto"
+      data-bs-dismiss="toast"
+      aria-label="Close"
+    ></button>
+  </div>
 </div>

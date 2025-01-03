@@ -1,6 +1,6 @@
 
-<ngb-carousel *ngIf="mostrarCarousel" >
-    <ng-template ngbSlide style="color: black;">
+<ngb-carousel *ngIf="mostrarCarousel" [interval]="3000" >
+    <ng-template ngbSlide style="color: black;" >
       <div class="">
         <img [src]="images[0]" alt="Imagen 1" style="height: 50vh">
       </div>

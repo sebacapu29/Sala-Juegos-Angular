@@ -1,36 +1,48 @@
-<div class="background" >
-<div fxLayout="column" fxLayoutAlign="space-around center">
+<div class="juego-container">
+<div>
 
     <div style="text-align:center" class="titulo">
-        <h4>
-          {{nuevoJuego.nombre | uppercase}}!
-        </h4>
-        <button mat-raised-button (click)="mostrarAyuda()" color="primary"><i class="fa fa-question-circle"></i></button>
-
+       
        </div>
+
+        <!-- Sección superior: Vidas, tiempo y puntos -->
+    <div class="header">
+        <div class="stat">
+          <i class="bi bi-heart-fill"></i> Vidas: {{jugador.vidas}}
+        </div>
+        <div class="stat timer">
+          <i class="bi bi-clock"></i> Tiempo: {{contadorTiempo}}
+        </div>
+        <div class="stat">
+          <i class="bi bi-star"></i> Puntos: {{jugador.puntos}}
+        </div>
+      </div>
+
+       <!-- Sección central: Problema a resolver -->
+    <div class="problema-container">
+        <div class="containerQuestion"   >
+            <label ><strong>{{preguntaSeleccionada.question}}</strong></label><br>
+        </div>
+    </div>
     <div class="contenido">
 
-    <div class="icon"  fxLayoutAlign="space-around center" >
-       <i class="fa fa-heart fa-lg" aria-hidden="true">: {{jugador.vidas}}</i>  <i class="fa fa-clock-o fa-lg" aria-hidden="true">: {{contadorTiempo}}  </i><i class="fa fa-gamepad fa-lg" aria-hidden="true">: {{jugador.puntos}}</i>
-    </div>
-
-    <div class="containerQuestion"  fxLayoutAlign="space-around center" >
-        <label [hidden]="!comenzoJuego"><strong>{{preguntaSeleccionada.question}}</strong></label><br>
-    </div>
-    <div class="containerAnwsers" fxLayout="column" fxLayoutAlign="space-around center"  >
+  
+    <div class="containerAnwsers" >
         <img class="imgCofre" (click)="abrirCofre()" [hidden]="cofreOculto" [src]="imagenCofre">
     <div [hidden]="!comenzoJuego"  >        
             <button  [@animacion2]="estadoAnimacion2" id="btnResp" class="btn btn-light btnRespuesta" (click)="evaluarRespuesta($event)" [value]="respuestasParaMostrar[0]">{{respuestasParaMostrar[0]}}</button><br>
             <button  [@animacion3]="estadoAnimacion3" id="btnResp" class="btn btn-light btnRespuesta" (click)="evaluarRespuesta($event)" [value]="respuestasParaMostrar[1]">{{respuestasParaMostrar[1]}}</button><br>
             <button  [@animacion4]="estadoAnimacion4" id="btnResp" class="btn btn-light btnRespuesta" (click)="evaluarRespuesta($event)" [value]="respuestasParaMostrar[2]">{{respuestasParaMostrar[2]}}</button><br>      
       </div>     
-      <div  fxLayoutAlign="space-around center" >
+      <div>
 
           <button *ngIf="!comenzoJuego && !juegoTerminado && jugador.vidas>0" id="btnComenzar" class="btn btn-success btnComenzar" (click)="comenzar()">Comenzar</button>           
-          <button *ngIf="jugador.vidas==0 || juegoTerminado" id="btnComenzar" class="btn btn-warning btnComenzar" (click)="jugarOtraVez()">Jugar Otra vez</button>           
-        </div>
-          
+          <button *ngIf="jugador.vidas==0 || juegoTerminado" id="btnComenzar" class="btn btn-warning btnComenzar" (click)="jugarOtraVez()">Jugar Otra vez</button>    
+          <!-- <button *ngIf="!comenzoJuego && !juegoTerminado && jugador.vidas>0" style="margin-left: 50px;" (click)="mostrarAyuda()" class="btn btn-secondary">Reglas</button>        -->
+     </div>
+
     </div>
-</div>
-</div>
-</div>
+        </div>
+        </div>
+ </div>
+
