@@ -6,13 +6,15 @@ import { LocalStorage } from '../../../classes/helpers/local-storage';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalPreguntasComponent } from '../../../components/modal-preguntas/modal-preguntas.component';
 import { CommonModule } from '@angular/common';
+import { ToastComponent } from "../../../components/toast/toast.component";
+import { ToastService } from '../../../services/toast.service';
 declare var bootstrap: any;
 
 @Component({
   selector: 'app-anagrama',
   templateUrl: './anagrama.component.html',
   styleUrls: ['./anagrama.component.css'],
-  imports:[CommonModule]
+  imports: [CommonModule, ToastComponent]
 })
 export class AnagramaComponent implements OnInit {
 
@@ -27,7 +29,7 @@ export class AnagramaComponent implements OnInit {
   public toastMessage: string = '';
   public toastType: string = 'text-bg-success';
 
-  constructor(private modalService: NgbModal) {
+  constructor(private modalService: NgbModal, private _toastService: ToastService) {
     var usuarioLocalStorage:any;
 
     if(localStorage.getItem("usuarioLogueado")!=null){
@@ -80,11 +82,11 @@ export class AnagramaComponent implements OnInit {
    openSnackBar(mensaje:string, type:string){
 
     if (type=="e")
-      this.showToast(mensaje,"error")
+      this._toastService.showToast(mensaje,"error")
     else if(type =="w")
-      this.showToast(mensaje,"warning")
+      this._toastService.showToast(mensaje,"warning")
     else
-      this.showToast(mensaje,"success")
+      this._toastService.showToast(mensaje,"success")
 
   }
   //@ts-ignore
@@ -149,7 +151,7 @@ export class AnagramaComponent implements OnInit {
     this.bloqueoPantalla=true;
    }
    mostrarMensaje(){
-    this.showToast("Haga Click en Jugar Otra Vez", "warning");
+    this._toastService.showToast("Haga Click en Jugar Otra Vez", "warning");
    }
    actualizarPuntosUsuario(){
     var indexUser = LocalStorage.obtenerIndexUsuarioLogueado();
@@ -207,20 +209,5 @@ export class AnagramaComponent implements OnInit {
   ngOnInit(): void {
     
   }
-  public showToast(message: string, type: 'success' | 'error' | 'warning'): void {
-    this.toastMessage = message;
-    this.toastType =
-      type === 'success'
-        ? 'text-bg-success'
-        : type === 'error'
-        ? 'text-bg-danger'
-        : 'text-bg-warning';
 
-    const toastElement = document.getElementById('myToast');
-    if (toastElement) {
-      toastElement.setAttribute('class', this.toastType);
-      const toast = new bootstrap.Toast(toastElement);
-      toast.show();
-    }
-  }
 }

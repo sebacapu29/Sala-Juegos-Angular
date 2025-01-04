@@ -10,6 +10,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalPreguntasComponent } from '../../../components/modal-preguntas/modal-preguntas.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ToastComponent } from "../../../components/toast/toast.component";
+import { ToastService } from '../../../services/toast.service';
 declare var bootstrap: any;
 @Component({
   selector: 'app-agilidad-aritmetica',
@@ -24,7 +26,7 @@ declare var bootstrap: any;
     transition('estado1 <=> estado2',animate('100ms'))
   ]),
 ],
-imports:[CommonModule, FormsModule]
+imports: [CommonModule, FormsModule, ToastComponent]
 })
 export class AgilidadAritmeticaComponent implements OnInit {
    @Output() 
@@ -50,7 +52,7 @@ export class AgilidadAritmeticaComponent implements OnInit {
 
   ngOnInit() {
   }
-   constructor(private modalService: NgbModal) {
+   constructor(private modalService: NgbModal, private toastService:ToastService) {
      this.ocultarVerificar=true;
      this.Tiempo=5; 
     this.nuevoJuego = new JuegoAgilidad();
@@ -108,22 +110,7 @@ export class AgilidadAritmeticaComponent implements OnInit {
       }
       }, 900);    
   }
-  showToast(message: string, type: 'success' | 'error' | 'warning'): void {
-    this.toastMessage = message;
-    this.toastType = type === 'success'
-      ? 'text-bg-success'
-      : type === 'error'
-      ? 'text-bg-danger'
-      : 'text-bg-warning';
-  
-    const toastElement = document.getElementById('myToast');
 
-    if (toastElement) {
-      toastElement.setAttribute('style', this.toastType);
-      const toast = new bootstrap.Toast(toastElement);
-      toast.show();
-    }
-  }
   realizarOperacion(){
     switch(this.nuevoJuego.operador){
       case "+":
@@ -149,13 +136,13 @@ export class AgilidadAritmeticaComponent implements OnInit {
   evaluarRespuesta(e){
 
     if(e.target.value === this.nuevoJuego.resultado.toString()){        
-      this.showToast("Correcto!", "success");
+      this.toastService.showToast("Correcto!", "success");
       this.jugador.puntos++;
       this.jugador.puntosTotalesAcum++;
     }
 
     else{
-      this.showToast("Noo! la correcta es:  " + this.nuevoJuego.resultado, "error");     
+      this.toastService.showToast("Noo! la correcta es:  " + this.nuevoJuego.resultado, "error");     
       this.jugador.vidas--;
     }
     this.deshabilitar=true;
@@ -167,7 +154,7 @@ export class AgilidadAritmeticaComponent implements OnInit {
       this.actualizarPuntosUsuario();
       this.nuevoJuego.actualizarDatosJuegos(); 
            
-      this.showToast(mensaje, "warning");
+      this.toastService.showToast(mensaje, "warning");
     }
   }
   actualizarPuntosUsuario(){

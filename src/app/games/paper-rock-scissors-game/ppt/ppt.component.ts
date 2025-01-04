@@ -7,6 +7,8 @@ import { DateTimeHelper } from '../../../classes/helpers/date-time';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalPreguntasComponent } from '../../../components/modal-preguntas/modal-preguntas.component';
 import { CommonModule } from '@angular/common';
+import { ToastComponent } from "../../../components/toast/toast.component";
+import { ToastService } from '../../../services/toast.service';
 
 declare var bootstrap: any;
 
@@ -14,7 +16,7 @@ declare var bootstrap: any;
   selector: 'app-ppt',
   templateUrl: './ppt.component.html',
   styleUrls: ['./ppt.component.css'],
-  imports: [CommonModule],
+  imports: [CommonModule, ToastComponent],
   animations: [
     trigger('animacion', [
       state('estado1', style({ opacity: 1 })),
@@ -50,12 +52,12 @@ export class PptComponent implements OnInit {
   public deshabilitar: boolean = false;
   public toastMessage: string = '';
   public toastType: string = 'text-bg-success';
+  public seleccionJugadorCss: string = '';
 
-  private audio = new Audio();
   private intervalId: any;
   private nuevoJuego: JuegoPiedraPapelTijera;
 
-  constructor(private modalService: NgbModal) {
+  constructor(private modalService: NgbModal, private _toastService:ToastService) {
     this.jugador = this.inicializarJugador();
     this.nuevoJuego = this.inicializarJuego();
   }
@@ -94,7 +96,7 @@ export class PptComponent implements OnInit {
       papel: 4,
       tijera: 5,
     };
-
+    this.seleccionJugadorCss = jugada;
     this.seleccionJugador = this.pathsPPT[jugadaMap[jugada]];
     this.seleccionadoPorJugador = jugada;
     this.deseleccionarOtrosBotones(['piedra', 'papel', 'tijera'].filter((j) => j !== jugada));
@@ -134,7 +136,7 @@ export class PptComponent implements OnInit {
 
   public comenzar(): void {
     if (!this.seleccionoOpcion) {
-      this.showToast('Selecciona una opción', 'warning');
+      this._toastService.showToast('Selecciona una opción', 'warning');
       return;
     }
 
@@ -166,12 +168,12 @@ export class PptComponent implements OnInit {
 
     if (esGanadaLaRonda && !this.esEmpate) {
       this.jugador.puntos++;
-      this.showToast('¡Suertudo!', 'success');
+      this._toastService.showToast('¡Suertudo!', 'success');
     } else if (!esGanadaLaRonda && !this.esEmpate) {
       this.jugador.vidas--;
-      this.showToast('¡Esta ronda es mía!', 'error');
+      this._toastService.showToast('¡Perdistee!', 'error');
     } else if (this.esEmpate) {
-      this.showToast('¡Empate!', 'warning');
+      this._toastService.showToast('¡Empate!', 'warning');
     }
 
     if (this.esJuegoTerminado()) {
@@ -186,17 +188,21 @@ export class PptComponent implements OnInit {
   }
 
   private ganaLaRonda(): boolean {
+    // Definimos las reglas de qué le gana a qué
     const reglas: Record<string, string> = {
       piedra: 'tijera',
       papel: 'piedra',
       tijera: 'papel',
     };
-
+  
+    // Si las selecciones son iguales, es un empate
     if (this.seleccionadoPorJugador === this.seleccionContrincante) {
       this.esEmpate = true;
       return false;
     }
-
+  
+    // Si la elección del jugador le gana a la del contrincante según las reglas
+    this.esEmpate = false; // Aseguramos que no es empate
     return reglas[this.seleccionadoPorJugador] === this.seleccionContrincante;
   }
 
@@ -211,7 +217,7 @@ export class PptComponent implements OnInit {
     LocalStorage.actualizarUsuario(this.jugador);
     this.nuevoJuego.actualizarDatosJuegos();
 
-    this.showToast(
+    this._toastService.showToast(
       ganado ? '¡Bien lo tuyo!' : '¡Mejor la próxima!',
       ganado ? 'success' : 'error'
     );
@@ -221,22 +227,5 @@ export class PptComponent implements OnInit {
     this.juegoTerminado = false;
     this.jugador.vidas = 3;
     this.jugador.puntos = 0;
-  }
-
-  public showToast(message: string, type: 'success' | 'error' | 'warning'): void {
-    this.toastMessage = message;
-    this.toastType =
-      type === 'success'
-        ? 'text-bg-success'
-        : type === 'error'
-        ? 'text-bg-danger'
-        : 'text-bg-warning';
-
-    const toastElement = document.getElementById('myToast');
-    if (toastElement) {
-      toastElement.setAttribute('class', this.toastType);
-      const toast = new bootstrap.Toast(toastElement);
-      toast.show();
-    }
   }
 }

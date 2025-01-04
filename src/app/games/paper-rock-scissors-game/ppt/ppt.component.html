@@ -17,11 +17,11 @@
       <div class="problema-container">
         <div class="contrincante">
           <h3>Contrincante</h3>
-          <img class="jugada-img" [src]="pathContrincante" alt="Jugada del contrincante">
+          <img [@animacion]="estadoAnimJugada" class="jugada-img" [src]="pathContrincante" alt="Jugada del contrincante">
         </div>
         <div class="usuario">
           <h3>Usuario</h3>
-          <img class="jugada-img" [src]="pathUsuario" alt="Jugada del usuario">
+          <img [@animacion]="estadoAnimJugada" class="jugada-img" [src]="pathUsuario" alt="Jugada del usuario">
         </div>
       </div>
   
@@ -29,14 +29,22 @@
       <div class="respuestas-container">
         <p>Seleccione su jugada:</p>
         <div class="jugadas">
-          <button class="btnJ" (click)="seleccionJugadaJugador('piedra')">
-            <img class="jugada-opcion" [src]="pathsPPT[0]" alt="Piedra">
-          </button>
           <button class="btnJ" (click)="seleccionJugadaJugador('papel')">
-            <img class="jugada-opcion" [src]="pathsPPT[1]" alt="Papel">
+            <img class="jugada-opcion" 
+                 [ngClass]="{'seleccionado': seleccionJugadorCss === 'papel'}"  
+                 [src]="pathsPPT[1]" alt="Papel">
           </button>
+          
+          <button class="btnJ" (click)="seleccionJugadaJugador('piedra')">
+            <img class="jugada-opcion" 
+                 [ngClass]="{'seleccionado': seleccionJugadorCss === 'piedra'}"  
+                 [src]="pathsPPT[0]" alt="Piedra">
+          </button>
+          
           <button class="btnJ" (click)="seleccionJugadaJugador('tijera')">
-            <img class="jugada-opcion" [src]="pathsPPT[2]" alt="Tijera">
+            <img class="jugada-opcion" 
+                 [ngClass]="{'seleccionado': seleccionJugadorCss === 'tijera'}"  
+                 [src]="pathsPPT[2]" alt="Tijera">
           </button>
         </div>
       </div>
@@ -53,23 +61,4 @@
     </div>
   </div>
 
-  <div
-  id="myToast"
-  class="toast align-items-center border-0"
-  role="alert"
-  aria-live="assertive"
-  aria-atomic="true"
-  [ngClass]="toastType"
->
-  <div class="d-flex">
-    <div class="toast-body">
-      {{ toastMessage }}
-    </div>
-    <button
-      type="button"
-      class="btn-close btn-close-white me-2 m-auto"
-      data-bs-dismiss="toast"
-      aria-label="Close"
-    ></button>
-  </div>
-</div>
+  <app-toast></app-toast>

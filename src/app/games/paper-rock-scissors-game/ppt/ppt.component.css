@@ -65,24 +65,28 @@
   .jugada-opcion {
     width: 100px;
     height: 100px;
-    /* object-fit: cover; */
     border: 2px solid white;
     border-radius: 10px;
     cursor: pointer;
     transition: transform 0.2s;
   }
   
-  .jugada-opcion:hover {
+  .jugada-opcion:hover { 
     transform: scale(1.1);
     border-color: #ffd700;
   }
   
+  /* Estilo cuando el elemento está seleccionado */
+  .jugada-opcion.seleccionado {
+    border-color: #ffd700; /* El borde se pone dorado al estar seleccionado */
+    transform: scale(1.1); /* Puedes aplicar algún efecto al estar seleccionado */
+  }
   .acciones {
     margin-top: 30px;
   }
   
   .reglas-btn {
-    position: absolute;
+
     top: 10px;
     right: 10px;
     z-index: 10;

@@ -26,12 +26,6 @@ export class ModalPreguntasComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // if(this.gano){
-    //   this.imagenResultado="./assets/imagenes/festejo.PNG";
-    // }
-    // if(this.gano && this.fin){
-    //   this.imagenResultado="./assets/imagenes/fondoFin.PNG";
-    // }
   }
 
 }

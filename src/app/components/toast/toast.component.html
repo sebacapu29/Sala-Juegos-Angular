@@ -1,0 +1,14 @@
+<div
+  *ngIf="isVisible"
+  class="alert position-fixed top-0 end-0 m-3"
+  [ngClass]="toastType"
+  style="min-width: 300px; max-width: 400px;"
+>
+  {{ toastMessage }}
+  <button
+    type="button"
+    class="btn-close"
+    (click)="isVisible = false"
+    aria-label="Close"
+  ></button>
+</div>

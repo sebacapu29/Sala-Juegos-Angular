@@ -1,15 +1,6 @@
 .login-container {
   /* background: url('../../../assets/imagenes/game-background.jpeg') no-repeat center center/cover; */
   width: 100vw;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.login-container {
-  width: 100vw;
-  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;

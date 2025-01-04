@@ -8,6 +8,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalPreguntasComponent } from '../../../components/modal-preguntas/modal-preguntas.component';
 import { MatRadioGroup, MatRadioModule } from '@angular/material/radio';
 import { CommonModule } from '@angular/common';
+import { ToastService } from '../../../services/toast.service';
 
 declare var bootstrap: any;
 
@@ -30,7 +31,7 @@ export class TatetiComponent implements OnInit {
   tableroBloqueado=false;
   public toastMessage: string = '';
   public toastType: string = 'text-bg-success';
-  constructor(private _snackBar: MatSnackBar,
+  constructor(private _toastService:ToastService,
     private modalService: NgbModal) {
     this.tablero=[
       {ocupada: false, ficha: "", posicion: [0,0]},
@@ -78,13 +79,13 @@ export class TatetiComponent implements OnInit {
     if(this.esRondaGanada(this.nuevoJuego.ficha)){      
       this.jugador.puntos++;
       this.jugador.puntosTotalesAcum++;
-      this.showToast("Ganaste la ronda!", "success");
+      this._toastService.showToast("Ganaste la ronda!", "success");
       this.bloquearDesbloqTablero(true);
       if(this.esJuegoTerminado()){
     
         this.nuevoJuego.actualizarDatosJuegos();
         this.actualizarPuntosUsuario();
-        this.showToast("Muy bien me Ganaste, intentemos de nuevo!", "success");
+        this._toastService.showToast("Muy bien me Ganaste, intentemos de nuevo!", "success");
       }
       return;
       //juegoTerminado
@@ -106,19 +107,19 @@ export class TatetiComponent implements OnInit {
       this.tablero[posicionCeldaEnemigo].ocupada=true;
       if(this.esRondaGanada(this.nuevoJuego.fichaEnemigo)){ 
         this.jugador.vidas--;       
-        this.showToast("Ops Perdiste la ronda", "error");
+        this._toastService.showToast("Ops Perdiste la ronda", "error");
         if(this.esJuegoTerminado()){
         
           this.nuevoJuego.actualizarDatosJuegos();
           this.actualizarPuntosUsuario();
-          this.showToast("Perdiste el juego! vuelve a intentar!", "warning");
+          this._toastService.showToast("Perdiste el juego! vuelve a intentar!", "warning");
         }       
         this.bloquearDesbloqTablero(true);
       }
     }
     
     else{
-      this.showToast("Empate!", "warning");
+      this._toastService.showToast("Empate!", "warning");
     }
     if(this.esJuegoTerminado()){      
     
@@ -138,7 +139,7 @@ export class TatetiComponent implements OnInit {
     modalRef.componentInstance.reglas=true;
   }
   mostrarMensajeInicial(){
-    this.showToast("Haga click para comenzar!", "warning");
+    this._toastService.showToast("Haga click para comenzar!", "warning");
   }
 
   actualizarPuntosUsuario(){
@@ -238,21 +239,5 @@ export class TatetiComponent implements OnInit {
     this.jugador.vidas =3;
     this.juegoTerminado=false;
     this.comenzar();
-  }
-  public showToast(message: string, type: 'success' | 'error' | 'warning'): void {
-    this.toastMessage = message;
-    this.toastType =
-      type === 'success'
-        ? 'text-bg-success'
-        : type === 'error'
-        ? 'text-bg-danger'
-        : 'text-bg-warning';
-
-    const toastElement = document.getElementById('myToast');
-    if (toastElement) {
-      toastElement.setAttribute('class', this.toastType);
-      const toast = new bootstrap.Toast(toastElement);
-      toast.show();
-    }
   }
 }

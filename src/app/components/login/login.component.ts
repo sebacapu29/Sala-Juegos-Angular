@@ -8,13 +8,18 @@ import { LocalStorage } from '../../classes/helpers/local-storage';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ToastComponent } from "../toast/toast.component";
+import { ToastService } from '../../services/toast.service';
+
+declare var bootstrap: any;
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
   standalone:true,
-  imports:[CommonModule, FormsModule, MatSnackBarModule]
+  imports: [CommonModule, FormsModule, MatSnackBarModule, ToastComponent],
+  providers:[ToastService]
 })
 export class LoginComponent implements OnInit {
 
@@ -24,11 +29,13 @@ export class LoginComponent implements OnInit {
   clave= '';
   progreso: number;
   progresoMensaje="esperando..."; 
-  logeando=true;
+  ingresando=false;
   ProgresoDeAncho:string;
   usuariosEnLocalStorage:any[]=[];
   esUsuarioRegistrado:number=0;
   esUnico:boolean=false;
+  public toastMessage: string = '';
+  public toastType: string = 'text-bg-success';
   @Output() onUsuarioLogueado:EventEmitter<any>= new EventEmitter<any>();
   @Output() onRegistrarUsuario:EventEmitter<any>= new EventEmitter<any>();
 
@@ -37,7 +44,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private _snackBar:MatSnackBar) {
+    public toastService:ToastService) {
       this.progreso=0;
       this.ProgresoDeAncho="0%";      
       this.usuario=new Usuario();
@@ -50,9 +57,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
   }
-  openSnackBar(mensaje:string){
-    this._snackBar.open(mensaje,"Login",{duration:5000});
-  }
+  
   Entrar() {
 
     if (this.esUsuarioRegistrado!=-1) {
@@ -62,19 +67,19 @@ export class LoginComponent implements OnInit {
       this.router.navigate(['Carousel']);
     }
     else{
-      //usuario invalido
+      this.ingresando = false;
       this.progreso=0;
       this.ProgresoDeAncho="0%"; 
-      this.openSnackBar("Error de usuario o contraseña")
+      this.toastService.showToast("Error de usuario o contraseña","error");
+      console.log("error login")
     }
   }
   Registrarme() {
-      // this.router.navigate(['/Registro']);
       this.onRegistrarUsuario.emit(true);
   }
   MoverBarraDeProgreso() {
     
-    this.logeando=false;
+    this.ingresando=true;
     this.clase="progress-bar progress-bar-danger progress-bar-striped active";
     this.progresoMensaje="Iniciando sesión..."; 
     let timerAux = timer(200, 50);

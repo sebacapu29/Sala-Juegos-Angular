@@ -46,6 +46,8 @@ import { AnagramaComponent } from './games/anagrama-game/anagrama/anagrama.compo
 import { TatetiComponent } from './games/tateti-game/tateti/tateti.component';
 import { MenuNavComponent } from './components/menu-nav/menu-nav.component';
 import { CarouselComponent } from './components/carousel/carousel.component';
+import { ToastService } from './services/toast.service';
+import { ToastComponent } from './components/toast/toast.component';
 
 @NgModule({
   declarations: [
@@ -75,7 +77,8 @@ import { CarouselComponent } from './components/carousel/carousel.component';
     AnagramaComponent,
     TatetiComponent,
     MenuNavComponent,
-    CarouselComponent
+    CarouselComponent,
+    ToastComponent 
   ],
   imports: [
     BrowserModule,
@@ -91,7 +94,7 @@ import { CarouselComponent } from './components/carousel/carousel.component';
     FlexLayoutModule,
     NoopAnimationsModule
   ],
-  providers: [ JuegoServiceService, MiHttpService,PaisesService,ArchivosJugadoresService,JugadoresService],
+  providers: [ JuegoServiceService, MiHttpService,PaisesService,ArchivosJugadoresService,JugadoresService, ToastService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

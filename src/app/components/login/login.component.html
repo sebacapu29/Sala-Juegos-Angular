@@ -32,16 +32,13 @@
           <label for="rememberMe">Recordame</label>
         </div>
         <a href="#" class="forgot-password">Olvidaste tu clave?</a>
-      </div>
-      <button class="btn btn-primary" (click)="MoverBarraDeProgreso()">Iniciar Sesión</button>
+      </div>      
+      <button [disabled]="ingresando" class="btn btn-primary" (click)="MoverBarraDeProgreso()"> <span [hidden]="!ingresando" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>  Iniciar Sesión </button>
       <p class="register-text">
         No tienes una cuenta? <a href="#" (click)="Registrarme()">Registrate</a>
       </p>
     </form>
   </div>
 </div>
-<div *ngIf="!logeando" class="progress">
-  <div class="progress-bar progress-bar-info progress-bar-striped active" [class]="clase" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" [style.width]="ProgresoDeAncho" >
-    {{progresoMensaje}} - {{progreso}}%
-  </div>
-</div>
+<app-toast></app-toast>
+
