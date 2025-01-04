@@ -11,7 +11,8 @@ import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
 })
 export class CarouselComponent implements OnInit {
 
-  images = ["../../../assets/imagenes/tecladogamer.jpg","../../../assets/imagenes/listado1.jpg","../../../assets/imagenes/engranaje.jpg","../../../assets/imagenes/equipo.jpg"]
+  public images : string[] = ["../../../assets/imagenes/tecladogamer.jpg","../../../assets/imagenes/listado1.jpg","../../../assets/imagenes/engranaje.jpg","../../../assets/imagenes/equipo.jpg"]
+  public infoImagenes : CarouselInfo[] =[ { titulo:"", descripcion:"Juegos didacticos" },{ titulo:"Listado", descripcion:"Listado de resultados" },{ titulo:"Configuraciones", descripcion:"No disponible" },{ titulo:"Jugadores", descripcion:"Listado de jugadores(No disponible)" } ]
   mostrarCarousel:boolean=true;
 
   constructor() {
@@ -24,4 +25,8 @@ export class CarouselComponent implements OnInit {
   ngOnInit(): void {
   }
 
+}
+interface CarouselInfo{
+  titulo:string,
+  descripcion:string
 }
